@@ -1,0 +1,375 @@
+<div class="wrapper">
+  <app-menu-fm></app-menu-fm>
+  <div class="content-wrapper">
+    <div class="wrapper">
+      <div class="container-fluid">
+        <div class="card mt-3">
+          <div class="card-header card-outline card-primary">
+            <mat-tab-group>
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <mat-icon class="example-tab-icon">person</mat-icon>
+                  <span> Expositores </span>
+                </ng-template>
+                <div *ngIf="!loadingGIncR && !alertEmptyIR">
+                  <div>
+                    <div class="form-inline mt-3 ">
+                      <div class="btn-group mb-3 text-white" role="group">
+                        <a type="button" class="btn btn-xs btn-info" style="width: 100px;"
+                          (click)="getIncidenciasReferenciadas()" [ngClass]="{'active': activeBtnFilter == 0}"><i
+                            class="fas fa-street-view"></i>
+                          TODOS</a>
+                        <a *ngFor="let usrfmE of userFME" type="button" class="btn btn-xs btn-info"
+                          style="width: 100px;" (click)="getIncidenciaFM(usrfmE)"
+                          [ngClass]="{'active': activeBtnFilter == usrfmE.id}">
+                          <i class="fas fa-street-view"></i>
+                          {{usrfmE.nombre}}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between bd-highlight mb-0 p-0">
+                    <div class="p-2 bd-highlight" *ngIf="!viewTableInc">
+                      <div class="btn-group mb-0 mt-2 p-0" role="group">
+                        <a type="button" class="btn btn-xs btn-secondary text-white m-0" style="width: 115px;"
+                          [ngClass]="{'active shadow': stsIRFilter == 3}" (click)="filterStsIncR(3)">
+                          <i class="fas fa-list"></i>
+                          Todos
+                          <strong class="r-1"> ( {{contIRAll}} ) </strong>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="p-0 mt-4" *ngIf="!viewTableInc">
+                      <span class="badge badge-danger mr-1 puntero" style="font-size: 13px;"
+                        [ngClass]="{'active shadow border border-primary': stsIRFilter == 0}"
+                        (click)="filterStsIncR(0)">No inciada: {{contIRsts0}} </span>
+                      <span class="badge badge-warning mr-1 puntero" style="font-size: 13px;"
+                        [ngClass]="{'active shadow border border-primary': stsIRFilter == 1}"
+                        (click)="filterStsIncR(1)">En proceso: {{contIRsts1}} </span>
+                      <span class="badge badge-success puntero" style="font-size: 13px;"
+                        [ngClass]="{'active shadow border border-primary': stsIRFilter == 2}"
+                        (click)="filterStsIncR(2)">Terminada: {{contIRsts2}} </span>
+                    </div>
+                    <div class="p-0 m-0 bd-highlight col-4">
+                      <mat-form-field class="float-right" *ngIf="!viewTableInc && !viewAlertStsFilterIR">
+                        <mat-label class="">Buscar Ticket / Stand</mat-label>
+                        <input matInput type="text" (input)="searchTiketAndStand($event.target.value)" maxlength="10">
+                        <mat-icon matSuffix>search</mat-icon>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div
+                    class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm scrollerOsqi">
+                    <table class="table table-bordered table-hover table-sm small text-center"
+                      [ngClass]="{'mt-2': viewAlertStsFilterIR}"
+                      *ngIf="!loadingTIncR && !alertSearchIncr && !viewTableInc">
+                      <thead>
+                        <tr class="bg-tHeader">
+                          <td><i class="fas fa-ticket-alt"></i> Ticket</td>
+                          <td><i class="fas fa-store-alt"></i> Stand</td>
+                          <td><i class="fas fa-user"></i> Quien reporta</td>
+                          <td style="width: 300px;"><i class="fas fa-exclamation-triangle"></i> Incidente <span
+                              class="badge badge-light ml-1"> seguimiento</span></td>
+                          <td style="width: 150px;"><i class="fas fa-toggle-on"></i> Estatus <i
+                              class="fa fa-spinner fa-spin ml-2 h6 text-warning" *ngIf="loadingUpdIR"></i></td>
+                          <td><i class="fas fa-history"></i> Tiempo</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="puntero" *ngFor="let incR of incidenciaR; let indiceIR=index">
+                          <td class="">
+                            <strong *ngIf="incR.ticket < 10">00{{incR.ticket}}</strong>
+                            <strong *ngIf="incR.ticket >= 10">{{incR.ticket}}</strong>
+                          </td>
+                          <td class="">
+                            <strong> {{incR.detalleReferencia[0].stand.componente.numeroStand}} </strong>
+                          </td>
+                          <td class="">
+                            <strong> {{incR.nombreReporta.toUpperCase()}} </strong><br>
+                            <span class="badge badge-light h6">
+                              <i class="fas fa-phone"></i>
+                              {{incR.telefonoReporta}}</span>
+                          </td>
+                          <td class="">
+                            <button class="btn btn-outline-primary btn-sm small" [routerLink]="['/incidencias/referenciada/chat', incR.ticket]">
+                              <span [ngSwitch]="incR.categoria">
+                                <span *ngSwitchCase="'Seguridad'"><i class="fas fa-shield-alt"></i></span>
+                                <span *ngSwitchCase="'Daño'"><i class="fas fa-exclamation-triangle"></i></span>
+                                <span *ngSwitchCase="'Emergencias'"><i class="fas fa-first-aid"></i></span>
+                                <span *ngSwitchCase="'Servicios'"><i class="fas fa-tools"></i></span>
+                                <span *ngSwitchCase="'Armado'"><i class="fas fa-hammer"></i></span>
+                                <span *ngSwitchCase="'Apariencia'"><i class="fas fa-check-circle"></i></span>
+                                <span *ngSwitchCase="'Otra'"><i class="fas fa-shield-alt"></i></span>
+                              </span>
+                              {{incR.categoria.toUpperCase()}} (<span
+                                class="">{{incR.subcategoria.toLowerCase()}}</span>)</button>
+                          </td>
+                          <td>
+                            <select class="form-control form-control-sm"
+                              (input)="updateStsIncR(incR, $event.target.value, indiceIR)"
+                              [ngClass]="{'bg-danger': incR.status == '0', 'bg-warning': incR.status == '1', 'bg-success': incR.status == '2'}">
+                              <option *ngFor="let proceso of processInc" value="{{proceso.valor}}"
+                                [selected]="proceso.valor == incR.status"> {{proceso.nombre}} </option>
+                            </select>
+                          </td>
+                          <td class=""><strong> {{formatTimeH(incR.registro)}} </strong></td>
+                        </tr>
+                        <tr *ngIf="viewAlertStsFilterIR">
+                          <td class="h6" colspan="6">
+                            <span><i class="fas fa-info-circle"></i> No cuenta con incidencias con el status
+                              <b> {{stsIRFiltername}} </b>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <section class="text-center" *ngIf="loadingTIncR">
+                      <div>
+                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;">
+                          <div class="sr-only" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                      </div>
+                      <span class="text-primary h5">Cargando...</span>
+                    </section>
+                    <section *ngIf="alertSearchIncr">
+                      <div class="alert bg-lightblue shadow text-center">
+                        <span><i class="fas fa-info"></i> No se encontraron resultados con <strong> {{valueSearchIncR}}
+                          </strong></span>
+                      </div>
+                    </section>
+                    <section *ngIf="viewTableInc">
+                      <div class="alert bg-lightblue shadow text-center">
+                        <span class="h6"><i class="far fa-laugh-beam"></i> Enhorabuena el Floor Manager
+                          <strong class="text-dark">
+                            {{menssageIncEmptyFME}}
+                          </strong>
+                          no tiene incidencias registradas.
+                        </span>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+                <section *ngIf="alertEmptyIR">
+                  <div class="text-center">
+                    <img src="./assets/img_project/excepciones/emptyInfo.jpg" class="rounded"
+                      style="width: 500px; height: 400px;" alt="Sin Incidencias">
+                  </div>
+                </section>
+                <!-- cargando -->
+                <section class="text-center mt-5" *ngIf="loadingGIncR">
+                  <div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <span class="text-primary h5">Cargando...</span>
+                </section>
+              </mat-tab>
+
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <mat-icon class="example-tab-icon">group</mat-icon>
+                  Generales
+                </ng-template>
+                <div *ngIf="!loadingGIncG && !alertEmptyIG">
+                  <div>
+                    <div class="form-inline mt-3">
+                      <div class="btn-group mb-3 text-white" role="group">
+                        <a type="button" class="btn btn-xs btn-info" style="width: 100px;"
+                          (click)="getIncidenciaGeneral()" [ngClass]="{'active': activeBtnFilterSalon == 0}"><i
+                            class="fas fa-store"></i>
+                          TODAS</a>
+                        <a *ngFor="let salaIncG of salonE" type="button" class="btn btn-xs btn-info"
+                          style="width: 100px;" (click)="getIncidenciaGSalon(salaIncG)"
+                          [ngClass]="{'active': activeBtnFilterSalon == salaIncG.id}">
+                          <i class="fas fa-store"></i>
+                          {{salaIncG.nombre}}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between bd-highlight mb-0 p-0">
+                    <div class="p-2 bd-highlight" *ngIf="!viewTableIncG">
+                      <div class="btn-group mb-0 mt-2 p-0" role="group">
+                        <a type="button" class="btn btn-xs btn-secondary text-white m-0" style="width: 115px;"
+                          [ngClass]="{'active shadow': stsIGFilter == 3}" (click)="filterStsIncG(3)">
+                          <i class="fas fa-list"></i>
+                          Todos
+                          <strong class="r-1"> ( {{contIGAll}} ) </strong>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="p-0 mt-4" *ngIf="!viewTableIncG">
+                      <span class="badge badge-danger mr-1 puntero" style="font-size: 13px;"
+                        [ngClass]="{'active shadow border border-primary': stsIGFilter == 0}"
+                        (click)="filterStsIncG(0)">No inciada: {{contIGsts0}} </span>
+                      <span class="badge badge-warning mr-1 puntero" style="font-size: 13px;"
+                        [ngClass]="{'active shadow border border-primary': stsIGFilter == 1}"
+                        (click)="filterStsIncG(1)">En proceso: {{contIGsts1}} </span>
+                      <span class="badge badge-success puntero" style="font-size: 13px;"
+                        [ngClass]="{'active shadow border border-primary': stsIGFilter == 2}"
+                        (click)="filterStsIncG(2)">Terminada: {{contIGsts2}} </span>
+                    </div>
+                    <div class="p-0 m-0 bd-highlight col-4">
+                      <mat-form-field class="float-right" *ngIf="!viewTableIncG && !viewAlertStsFilterIG">
+                        <mat-label class="">Buscar Ticket / Usuario</mat-label>
+                        <input matInput type="text" (input)="searchTiketAndUser($event.target.value)" maxlength="10">
+                        <mat-icon matSuffix>search</mat-icon>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div
+                    class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm scrollerOsqi">
+                    <table class="table table-bordered table-hover table-sm small text-center"
+                      [ngClass]="{'mt-2': viewAlertStsFilterIG}"
+                      *ngIf="!loadingTIncG && !alertSearchIncG && !viewTableIncG">
+                      <thead>
+                        <tr class="bg-tHeader">
+                          <td><i class="fas fa-ticket-alt"></i> Ticket</td>
+                          <td><i class="fas fa-user-friends"></i> Usuario</td>
+                          <td><i class="fas fa-user"></i> Quien reporta</td>
+                          <td style="width: 300px;"><i class="fas fa-exclamation-triangle"></i> Incidente <span
+                              class="badge badge-light ml-1"> seguimiento</span></td>
+                          <td style="width: 150px;"><i class="fas fa-toggle-on"></i> Estatus
+                            <i class="fa fa-spinner fa-spin ml-2 h6 text-warning" *ngIf="loadingUpdIG"></i></td>
+                          <td><i class="fas fa-history"></i> Tiempo</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="puntero" *ngFor="let incG of incidenciaG; let indiceIG=index">
+                          <td class="">
+                            <strong *ngIf="incG.ticket < 10">00{{incG.ticket}}</strong>
+                            <strong *ngIf="incG.ticket >= 10">{{incG.ticket}}</strong>
+                          </td>
+                          <td class="">
+                            <strong> {{incG.idDetalleUsuario.usuario.nombre.toUpperCase()}}
+                              {{incG.idDetalleUsuario.usuario.aPaterno.toUpperCase()}}</strong><br>
+                            <span class="badge badge-light"> <i class="fas fa-phone"></i>
+                              {{incG.idDetalleUsuario.usuario.telefono}}</span> </td>
+                          <td class="">
+                            <strong> {{incG.nombreReporta.toUpperCase()}} </strong><br>
+                            <span class="badge badge-light h6"> <i class="fas fa-phone"></i>
+                              {{incG.telefonoReporta}}</span>
+                          </td>
+                          <td class="">
+                            <button class="btn btn-outline-primary btn-sm small" [routerLink]="['/incidencias/general/chat', incG.ticket]">
+                              <span [ngSwitch]="incG.categoria">
+                                <span *ngSwitchCase="'Seguridad'"><i class="fas fa-shield-alt"></i></span>
+                                <span *ngSwitchCase="'Daño'"><i class="fas fa-exclamation-triangle"></i></span>
+                                <span *ngSwitchCase="'Emergencias'"><i class="fas fa-first-aid"></i></span>
+                                <span *ngSwitchCase="'Servicios'"><i class="fas fa-tools"></i></span>
+                                <span *ngSwitchCase="'Armado'"><i class="fas fa-hammer"></i></span>
+                                <span *ngSwitchCase="'Apariencia'"><i class="fas fa-check-circle"></i></span>
+                                <span *ngSwitchCase="'Otra'"><i class="fas fa-shield-alt"></i></span>
+                              </span>
+                              {{incG.categoria.toUpperCase()}} (<span>{{incG.subcategoria.toLowerCase()}}</span>)
+                            </button>
+                          </td>
+                          <td>
+                            <select class="form-control form-control-sm"
+                              (input)="updateStsIncG(incG, $event.target.value, indiceIG)"
+                              [ngClass]="{'bg-danger': incG.status == '0', 'bg-warning': incG.status == '1', 'bg-success': incG.status == '2'}">
+                              <option *ngFor="let proceso of processInc" value="{{proceso.valor}}"
+                                [selected]="proceso.valor == incG.status"> {{proceso.nombre}} </option>
+                            </select>
+                          </td>
+                          <td class=""> <strong> {{formatTimeH(incG.registro)}} </strong></td>
+                        </tr>
+                        <tr *ngIf="viewAlertStsFilterIG">
+                          <td class="h6" colspan="6">
+                            <span><i class="fas fa-info-circle"></i> No cuenta con incidencias con el status
+                              <b> {{stsIGFiltername}} </b>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <section class="text-center" *ngIf="loadingTIncG">
+                      <div>
+                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;">
+                          <div class="sr-only" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                      </div>
+                      <span class="text-primary h5">Cargando...</span>
+                    </section>
+                    <section *ngIf="alertSearchIncG">
+                      <div class="alert bg-lightblue shadow text-center">
+                        <span><i class="fas fa-info"></i> No se encontraron resultados con <strong> {{valueSearchIncG}}
+                          </strong></span>
+                      </div>
+                    </section>
+                    <section *ngIf="viewTableIncG">
+                      <div class="alert bg-lightblue shadow text-center">
+                        <span class="h6"><i class="far fa-laugh-beam"></i> Enhorabuena la
+                          <strong class="text-dark">
+                            {{menssageIncGEmptySalon}}
+                          </strong>
+                          no tiene incidencias registradas.
+                        </span>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+                <section *ngIf="alertEmptyIG">
+                  <div class="text-center">
+                    <img src="./assets/img_project/excepciones/emptyInfo.jpg" class="rounded"
+                      style="width: 500px; height: 400px;" alt="Sin Incidencias">
+                  </div>
+                </section>
+                <!-- cargando -->
+                <section class="text-center mt-5" *ngIf="loadingGIncG">
+                  <div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <span class="text-primary h5">Cargando...</span>
+                </section>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

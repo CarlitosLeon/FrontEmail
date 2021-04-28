@@ -1,0 +1,716 @@
+.btn-flotante {
+
+    position: absolute;
+    border-radius: 20px;
+    right: 20px;
+    transition: all 300ms ease 0ms;
+    z-index: 99;
+}
+
+.btn-flotante:hover {
+
+    transform: translateY(-7px);
+}
+
+
+.scrollerOsqi {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 596px;
+}
+
+.scrollerOsqi02 {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 302px;
+}
+
+.scrollerOsqi03 {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 630px;
+}
+
+.scrollerOsqi04 {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 82px;
+}
+
+.scrollerOsqi05 {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 200px;
+}
+
+.scrollhor {
+    overflow-y: hidden;
+    overflow-x: auto;
+    width: 1089px;
+
+}
+
+.scroller-tarjeta {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 230px;
+}
+
+.box {
+    width: 1200px;
+}
+
+.scrollwhtas {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 500px;
+
+}
+
+.form__input {
+  width: 100%;
+  border: 0px solid transparent;
+  border-radius: 0;
+  border-bottom: 1px solid #aaa;
+  outline: none;
+  transition: all .5s ease;
+  font-size: 10px;
+}
+
+.fondo {
+    background-image: url("src/assets/sms/img/whats2.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+
+.bajar {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: 50px;
+    z-index: 0;
+}
+
+.div_file {
+    position: relative;
+}
+
+.subir {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+
+.bg-time0{
+    background-color: #001f3f!important;
+    color: #fff!important;
+}
+
+.bg-time1{
+    background-color: #001f3f!important;
+    color: #fff!important;
+}
+
+.bg-time2{
+    background-color: #001f3f!important;
+    color: #fff!important;
+}
+
+.bg-time3{
+    background-color: #001f3f!important;
+    color: #fff!important;
+}
+
+.bg-time4{
+    background-color: #ffc107!important;
+    color: #000!important;
+}
+
+.border-time03{
+    border-top: 2px solid #001f3f !important;
+}
+
+.border-time45{
+    border-top: 2px solid #ffc107 !important;
+}
+
+.border-time610{
+    border-top: 2px solid #4385ef !important;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+    .btn-flotante {
+        font-size: 14px;
+        padding: 12px 20px;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+@media only screen and (min-width: 1920px) {
+	.scrollerOsqi {
+		height: 800px;
+	}
+   
+}
+
+@media only screen and (min-width: 1920px) {
+	.scrollerOsqi02 {
+		height: 475px;
+	}
+   
+}
+
+@media only screen and (min-width: 1920px) {
+	.scrollerOsqi03 {
+		height: 833px;
+	}
+   
+}
+
+@media only screen and (min-width: 1920px) {
+	.scroller-tarjeta {
+		height: 260px;
+	}
+   
+}
+
+@media only screen and (max-width: 1920px) {
+    .scrollerOsqi {
+        height: 596px;
+    }
+
+}
+
+@media only screen and (max-width: 1920px) {
+    .scrollerOsqi02 {
+        height: 302px;
+    }
+
+}
+
+@media only screen and (max-width: 1920px) {
+    .scrollerOsqi03 {
+        height: 630px;
+    }
+
+}
+
+@media only screen and (max-width: 1920px) {
+    .scroller-tarjeta {
+        height: 230px;
+    }
+
+}
+
+
+@media only screen and (max-width: 1720px) {
+    .scrollerOsqi {
+        height: 596px;
+    }
+
+}
+
+@media only screen and (max-width: 1720px) {
+    .scrollerOsqi02 {
+        height: 302px;
+    }
+
+}
+
+@media only screen and (max-width: 1720px) {
+    .scrollerOsqi03 {
+        height: 630px;
+    }
+
+}
+
+@media only screen and (max-width: 1720px) {
+    .scroller-tarjeta {
+        height: 230px;
+    }
+
+}
+
+
+@media only screen and (max-width: 1520px) {
+    .scrollerOsqi {
+        height: 596px;
+    }
+
+}
+
+@media only screen and (max-width: 1520px) {
+    .scrollerOsqi02 {
+        height: 302px;
+    }
+
+}
+
+@media only screen and (max-width: 1520px) {
+    .scrollerOsqi03 {
+        height: 630px;
+    }
+
+}
+
+@media only screen and (max-width: 1520px) {
+    .scroller-tarjeta {
+        height: 230px;
+    }
+
+}
+
+@media only screen and (max-width: 1320px) {
+    .scrollerOsqi {
+        height: 596px;
+    }
+
+}
+
+@media only screen and (max-width: 1320px) {
+    .scrollerOsqi02 {
+        height: 302px;
+    }
+
+}
+
+@media only screen and (max-width: 1320px) {
+    .scrollerOsqi03 {
+        height: 630px;
+    }
+
+}
+
+@media only screen and (max-width: 1320px) {
+    .scroller-tarjeta {
+        height: 230px;
+    }
+
+}
+
+@media only screen and (max-width: 1120px) {
+    .scrollerOsqi {
+        height: 550px;
+    }
+
+}
+
+@media only screen and (max-width: 1120px) {
+    .scrollerOsqi02 {
+        height: 280px;
+    }
+
+}
+
+@media only screen and (max-width: 1120px) {
+    .scrollerOsqi03 {
+        height: 610px;
+    }
+
+}
+
+@media only screen and (max-width: 1120px) {
+    .scroller-tarjeta {
+        height: 230px;
+    }
+
+}
+
+
+@media only screen and (max-width: 992px) {
+    .scrollerOsqi {
+        height: 550px;
+    }
+
+}
+
+@media only screen and (max-width: 992px) {
+    .scrollerOsqi02 {
+        height: 280px;
+    }
+
+}
+
+@media only screen and (max-width: 992px) {
+    .scrollerOsqi03 {
+        height: 610px;
+    }
+
+}
+
+@media only screen and (max-width: 992px) {
+    .scroller-tarjeta {
+        height: 230px;
+    }
+
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    }
+
+.btn-file input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      outline: none;
+      background: white;
+      cursor: inherit;
+      display: block;
+}
+
+.btn-flotante02 {
+	position: absolute; 
+	right: 68%;
+	transition: all 300ms ease 0ms;
+	z-index: 99;
+	bottom: 210px;
+}
+
+.btn-flotante02:hover {
+
+	transform: translateY(-7px);
+}
+
+/* carlos */
+
+/**ESTE ESCROL ES para el cuerpo de la modal **/
+.scrolmodalangu {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 655px;
+
+}
+/**ESTA es para la entradas de texto de asunto y cco*/
+.example-full-width {
+    width: 100%;
+  }
+ /**ESTE ESCROL ES para el cuerpo de la modal para que se vea del mismo tamaño en todos los dispositvos**/
+ .scrolmodal {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 600px;
+  
+  }
+  /**ESTE ESCROL ES para el cuerpo de la card aparte la card tiene un height para que 
+  cuando no halla nada este del mismo tamaño **/
+  .scrolwhtas {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 430px;
+  
+  }
+  /**ESTE ESCROL ES para el cuerpo del historial aparte la card tiene un height para que 
+  cuando no halla nada este del mismo tamaño**/
+  .scrolHistorial {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 560px;
+  
+  }
+  
+  /**ESTA CLASE es para el fondo de whatssap*/
+  .fondo {
+    background-image: url("src/assets/sms/img/whats2.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  
+  }
+  /**ESTAS CLASES es para el mensaje de whatssap que se esta preparando para enviar*/
+  .message-body {
+    width: auto;
+    height: auto;
+  }
+  .message-main-sender {
+    padding: 3px 20px !important;
+    margin-left: 20% !important;
+    max-width: 80%;
+  }
+  .sender {
+    float:right;
+    width: auto !important;
+    background: #dcf8c6;
+    border-radius: 10px 10px 0 10px;
+    padding: 4px 10px 7px !important;
+    display: inline-block;  
+  }
+  .message-text {
+    margin: 0 !important;
+    padding: 5px !important;
+    padding-bottom: 0 !important;
+  }
+  /**ESTA SOLO ES PARA MOSTRAR EL INPUT DE FECHA Y HORA POR EL MOMENTO*/
+  #datetime {
+    display: none;
+  }
+
+  .ContenedorText{
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .fondo2 {
+    background-image: url("../../../assets/sms/img/fondo-mail.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  
+  }
+  
+    /* fin carlos */
+/**Sergio**/
+.ancho{
+    width: 100%;
+}
+
+.iconTab {
+    margin-right:10px;
+  }
+
+.imgacople {
+    max-width: 40%;
+    
+}
+
+.bajar{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: 50px;
+    z-index: 0;
+}
+
+.scrollerOsqi {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 700px;        
+}
+
+.scrollerOsqi2 {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 600px;        
+}
+
+.upload {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    color: #000;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    box-shadow: none;
+}
+
+.upload02 {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    color: #000;
+    background-color: #007bff;
+    border-color: #007bff;
+    box-shadow: none;
+}
+  
+.subir {
+    margin: 0;
+    opacity: 0;
+    outline: 0 none;
+    padding: 0;
+    position: absolute;
+    left: 10px;
+    right: 0px;
+}
+
+.btn-sm {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+}
+
+.btn-xs {
+    padding: .125rem .25rem;
+    font-size: .75rem;
+    line-height: 1.5;
+    border-radius: .15rem;
+}
+
+.btnresponsive {
+    width: 150px;
+    font-size: 12px;
+}
+
+@media only screen and (max-width: 1920px){
+    .btnresponsive{
+        width: 150px;
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 1720px){
+    .btnresponsive{
+        width: 140px;
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 1520px){
+    .btnresponsive{
+        width: 120px;
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 1320px){
+    .btnresponsive{
+        width: 100px;
+        font-size: 9px;
+    }
+}
+
+@media only screen and (max-width: 1120px){
+    .btnresponsive{
+        width: 80px;
+        font-size: 7px;
+    }
+}
+
+@media only screen and (max-width: 992){
+    .btnresponsive{
+        width: 80px;
+        font-size: 5px;
+    }
+}
+
+.scrollhor{
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.scrollhor .row{
+    display:block;
+}
+
+.scrollhor .contenedor {
+    display: inline-block;
+    float: none;
+}
+
+.ContenedorText {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.adjunto{
+    width: 180px;
+    min-height: 30px;
+}
+
+.textdecor {
+	font-weight: 700;
+	color: #173b6c;
+}
+
+
+.example-form-field {
+    margin-right: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

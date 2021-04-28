@@ -1,0 +1,80 @@
+.scrollerOsqi{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 520px;
+    overflow: scroll;
+  }
+  
+  .contenedor{
+  width: 100%;
+  max-width: 1000px;
+  }
+  
+  .header{
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  }
+  
+  .bodyS{
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  }
+  
+  .footer{
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  }
+  
+  
+  
+  @media screen and (max-width: 768px){
+      .contenedor {
+          width: auto;
+          height: 960px;
+      }
+  }
+  
+  .serch {
+      background-image: url(../../../../assets/img_project/chat/fondoChat.png);
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-position: center;
+  }
+  
+  div#div_file {
+      position: relative;
+  }
+  
+  input#sendImagenFile {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+  }
+  
+  .anchoizq {
+      border-radius: .3rem;
+      background: #d2d6de;
+      border: 1px solid #d2d6de;
+      color: #444;
+      margin: 5px 400px 0 45px;
+      padding: 5px 10px;
+      position: relative;
+  }
+  
+  .anchoder {
+      border-radius: .3rem;
+      background: #007bff;
+      border: 1px solid #d2d6de;
+      color: #fff;
+      margin: 0px 40px 0 420px;
+      padding: 5px 10px;
+      position: relative;
+  }

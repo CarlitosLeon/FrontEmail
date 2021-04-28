@@ -1,0 +1,855 @@
+<body class="hold-transition sidebar-mini layout-fixed accent-navy">
+    <div class="wrapper">
+        <nav class="main-header navbar navbar-expand" [ngClass]="{'navbar-light navbar-white': vR == 'ROLE_ADMINFM',
+             'navFM': vR == 'ROLE_FM',
+             'navVenta': vR == 'ROLE_ADMINVENTAS' || vR == 'ROLE_VENTAS'}">
+            <ul class="navbar-nav">
+                <li>
+                    <div class="nav-link" data-widget="pushmenu"
+                        [ngClass]="{'text-navy': vR == 'ROLE_ADMINFM', 'text-white': vR == 'ROLE_FM' ||  vR == 'ROLE_ADMINVENTAS' || vR == 'ROLE_VENTAS'}">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </li>
+                <li class="nav-link text-white"
+                    [ngClass]="{'text-navy': vR == 'ROLE_ADMINFM', 'text-white': vR == 'ROLE_FM' || vR ==  'ROLE_ADMINVENTAS' || vR ==  'ROLE_VENTAS'}">
+                    {{nombrePantalla.toUpperCase()}}
+
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto" *ngIf="nombrePantalla.toUpperCase()==='MAPA'">
+                <!--
+                <li>
+                    <div class="row text-white">
+                        <div><a type="button" class="btn btn-xs  text-dark btn-light"><i class="fas fa-map-marked-alt"></i></a></div>
+                        <div><a type="button" class="btn btn-xs  btn-outline-light"><i class="fas fa-store-alt"></i> A</a></div>
+                        <div><a type="button" class="btn btn-xs  btn-outline-light"><i class="fas fa-store-alt"></i> B</a></div>
+                        <div><a type="button" class="btn btn-xs  btn-outline-light"><i class="fas fa-store-alt"></i> C</a></div>
+                        <div><a type="button" class="btn btn-xs  btn-outline-light"><i class="fas fa-store-alt"></i> D</a></div>
+                    </div>
+                </li>
+                -->
+            </ul>
+            <ul class="navbar-nav ml-4 mr-2" *ngIf="nombrePantalla.toUpperCase()==='MAPA'">
+                <li (click)="openSideBar()">
+                    <div><a class="btn btn-xs btn-light"><i class="fas fa-users "></i> Expositores</a></div>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar elevation-4 sidebar-light-lightblue">
+            <a class="brand-link"
+                [ngClass]="{'navbar-white': vR == 'ROLE_ADMINFM', 'navFM': vR == 'ROLE_FM', 'navVenta': vR == 'ROLE_ADMINVENTAS' || vR == 'ROLE_VENTAS'}">
+                <img src="./assets/img_project/logo_light.png" alt="Naib" class="brand-image"
+                    *ngIf="vR == 'ROLE_FM' || vR == 'ROLE_ADMINVENTAS' || vR == 'ROLE_VENTAS'">
+                <img src="./assets/img_project/logo_dark.png" alt="Naib" class="brand-image"
+                    *ngIf="vR == 'ROLE_ADMINFM'">
+                <span class="brand-text"
+                    [ngClass]="{'text-navy': vR == 'ROLE_ADMINFM', 'text-white': vR == 'ROLE_FM' || vR == 'ROLE_ADMINVENTAS' || vR == 'ROLE_VENTAS'}">Naib
+                    Group</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <li class="nav-item has-treeview menu-close">
+                            <a class="nav-link puntero"><img src="./assets/img_project/ric.png" style="width:40px;"
+                                    class="img-circle elevation-2" alt="imgProfile">
+                                <p class="ml-4">
+                                    {{dataUser.nombre}} {{dataUser.aPaterno}}<i
+                                        class="right fas fa-angle-left mt-1"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item text-left">
+                                    <a class="nav-link">
+                                        <i class="fas fa-user-friends pr-1"></i>
+                                        <p>
+                                            <span [ngSwitch]="vR">
+                                                <font style="vertical-align: inherit; opacity:.8;"
+                                                    *ngSwitchCase="'ROLE_FM'">Floor Manager</font>
+                                                <font style="vertical-align: inherit; opacity:.8;"
+                                                    *ngSwitchCase="'ROLE_ADMINFM'">Admin Floor Manager</font>
+                                                <font style="vertical-align: inherit; opacity:.8;"
+                                                    *ngSwitchCase="'ROLE_ADMINVENTAS'">Admin Ventas</font>
+                                                <font style="vertical-align: inherit; opacity:.8;"
+                                                    *ngSwitchCase="'ROLE_VENTAS'">Ventas</font>
+                                            </span>
+
+                                        </p>
+                                    </a>
+                                </li>
+                                <!-- <li class="nav-item text-left">
+                                    <a class="nav-link">
+                                        <i class="fas fa-store-alt pr-1"></i>
+                                        <p>
+                                            <font style="vertical-align: inherit; opacity:.8;">Zona 1</font>
+                                        </p>
+                                    </a>
+                                </li> -->
+                                <li class="nav-item text-left">
+                                    <a class="nav-link">
+                                        <i class="fas fa-phone pr-1"></i>
+                                        <p>
+                                            <font style="vertical-align: inherit; opacity:.8;">{{dataUser.telefono}}
+                                            </font>
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item text-left">
+                                    <a class="nav-link">
+                                        <i class="fas fa-envelope pr-1"></i>
+                                        <p>
+                                            <font style="vertical-align: inherit; opacity:.8;">{{dataUser.email}}</font>
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <hr class="mt-0">
+                        </li>
+                        <li class="nav-item" *ngIf="vR == 'ROLE_ADMINFM'">
+                            <a class="nav-link" [routerLink]="['/misFloorManagers']" routerLinkActive="active">
+                                <i class="nav-icon fas fa-user-friends"></i>
+                                <p>
+                                    Mis Floor Managers
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item" *ngIf="vR == 'ROLE_ADMINFM'">
+                            <a class="nav-link" [routerLink]="['/AdminFloorManagers']" routerLinkActive="active">
+                                <i class="nav-icon fas fa-hard-hat"></i>
+                                <p>
+                                    Admin Floor Managers
+                                </p>
+                            </a>
+                            <hr>
+                        </li>
+                        <li class="nav-item" *ngIf="vR == 'ROLE_ADMINFM' || vR == 'ROLE_FM'">
+                            <a class="nav-link" [routerLink]="['/mapa']" routerLinkActive="active">
+                                <i class="nav-icon fas fa-map-marked-alt"></i>
+                                <p>
+                                    Mapa
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item" *ngIf="vR == 'ROLE_ADMINFM' || vR == 'ROLE_FM'">
+                            <a class="nav-link" [routerLink]="['/listaExpositores']" routerLinkActive="active">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Lista de expositores
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item" *ngIf="vR == 'ROLE_ADMINFM' || vR == 'ROLE_FM'">
+                            <a class="nav-link" [routerLink]="['/incidencias']" routerLinkActive="active">
+                                <i class="nav-icon fas fa-exclamation-circle"></i>
+                                <p>
+                                    Incidencias del evento
+                                </p>
+                            </a>
+                            <hr *ngIf="vR == 'ROLE_ADMINFM'">
+                        </li>
+                        <li class="nav-item" *ngIf="vR == 'ROLE_ADMINFM'">
+                            <a class="nav-link" [routerLink]="['/reunion']" routerLinkActive="active">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                <p>
+                                    Nueva Reunión
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item" *ngIf="vR == 'ROLE_ADMINFM'">
+                            <a class="nav-link" [routerLink]="['/misReuniones']" routerLinkActive="active">
+                                <i class="nav-icon fas fa-handshake"></i>
+                                <p>
+                                    Mis reuniones
+                                </p>
+                            </a>
+                            <hr>
+                        </li>
+                        <li class="nav-item" *ngIf="vR == 'ROLE_ADMINFM' || vR == 'ROLE_FM'">
+                            <a class="nav-link" [routerLink]="['/ayuda']" routerLinkActive="active">
+                                <i class="nav-icon fas fa-question-circle"></i>
+                                <p>
+                                    Ayuda
+                                </p>
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item" *ngIf="vR == 'ROLE_ADMINVENTAS' || vR == 'ROLE_VENTAS'">
+                            <form name="formularioEvento" #fe="ngForm">
+                                <mat-form-field floatLabel="never" style="width: 100%">
+                                    <mat-label>Selecciona un evento</mat-label>
+                                    <select matNativeControl required name="eventoSeleccionado" ngModel
+                                        (change)="mandarValor(fe)">
+                                        <option *ngFor="let evento of eventoEV; let i = index"
+                                            [value]="evento.evento.id" [attr.selected]="i == 0 ? true : null">
+                                            {{evento.evento.nombre}}
+                                        </option>
+                                    </select>
+                                    <mat-hint></mat-hint>
+                                </mat-form-field>
+                            </form>
+                        </li> -->
+
+                        <li class="nav-item" *ngIf="vR == 'ROLE_ADMINVENTAS' || vR == 'ROLE_VENTAS'">
+                            <a class="nav-link" [routerLink]="['/mapaVentas']" routerLinkActive="active">
+                                <i class="nav-icon fas fa-map-marker-alt"></i>
+                                <p>
+                                    Asignar / Reubicar Stand
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item" *ngIf="vR == 'ROLE_ADMINVENTAS' || vR == 'ROLE_VENTAS'">
+                            <a class="nav-link" [routerLink]="['/ventasCalendario']" routerLinkActive="active">
+                                <i class="nav-icon  fas fa-calendar-alt"></i>
+                                <p>
+                                    Mi calendario
+                                </p>
+                            </a>
+                        </li> 
+                        <li class="nav-item" *ngIf="vR == 'ROLE_ADMINVENTAS'  || vR == 'ROLE_VENTAS'">
+                            <a class="nav-link" [routerLink]="['/ventasProspectos']" routerLinkActive="active">
+                                <i class="nav-icon fas fa-address-book"></i>
+                                <p>
+                                    Mi cartera
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item" *ngIf="vR == 'ROLE_ADMINVENTAS' || vR == 'ROLE_VENTAS'">
+                            <a class="nav-link" [routerLink]="['/reportes']" routerLinkActive="active">
+                                <i class="nav-icon  fas fa-chart-line"></i>
+                                <p>
+                                    Reportes
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item" *ngIf="vR == 'ROLE_ADMINVENTAS' || vR == 'ROLE_VENTAS'">
+                            <a class="nav-link" [routerLink]="['/EmailMasivos']" routerLinkActive="active">
+                                <i class="nav-icon  fas fa-envelope-open-text"></i>
+                                <p>
+                                    Email Masivos
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+                <hr />
+                <ul class="nav nav-pills nav-sidebar flex-column puntero" data-widget="treeview" role="menu"
+                    data-accordion="false" *ngIf="vR == 'ROLE_ADMINFM' || vR == 'ROLE_FM'">
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="modal" data-target="#modal-general" (click)="abrirModal(f)">
+                            <i class="fas fa-plus-circle text-danger h3"></i>
+                            <p class="ml-2">
+                                Incidencia general
+                            </p>
+                        </a>
+                        <hr />
+                    </li>
+                </ul>
+                <ul class="nav nav-pills nav-sidebar flex-column bottomLogout" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    <li class="nav-item">
+                        <a class="nav-link puntero" (click)="logout()">
+                            <i class="nav-icon fas fa-door-open"></i>
+                            <p>
+                                Cerrar sesión
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <div class="modal fade" id="modal-general" aria-modal="true">
+        <div class="modal-dialog modal-xl modal-content">
+            <div class="modal-body">
+
+                <div class="card">
+                    <div class="card-header bg-gradient-danger">
+                        <i class="fas fa-exclamation-circle"></i> INCIDENCIA GENERAL
+                        <button type="button" id="1mod" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <form name="formularioGeneral" #f="ngForm">
+
+                        <div class="card-body scrol-barra ">
+                            <div class="form-inline text-danger">
+                                <i class="fas fa-exclamation-triangle" style="font-size: 20px;"></i>
+                                <div class="ml-1"> TIPO DE INCIDENTE</div>
+                            </div>
+                            <div class="row mt-4 ">
+                                <div class="text-center col-3 pb-3">
+                                    <label for="categoriaG1"><i class="fas fa-shield-alt"></i> Seguridad</label>
+                                    <div class="form-check">
+                                        <input (click)="mostrarIncidentes('1')" id="categoriaG1"
+                                            class="form-check-input" type="radio" name="categoriaRadios"
+                                            value="Seguridad" ngModel required>
+                                    </div>
+                                </div>
+                                <div class="text-center col-3 pb-3">
+                                    <label for="categoriaG2"><i class="fas fa-exclamation-triangle"></i> Daño</label>
+                                    <div class="form-check ">
+                                        <input (click)="mostrarIncidentes('2')" id="categoriaG2"
+                                            class="form-check-input" type="radio" name="categoriaRadios" value="Daño"
+                                            ngModel required>
+                                    </div>
+                                </div>
+                                <div class="text-center col-3 pb-3">
+                                    <label for="categoriaG3"> <i class="fas fa-first-aid"></i> Emergencias</label>
+                                    <div class="form-check">
+                                        <input (click)="mostrarIncidentes('3')" id="categoriaG3"
+                                            class="form-check-input" type="radio" name="categoriaRadios"
+                                            value="Emergencias" ngModel required>
+                                    </div>
+                                </div>
+                                <div class="text-center col-3 pb-3">
+                                    <label for="categoriaG4"><i class="fas fa-tools"></i> Servicios</label>
+                                    <div class="form-check">
+                                        <input (click)="mostrarIncidentes('4')" id="categoriaG4"
+                                            class="form-check-input" type="radio" name="categoriaRadios"
+                                            value="Servicios" ngModel required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4 ">
+                                <div class="text-center col-4 pb-3">
+                                    <label for="categoriaG5"><i class="fas fa-hammer"></i> Armado</label>
+                                    <div class="form-check">
+                                        <input (click)="mostrarIncidentes('5')" id="categoriaG5"
+                                            class="form-check-input" type="radio" name="categoriaRadios" value="Armado"
+                                            ngModel required>
+                                    </div>
+                                </div>
+                                <div class="text-center col-4 pb-3">
+                                    <label for="categoriaG6"><i class="fas fa-check-circle"></i> Apariencia</label>
+                                    <div class="form-check">
+                                        <input (click)="mostrarIncidentes('6')" id="categoriaG6"
+                                            class="form-check-input" type="radio" name="categoriaRadios"
+                                            value="Apariencia" ngModel required>
+                                    </div>
+                                </div>
+                                <div class="text-center col-4 pb-3">
+                                    <label for="categoriaG7"><i class="fas fa-plus-circle"></i> Otra</label>
+                                    <div class="form-check">
+                                        <input (click)="mostrarIncidentes('7')" id="categoriaG7"
+                                            class="form-check-input" type="radio" name="categoriaRadios" value="Otra"
+                                            ngModel required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 p-3 mt-3 card card-outline card-danger" id="contenido"
+                                style="display: none">
+
+                                <div id="1" style="display: none;">
+                                    <div class="form-check"><input type="radio" class="form-check-input"
+                                            name="subcategoria" value="Robo o extravio" ngModel required
+                                            id="subcategoriaG1"><label class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG1">Robo o
+                                            Extravio</label>
+                                    </div>
+                                    <div class="form-check"><input type="radio" class="form-check-input"
+                                            name="subcategoria" value="Fuga de gases" ngModel required
+                                            id="subcategoriaG2"><label class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG2">Fuga de
+                                            gases</label>
+                                    </div>
+                                    <div class="form-check"><input type="radio" class="form-check-input"
+                                            name="subcategoria" value="Render" ngModel required
+                                            id="subcategoriaG3"><label class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG3">Render</label>
+                                    </div>
+                                    <div class="form-check"><input type="radio" class="form-check-input"
+                                            name="subcategoria" value="DRO" ngModel required id="subcategoriaG4"><label
+                                            class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG4">DRO</label>
+                                    </div>
+                                </div>
+
+                                <div id="2" style="display: none;">
+                                    <div class="form-check"><input type="radio" class="form-check-input"
+                                            name="subcategoria" value="Daño al recinto" ngModel required
+                                            id="subcategoriaG5"><label class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG5">Daño al
+                                            recinto</label>
+                                    </div>
+                                    <div class="form-check"><input type="radio" class="form-check-input"
+                                            name="subcategoria" value="Daño al stand" ngModel required
+                                            id="subcategoriaG6"><label class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG6">Daño al
+                                            stand</label>
+                                    </div>
+                                    <div class="form-check"><input type="radio" class="form-check-input"
+                                            name="subcategoria" value="Daño a terceros" ngModel required
+                                            id="subcategoriaG7"><label class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG7">Daño a
+                                            terceros</label>
+                                    </div>
+                                </div>
+
+                                <div id="3" style="display: none;">
+                                    <div class="form-check"><input type="radio" class="form-check-input"
+                                            name="subcategoria" value="Sismo" ngModel required
+                                            id="subcategoriaG8"><label class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG8">Sismo</label>
+                                    </div>
+                                    <div class="form-check"><input type="radio" class="form-check-input"
+                                            name="subcategoria" value="Ambulancia" ngModel required
+                                            id="subcategoriaG9"><label class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG9">Ambulancia</label>
+                                    </div>
+                                    <div class="form-check"><input type="radio" class="form-check-input"
+                                            name="subcategoria" value="Conato de incendio" ngModel required
+                                            id="subcategoriaG10"><label class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG10">Conato
+                                            de
+                                            incendio</label>
+                                    </div>
+                                    <div class="form-check"><input type="radio" class="form-check-input"
+                                            name="subcategoria" value="Lesion/Enfermedad" ngModel required
+                                            id="subcategoriaG11"><label class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG11">Lesion/Enfermedad</label>
+                                    </div>
+                                    <div class="form-check"><input type="radio" class="form-check-input"
+                                            name="subcategoria" value="Amenaza de bomba" ngModel required
+                                            id="subcategoriaG12"><label class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG12">Amenaza
+                                            de bomba</label>
+                                    </div>
+                                </div>
+
+                                <div id="4" style="display: none;">
+                                    <div class='col-12'>
+                                        <div class='row'>
+                                            <div class='col-4'>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Serv. Alfombra" ngModel required
+                                                        id="subcategoriaG13"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG13">Alfombra</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Serv. Mobiliario" ngModel required
+                                                        id="subcategoriaG14"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG14">Mobiliario</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Luz/Electricidad" ngModel required
+                                                        id="subcategoriaG15"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG15">Luz/Electricidad</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Colganteo" ngModel required id="subcategoriaG16"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG16">Colganteo</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Montaje Instalación" ngModel required
+                                                        id="subcategoriaG17"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG17">Montaje
+                                                        Instalación</label>
+                                                </div>
+                                            </div>
+                                            <div class='col-4'>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Renta de inmobiliario" ngModel required
+                                                        id="subcategoriaG18"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG18">Renta de
+                                                        inmobiliario</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Serv. Limpieza" ngModel required
+                                                        id="subcategoriaG19"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG19">Limpieza</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Servicio Médico" ngModel required
+                                                        id="subcategoriaG20"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG20">Servicio Médico</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Estacionamiento" ngModel required
+                                                        id="subcategoriaG21"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG21">Estacionamiento</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Renta de plantas" ngModel required
+                                                        id="subcategoriaG22"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG22">Renta de plantas</label>
+                                                </div>
+                                            </div>
+                                            <div class='col-4'>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Agua y desague" ngModel required
+                                                        id="subcategoriaG23"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG23">Agua y desague</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Aire" ngModel required id="subcategoriaG24"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG24">Aire</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Internet" ngModel required id="subcategoriaG25"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG25">Internet</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Alimentos y bebidas" ngModel required
+                                                        id="subcategoriaG26"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG26">Alimentos y
+                                                        bebidas</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="5" style="display: none;">
+                                    <div class='col-12'>
+                                        <div class='row'>
+                                            <div class='col-6'>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Trazado" ngModel required id="subcategoriaG27"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG27">Trazado</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Etiquetado" ngModel required id="subcategoriaG28"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG28">Etiquetado</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="% Armado" ngModel required id="subcategoriaG29"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG29">% Armado</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Separación entre Stands" ngModel required
+                                                        id="subcategoriaG30"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG30">Separación entre
+                                                        Stands</label>
+                                                </div>
+                                            </div>
+                                            <div class='col-6'>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Pago pendiente" ngModel required
+                                                        id="subcategoriaG31"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG31">Pago pendiente</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="fuera de marca" ngModel required
+                                                        id="subcategoriaG32"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG32">Fuera de marca</label>
+                                                </div>
+                                                <div class="form-check"><input type="radio" name="subcategoria"
+                                                        value="Mobiliario" ngModel required id="subcategoriaG33"><label
+                                                        class="form-check-label text-secondary text-xs"
+                                                        for="subcategoriaG33">Mobiliario</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="6" style="display: none;">
+                                    <div class="form-check"><input type="radio" name="subcategoria" value="Limpieza"
+                                            ngModel required id="subcategoriaG34"><label
+                                            class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG34">Limpieza</label>
+                                    </div>
+                                    <div class="form-check"><input type="radio" name="subcategoria" value="Alfombra"
+                                            ngModel required id="subcategoriaG35"><label
+                                            class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG35">Alfombra</label>
+                                    </div>
+                                    <div class="form-check"><input type="radio" name="subcategoria"
+                                            value="Detalles por terminar" ngModel required id="subcategoriaG36"><label
+                                            class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG36">Detalles por terminar</label>
+                                    </div>
+                                    <div class="form-check"><input type="radio" name="subcategoria"
+                                            value="Esconder pared posterior" ngModel required
+                                            id="subcategoriaG37"><label class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG37">Esconder pared
+                                            posterior</label>
+                                    </div>
+                                </div>
+
+                                <div id="7" style="display: none;">
+                                    <div class="form-check"><input type="radio" name="subcategoria" value="Otra" ngModel
+                                            required id="subcategoriaG38"><label
+                                            class="form-check-label text-secondary text-xs"
+                                            for="subcategoriaG38">Otra</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <!-- 1hr -->
+                        <div class="form-inline text-danger">
+                            <i class="fas fa-user-friends" style="font-size: 20px;"></i>
+                            <div class="ml-1">QUIEN REPORTA</div>
+                        </div>
+                        <div class="row mt-4 mb-5">
+                            <div class="text-center col-3 ">
+                                Expositor
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="reporta" value="Expositor"
+                                        ngModel required>
+                                </div>
+                            </div>
+                            <div class="text-center col-3 pb-3">
+                                Asistente
+                                <div class="form-check ">
+                                    <input class="form-check-input" type="radio" name="reporta" value="Asistente"
+                                        ngModel required>
+                                </div>
+                            </div>
+                            <div class="text-center col-2 pb-3">
+                                Comité
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="reporta" value="Comité" ngModel
+                                        required>
+                                </div>
+                            </div>
+                            <div class="text-center col-2 pb-3">
+                                Proveedor
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="reporta" value="Proveedor"
+                                        ngModel required>
+                                </div>
+                            </div>
+                            <div class="text-center col-2 pb-3">
+                                Otra
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="reporta" value="Otra" ngModel
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="col-6 p-2 pt-3">
+
+                                <div class="example-form">
+                                    <mat-form-field style="width: 100%">
+                                        <mat-label>Nombre</mat-label>
+                                        <input type="text" name="nombreReporta" matInput ngModel required maxlength="250">
+                                        <mat-error *ngIf="form.controls['nombreReporta'].errors.required">El nombre es
+                                            requerido.</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-6 pt-3">
+                                <div class="example-form">
+                                    <mat-form-field style="width: 100%">
+                                        <mat-label>Teléfono</mat-label>
+                                        <input matInput type="tel" placeholder="ej. 5556847120"
+                                            onkeyup="this.value=this.value.replace(/[^\d]/,'')" name="telefonoReporta"
+                                            minlength="10" maxlength="15" required ngModel>
+                                        <mat-icon matSuffix>mobile_friendly</mat-icon>
+                                        <mat-error *ngIf="form.controls['telefonoReporta'].errors.required">El teléfono
+                                            es
+                                            requerido. (10 a 15 dígitos)</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="form-inline text-danger">
+                            <i class="fas fa-user-check" style="font-size: 20px;"></i>
+                            <div class="ml-1">SEGUIMIENTO CON...</div>
+                        </div>
+                        <div class="row mt-4 mb-5">
+                            <div class="text-center col-2 ">
+                                Floor Manager
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="seguimiento" value="FloorManager"
+                                        required ngModel>
+                                </div>
+                            </div>
+                            <div class="text-center col-2 pb-3">
+                                Seguridad
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="seguimiento" value="Seguridad"
+                                        required ngModel>
+                                </div>
+                            </div>
+                            <div class="text-center col-4 pb-3">
+                                Seguridad Recinto
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="seguimiento"
+                                        value="SeguridadRecinto" required ngModel>
+                                </div>
+                            </div>
+                            <div class="text-center col-2 pb-3">
+                                Comite
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="seguimiento" value="Comite"
+                                        required ngModel>
+                                </div>
+                            </div>
+                            <div class="text-center col-2 pb-3">
+                                Otra
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="seguimiento" value="Otra"
+                                        required ngModel>
+                                </div>
+                            </div>
+                            <div class="col-12 pt-4">
+                                <div class="example-form">
+                                    <mat-form-field style="width: 100%">
+                                        <mat-label>Empresa</mat-label>
+                                        <input required matInput name="empresaSeguimiento" ngModel maxlength="250">
+                                        <mat-error *ngIf="form.controls['empresaSeguimiento'].errors.required">La
+                                            empresa es requerida.</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-12 pt-2">
+                                <div class="example-form">
+                                    <mat-form-field style="width: 100%">
+                                        <mat-label>Nombre</mat-label>
+                                        <input name="nombreSeguimiento" matInput ngModel required maxlength="250">
+                                        <mat-hint></mat-hint>
+                                        <mat-error *ngIf="form.controls['nombreSeguimiento'].errors.required">El nombre
+                                            es requerido</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <!-- 3hr -->
+
+                        <div class="form-inline text-danger">
+                            <i class="fas fa-keyboard" style="font-size: 20px;"></i>
+                            <div class="ml-1">DESCRIPCIÓN / RESUMEN DEL BIEN O INCIDENTE</div>
+                        </div>
+                        <br>
+
+                        <div class="example-form">
+                            <mat-form-field style="width: 100%">
+                                <mat-label>Descripción</mat-label>
+                                <textarea name="descripcion" matInput required ngModel style="resize: vertical; max-height: 150px;" maxlength="250"></textarea>
+                                <mat-hint></mat-hint>
+                                <mat-error *ngIf="form.controls['descripcion'].errors.required">La descripción es
+                                    requerida.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <hr />
+                        <!-- 4hr -->
+                        <div class="form-inline text-danger">
+                            <i class="fas fa-toggle-on" style="font-size: 20px;"></i>
+                            <div class="ml-1">ESTATUS</div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row  mt-4">
+                                <div class="col-6 text-center">
+
+                                    <mat-form-field floatLabel="never" style="width: 100%">
+                                        <mat-label>Selecciona un estatus</mat-label>
+                                        <select matNativeControl required name="status" ngModel>
+                                            <option value="5">No iniciada</option>
+                                            <option value="1">Proceso</option>
+                                            <option value="2">Terminada</option>
+                                        </select>
+                                        <mat-hint></mat-hint>
+                                        <mat-error *ngIf="form.controls['status'].errors.required">El estatus es
+                                            requerido.
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                </div>
+                                <div class="col-6 text-center">
+
+                                    <mat-form-field floatLabel="never" style="width: 100%">
+                                        <mat-label>Selecciona una sala</mat-label>
+                                        <select matNativeControl required [(ngModel)]="selectSalonInci"
+                                            name="selectSalonInci">
+                                            <option value="0">Selecciona</option>
+                                            <option *ngFor="let salon of salonE" [value]="salon.id">{{salon.nombre}}
+                                            </option>
+
+                                        </select>
+                                        <mat-hint></mat-hint>
+                                        <mat-error *ngIf="selectSalonInci != 0">El estatus es
+                                            requerido.
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button id="btnClearImg" class="btn btn-sm btn-danger " style="display: none;"
+                                        (click)="borrarImgInciG()">
+                                        Borrar imagen seleccionada
+                                    </button>
+                                </div>
+                                <div class="col-lg-6 text-right">
+
+                                    <button id="btnIncidenciaGH" class="btn btn-primary btn-file btn-sm mr-1"
+                                        [disabled]="!f.valid || selectSalonInci == 0">
+                                        <i class="fas fa-camera"></i> Subir foto<input type="file" required
+                                            id="imgIncidenciaGH" accept="image/*" (change)="seleccionarFoto($event)"
+                                            [disabled]="!f.valid || selectSalonInci == 0">
+                                    </button>
+
+                                    <button class="btn btn-sm btn-success" [disabled]="!f.valid || selectSalonInci == 0"
+                                        (click)="create(f)">
+                                        Guardar
+                                    </button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ./wrapper -->
+    <div class="content-wrapper" style="display: none;"></div>
+
+    <ngx-spinner bdColor="rgba(0,0,0,0.7)" size="medium" color="#0d245e" type="ball-atom" [fullScreen]="true">
+        <p style="color: white"> Cerrando sesión... </p>
+    </ngx-spinner>
+</body>
+
+<!-- Content Wrapper. Contains page content -->

@@ -1,0 +1,205 @@
+<div class="wrapper">
+    <app-menu-fm></app-menu-fm>
+
+    <div class="content-wrapper">
+        <mat-drawer-container class="" [hasBackdrop]="false">
+            <mat-drawer #drawer mode="side" [(opened)]="opened" position="end" class="sidenav-content">
+                <div class="card-body fadeInUp wow">
+                    <form>
+                        <div class="input-group ">
+                            <input class="form-control form-control-sm form-control-navbar" type="search" placeholder="expositor" aria-label="Search" (keyup)="buscador($event)">
+                            <div class="input-group-append">
+                                <a class="btn btn-sm btn-success text-white" (click)="buscaExpositor()">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                    <!---EXPOSITORES-->
+                    <div class="scrollerOsqi mt-4" *ngIf="listaStand">
+                        <div *ngFor="let item of listaStand">
+                            <hr class="p-0 m-0">
+                            <div class="user-panel text-center col-12 p-0 m-0">
+                                <div class="">
+                                    <img src="./assets/img_project/logos_expositores/nouser.png" class="img-circle mt-1" style="width: 40px;" *ngIf="item.expositor.logo.toString() == ''">
+                                    <img src="./assets/img_project/logos_expositores/{{item.expositor.logo}}" class="img-circle mt-1" style="width: 40px;" *ngIf="item.expositor.logo.toString() != ''">
+                                    <!-- <img src="{{item.logo}}" class="img-circle mt-1" style="width: 40px;"> -->
+                                </div>
+                                <div class="">
+                                    <div><a class="btn btn-sm" style="font-size: 11px;" data-toggle="modal" data-target="#modal-lg" (click)="getInfoExpositor(item.expositor.id)">{{item.expositor.nombre_comercial}}</a></div>
+                                    <div class=" text-red" style="font-size: 12px;">{{item.numeroStand}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-drawer>
+            <mat-drawer-content>
+                <div class="bg-light">
+                    <div class="row">
+                        <div class="col-lg-12" id="plano" name="plano">
+                            <div id="container">
+                                <canvas id="canvas" width="3000" height="1000"></canvas>
+                                <!-- <canvas id="canvas"></canvas> -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </mat-drawer-content>
+        </mat-drawer-container>
+        <div class="box-body no-padding">
+            <div id="simbologia">
+                <label>Simbolog&iacute;a</label>
+                <!-- <div class="progress mt-2 progressBarStand " style="height: 5px; " >
+        <div style="width: 100%;" *ngFor="let number of numbers">
+          <div class="progress-bar" role="progressbar "
+            style="background-color:'{{getColorStand(0,number*10)}}'; width:10%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+          </div>
+        </div>
+      </div> -->
+                <div>
+                    <div class="colorText">Trazado&nbsp;</div>
+                    <div class="color" style="background: #006766"></div>
+                </div>
+                <br>
+                <div>
+                    <div class="colorText">Etiquetado </div>
+                    <div class="color" style="background: #85c6c3"></div>
+                </div>
+                <br>
+                <!-- <div>
+        <div class="colorText">Armado </div>
+        <div class="color" style="background: #002b55"></div>
+      </div>
+      <br> -->
+                <!-- <div>
+        <div class="colorText">Presentado </div>
+        <div class="color" style="background: #00FF00"></div>
+      </div>
+      <br> -->
+                <div>
+                    <div class="colorText">0%-20% Avance</div>
+                    <div class="color" style="background: #bb0000"></div>
+                </div>
+                <div>
+                    <div class="colorText">20%-40% Avance</div>
+                    <div class="color" style="background:rgb(213,198,18)"></div>
+                </div>
+                <div>
+                    <div class="colorText">40%-60% Avance</div>
+                    <div class="color" style="background: #ffb300"></div>
+                </div>
+                <div>
+                    <div class="colorText">60%-99% Avance</div>
+                    <div class="color" style="background: rgb(15,171,18)"></div>
+                </div>
+                <div>
+                    <div class="colorText">100% Avance</div>
+                    <div class="color" style="background: #0F64D5"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!----------------------------------------------------------------------------------------------------------MODAL 1-------------------------------------------------------------------------------------------------------------------->
+<div class="modal fade" id="modal-lg">
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-body">
+            <div *ngIf="standReferencia">
+                <div class="row">
+                    <div class="col-5">Pago de stand:
+                        <p class="text-success" *ngIf="standReferencia.statusPago == '0'"> <i class="fas fa-check-circle text-success"></i> PENDIENTE DE PAGO
+                        </p>
+                        <p class="text-success" *ngIf="standReferencia.statusPago == '1'"> <i class="fas fa-check-circle text-success"></i> PAGADO
+                        </p>
+                    </div>
+                    <div class="col-5">
+                        <img src="./assets/img_project/logos_expositores/nouser.png" style="width: 80px;">
+                    </div>
+                    <div class="col-2 mt-1 text-right"><i class="fas fa-store" style="font-size: 25px;"></i><label class="ml-1">{{standReferencia.numeroStand}}</label>
+                        <button type="button" data-toggle="modal" data-target=".bd-example-modal-xl3" class="btn btn-sm  btn-outline-dark elevation-1 p-1"><i class="fas fa-file-pdf"
+                style="font-size: 18px;"></i> Render </button>
+                    </div>
+                </div>
+                <hr class="m-1">
+                <span class="badge badge-pill"> Armado: {{standReferencia.porcentajeArmado}}%</span>
+                <div class="row">
+                    <div class="col-10 mt-2">
+                        <div class="progress" style="height: 4px;">
+                            <div class="progress-bar " role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <!--<div class="col-12 text-left p-2"><button type="button" data-toggle="modal" data-target=".bd-example-modal-xl3" class="btn btn-sm  btn-outline-dark elevation-2 p-1"><i class="far fa-eye"></i> Evidencias </button></div>-->
+                    </div>
+                    <div class="col-2 text-right text-dark"><button type="button" data-dismiss="modal" [routerLink]="['/detalleExpositor', standReferencia.id]" class="btn btn-sm  btn-outline-primary elevation-1"><i class="far fa-eye"></i> Evidencias </button></div>
+                </div>
+                <hr class="m-1">
+                <div class="mt-1 form-inline text-primary">
+                    <i class="fas fa-user-friends " style="font-size: 20px;"></i>
+                    <div class=" ml-1"> DETALLES</div>
+                </div>
+                <div class="mt-1">
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="card col-6 p-0" style="font-size: 12px;">
+                            <ul class="list-group list-group-flush ">
+                                <li class="list-group-item text-center bg-info p-0">INTERNA</li>
+                                <li class="list-group-item p-2"><i class="fas fa-store"></i><label class="ml-1">{{standReferencia.numeroStand}}</label></li>
+                                <li class="list-group-item p-2"><i class="fas fa-user-friends"></i><label class="ml-1">{{standReferencia.expositor.contacto}}</label></li>
+                                <li class="list-group-item p-2"><i class="fas fa-store-alt"></i><label class="ml-1">{{standReferencia.expositor.nombre_comercial}}</label></li>
+                                <li class="list-group-item p-2"><i class="fas fa-phone"></i><label class="ml-1">{{standReferencia.expositor.telefono}}</label></li>
+                                <li class="list-group-item p-2"> <i class="fas fa-envelope"></i><label class="ml-1">{{standReferencia.expositor.email}}</label></li>
+                            </ul>
+                        </div>
+                        <div class="col-3"></div>
+                    </div>
+                </div>
+                <hr class="m-1">
+                <div class=" form-inline text-primary">
+
+                    <i class="fas fa-exclamation-circle " style="font-size: 20px;"></i>
+                    <div class=" ml-1"> INCIDENCIAS</div>
+
+                </div>
+                <div class="text-center m-1 mb-2 text-dark">
+                    <!-- <div> -->
+                    <a type="button" class="btn btn-outline-secondary btn-sm elevation-1" style="width: 250px;" *ngIf="incidencias.length > 0" data-dismiss="modal" [routerLink]="['/detalleExpositor', standReferencia.id]">
+                        <i class="fas fa-edit" style="font-size: 18px;"></i> Revisar<span class="badge badge-danger ml-3" *ngIf="numIncR > 0">{{numIncR}}</span>
+                        <span class="badge badge-warning ml-1" *ngIf="numIncA > 0">{{numIncA}}</span><span class="badge badge-success ml-1" *ngIf="numIncV > 0">{{numIncV}}</span>
+                    </a>
+                    <!-- </div> -->
+                </div>
+                <hr class="m-1 ">
+                <div class="mt-2 form-inline text-primary">
+                    <i class="fas fa-cogs" style="font-size: 20px;"></i>
+                    <div class="ml-1"> SERVICIOS</div>
+                    <div class="ml-auto text-dark text-right">
+                        <a type="button" class="btn btn-xs  btn-outline-secondary elevation-1" data-dismiss="modal" [routerLink]="['/detalleExpositor', standReferencia.id]"><i class="fas fa-edit"
+                style="font-size: 18px;"></i> Revisar</a></div>
+                </div>
+
+                <div class=" mt-2">
+                    <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm">
+                        <table class="table table-bordered table-hover table-sm small text-center" *ngIf="servicios">
+                            <tbody>
+                                <tr *ngFor="let item of serviciosContratados">
+                                    <td style="width: 100px;"><i class="{{item.icono}}"></i></td>
+                                    <td style="width: 100px;">{{item.nombre}}</td>
+                                    <td style="width: 100px;">
+                                        <div class="progress mt-2" style="height: 4px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 66%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <div class="float-left" style="font-size:9px;">progreso: 66%</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

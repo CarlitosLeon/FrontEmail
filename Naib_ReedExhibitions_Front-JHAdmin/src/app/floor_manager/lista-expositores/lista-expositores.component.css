@@ -1,0 +1,40 @@
+.scrollertarjeta {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 400px;
+}
+
+.scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 650px;
+}
+
+.scroll2 {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 350px;
+}
+
+.progressBarStand {
+    background-color: #AAABAB;
+}
+
+.colorLogged {
+    color: #19722D;
+}
+
+div#div_file {
+    position: relative;
+}
+
+input#subir {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}

@@ -1,0 +1,392 @@
+<app-menu-fm></app-menu-fm>
+<body class="hold-transition sidebar-mini layout-fixed accent-navy bg-light">
+    <form [formGroup]="formEmail">
+    <div class="wrapper">
+        
+     
+        <div class="content-wrapper ">
+            <div class="card" >
+                <div class="card-body">
+                  
+                      
+                         
+                            <div class="row col-lg-12">
+                                <div class="col-lg-4 text-center mt-2">
+                                    <div class="row col-lg-12" style="font-size: 12px;">
+                                        <div class=" col-lg-6">
+                                            <mat-form-field class="ancho">
+                                                <mat-label style="font-size: 11px;">Busca por país</mat-label>
+                                                <mat-select (selectionChange)="onEditClick($event.value)" disableRipple style="font-size: 12px;">
+                                                  <mat-option *ngFor="let Pais of valiPais"  [value]="Pais" >{{Pais}}</mat-option>
+                                                  
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class=" col-lg-6">
+                                            <mat-form-field class="ancho">
+                                                <mat-label style="font-size: 11px;">Busca por estado</mat-label>
+                                                <mat-select disableRipple style="font-size: 12px;">
+                                                  <mat-option [value]="Estado"
+                                                  *ngFor="let Estado of valiEstado">{{Estado}}</mat-option>
+                                              
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>       
+                                    </div>
+                                    <div style="font-size: 12px;">
+                                        <mat-form-field class="example-form-field ancho" >
+                                            <input  matInput placeholder="Busca un contacto">
+                                            <mat-icon  matSuffix>search</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm scrollerOsqi" >
+                                        <table class="table table-bordered table-hover table-sm small text-center" style="font-size: 11px;">
+                                            <thead style="background-color: #4385ef;" class="text-white">
+                                                <tr>
+                                                    <td>
+                                                        <div class="ml-4 form-inline">
+                                                            <div>
+                                                                <mat-checkbox
+                                                                [checked]="eCheckedAll()"
+                                                                (change)="seleccionarTodo($event.checked)"
+                                                                >
+
+                                                                </mat-checkbox>
+                                                            </div> 
+                                                            <div class="ml-1">Selección</div>
+                                                        </div>
+                                                    </td>
+                                                    <td>Contactos</td>
+                                                    <td>Correo</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngFor="let emailMasivo of checkTrue">
+                                                <tr *ngIf="emailMasivo.email">
+                                                    <th><mat-checkbox [checked]="emailMasivo.checked" (change)="getEmailId(emailMasivo)"
+                                                        ></mat-checkbox></th>
+                                                    <th>{{emailMasivo.nombre}}</th>
+                                                    <th>{{emailMasivo.email}}</th>
+                                                </tr>
+                                        </table>        
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="row col-lg-12 text-center">
+                                        <div class="col-lg-4 mb-auto mt-auto">
+                                            <mat-form-field class=" ancho" style="font-size: 12px;">
+                                                <mat-label>Asunto:</mat-label>
+                                                <input formControlName="asunto" matInput>
+                                            </mat-form-field> 
+                                        </div>
+                                        <div class="col-lg-2 mb-auto mt-auto">
+                                            <div class="upload  btn-xs elevation-1 btnresponsive">
+                                                <input 
+                                                (change)="envioDocumento($event)"                                        
+                                                type="file" id="fichero-tarifas" class="subir" value="">
+                                                <i class="fas fa-paperclip"></i> Adjuntar archivo
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 mb-auto mt-auto">
+                                            <mat-form-field class="ancho">
+                                                <mat-label style="font-size: 12px;">Mis Firmas</mat-label>
+
+                                                <mat-select formControlName="firma" disableRipple style="font-size: 12px;">
+                                                  <mat-option [value]="firmasE.id" *ngFor="let firmasE of firmasEmail"> {{firmasE.nombre}} 
+                                                      
+                                                  </mat-option>
+                                                  
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-2 mt-auto mb-auto" data-toggle="modal" data-target="#modal-lg2">
+                                            <button class="btn btn-xs btn-light elevation-1 btnresponsive" ><i class="fas fa-pen-alt"></i> Subir firma</button>
+                                        </div>
+                                        <div class="col-lg-2 mt-auto mb-auto" data-toggle="modal" data-target="#modal-lg3">
+                                            <button class="btn btn-xs btn-light elevation-1 btnresponsive" ><i class="fas fa-edit"></i> Editar firmas</button>
+                                        </div>
+                                    </div>
+                                    <hr class="m-0">
+                                    <div class="scrollhor mt-2">
+                                        <div class=" text-center">
+
+
+                                            <div *ngFor="let archivos of archivosFirma;let i = index" class="contenedor">
+
+                                                <div *ngIf="archivos.tipoAr == '.docx'"  class="info-box bg-blue adjunto">
+
+                                                    <span class="info-box-icon "><i class="fas fa-file-word"></i></span>                                                    
+                                                    <div class="mb-auto mt-auto ContenedorText" style="font-size: 12px;">
+                                                        <b>{{archivos.name}}</b>
+                                                    </div>
+                                                    <div class="mb-auto mt-auto btn text-white">
+                                                        <i class="fas fa-trash  " (click)="deleteArchivo(i)"style="font-size: 11px;"></i>
+                                                    </div>
+
+                                                </div>
+                                           
+                                                <div *ngIf="archivos.tipoAr == '.pdf'"  class="info-box bg-red adjunto">
+                                                    <span class="info-box-icon"><i class="fas fa-file-pdf"></i></span>
+                                                    <div class="mb-auto mt-auto ContenedorText" style="font-size: 12px;">
+                                                        <b>{{archivos.name}}</b>
+                                                    </div>
+                                                    <div class="mb-auto mt-auto  btn text-white">
+                                                        <i class="fas fa-trash" (click)="deleteArchivo(i)" style="font-size: 11px;"></i>
+                                                    </div>
+                                                </div>
+                                            
+                                                <div *ngIf="archivos.tipoAr == '.xlsx'" class="info-box bg-green adjunto">
+                                                    <span class="info-box-icon"><i class="fas fa-file-excel"></i></span>
+                                                    <div class="mb-auto mt-auto ContenedorText" style="font-size: 12px;">
+                                                        <b>{{archivos.name}}</b>
+                                                    </div>
+                                                    <div class="mb-auto mt-auto btn text-white">
+                                                        <i class="fas fa-trash" (click)="deleteArchivo(i)" style="font-size: 11px;"></i>
+                                                    </div>
+                                                </div>
+
+                                                <div *ngIf="archivos.tipoAr == '.pptx'" class="info-box bg-orange adjunto ">
+                                                    <span class="info-box-icon"><i class="fas fa-file-powerpoint"></i></span>
+                                                    <div class="mb-auto mt-auto ContenedorText" style="font-size: 12px;">
+                                                        <b>{{archivos.name}}</b>
+                                                    </div>
+                                                    <div class="mb-auto mt-auto  btn">
+                                                        <i class="fas fa-trash " (click)="deleteArchivo(i)" style="font-size: 11px;"></i>
+                                                    </div>
+                                                </div>
+
+                                                <div *ngIf="archivos.tipoAr == '.jpg'" class="info-box bg-light adjunto ">
+                                                    <span class="info-box-icon"><i class="fas fa-file-image"></i></span>
+                                                    <div class="mb-auto mt-auto ContenedorText" style="font-size: 12px;">
+                                                        <b>{{archivos.name}}</b>
+                                                    </div>
+                                                    <div class="mb-auto mt-auto  btn">
+                                                        <i class="fas fa-trash " (click)="deleteArchivo(i)"style="font-size: 11px;"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         
+                                        
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    
+                                        <div class="card-body">
+                                        <div 
+                                            formControlName="descripcion"
+                                            [ngxSummernote]="config" >
+                                        </div>
+                                        </div>
+                                        
+                                    
+                                    <div class="row col-lg-12 ">
+                                        <div class="col-lg-10 mb-auto mt-auto">
+                                            <mat-expansion-panel >
+                                                <mat-expansion-panel-header class="bg-warning" style="height: 30px;">
+                                                    <mat-panel-title>
+                                                        <div class="mt-auto mb-auto">
+                                                            <i class="fas fa-clock"></i> Programar correo
+                                                        </div>
+                                                    </mat-panel-title>
+                                                </mat-expansion-panel-header>
+                                                <div class="textdecor mt-3" style="font-size: 14px;"> <b>Enviar para el día:</b></div>
+                                                <div class="mt-2" id="datetime">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <input class="form-control form-control-sm"  type="date" id="start" name="trip-start" value="2020-07-22" min="2021-02-21" max="2022-12-31">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <input class="form-control form-control-sm" type="time" id="appt" name="appt" min="09:00" max="18:00" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="float-right mt-auto mb-auto">
+                                                    <button class="btn btn-xs btn-primary btnresponsive">Guardar</button>
+                                                </div>
+                                            </mat-expansion-panel>
+                                        </div>
+                                        <div class="col-lg-2 text-center mt-auto mb-auto">
+                                            <button (click)="envioEmail()" class="btn btn-xs btn-primary btnresponsive"><i class="fas fa-paper-plane"></i> Enviar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+            </div>
+        </div>
+   
+    </div>
+</form>
+<!-----------------------------------------------------------------------------------SUBIR FIRMA----------------------------------------------------------------------------------------------------------------------------------------->
+<div class="modal" id="modal-lg2">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-dark">
+                <div><i class="fas fa-pen-alt"></i> Administrar firmas</div>
+                <button type="button" class="close text-white " data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="row col-lg-12 text-center mt-3">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                        <mat-form-field class=" ancho" style="font-size: 12px;">
+                            <mat-label>Título:</mat-label>
+                            <input matInput>
+                        </mat-form-field> 
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+                <hr>
+                <div class="row col-lg-12 ">
+                    <div class="col-lg-7 mb-auto mt-auto">
+                        <div class="textdecor" style="font-size: 14px;"> <b>Información General</b></div>
+                        <div class="row text-center">
+                            <div class="col-lg-4 mb-auto mt-auto">
+                                <mat-form-field class=" ancho" style="font-size: 12px;">
+                                    <mat-label>Nombre:</mat-label>
+                                    <input matInput>
+                                </mat-form-field> 
+                            </div>
+                            <div class="col-lg-3 mb-auto mt-auto">
+                                <mat-form-field class=" ancho" style="font-size: 12px;">
+                                    <mat-label>Puesto:</mat-label>
+                                    <input matInput>
+                                </mat-form-field> 
+                            </div>
+                            <div class="col-lg-5 mb-auto mt-auto">
+                                <mat-form-field class=" ancho" style="font-size: 12px;">
+                                    <mat-label>Dirección:</mat-label>
+                                    <input matInput>
+                                </mat-form-field> 
+                            </div>
+                        </div>
+                        <div class="textdecor mt-2" style="font-size: 14px;"> <b>Contacto</b></div>
+                        <div class="row text-center">
+                            <div class="col-lg-5 mb-auto mt-auto">
+                                <mat-form-field class=" ancho" style="font-size: 12px;">
+                                    <mat-label>Teléfono:</mat-label>
+                                    <input matInput>
+                                </mat-form-field> 
+                            </div>
+                            <div class="col-lg-6 mb-auto mt-auto">
+                                <mat-form-field class=" ancho" style="font-size: 12px;">
+                                    <mat-label>Correo:</mat-label>
+                                    <input matInput>
+                                </mat-form-field> 
+                            </div>
+                            <div class="col-lg-1 mb-auto mt-auto" >
+                                <button class="btn btn-xs btn-success" ><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                        <div class="textdecor mt-2" style="font-size: 14px;"> <b>Redes</b></div>
+                        <div class="row text-center">
+                            <div class="col-lg-6">
+                                <mat-form-field class=" ancho" style="font-size: 12px;">
+                                    <mat-label>Página Web:</mat-label>
+                                    <input matInput>
+                                </mat-form-field> 
+                            </div>
+                            <div class="col-lg-5 mb-auto mt-auto">
+                                <mat-form-field class=" ancho" style="font-size: 12px;">
+                                    <mat-label>Redes Sociales:</mat-label>
+                                    <input matInput>
+                                </mat-form-field> 
+                            </div>
+                            <div class="col-lg-1 mb-auto mt-auto" >
+                                <button class="btn btn-xs btn-success" ><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="textdecor mt-2" style="font-size: 14px;"> <b>Imagen</b></div>
+                            </div>
+                            <div class="col-lg-3 mb-auto mt-auto">
+                                <div class="upload02 btn-xs text-white" >
+                                    <input type="file" id="fichero-tarifas" class="subir" value="">
+                                    <i class="fas fa-camera"></i> Subir Logotipo
+                                </div>
+                            </div>
+                            <div class="col-lg-6"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 text-center mb-auto mt-auto">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <div> <b>Sergio Arámburu Quintero</b></div>
+                                <div  style="font-size: 10px;"> <b>Diseñador Gráfico</b></div>
+                                <hr class="m-0">
+                                <div class="mt-2" style="font-size: 12px;"> Av. Manuel J Clouthier 621- Int. 1 Zaragoza C.P. 32590</div>
+                                <div class="mt-1" style="font-size: 11px;">(656) 2 33 34 65 / ventas@alprema.mx</div>
+                                <hr class="m-0 mt-2">
+                                <div class="row text-center mt-2">
+                                    <div class="col-lg-6" style="font-size: 13px;">
+                                        <a href="alpremagroup.com">alpremagroup.com</a>
+                                    </div>
+                                    <div class="col-lg-2"><i class="fab fa-facebook" style="font-size: 16px;"></i></div>
+                                    <div class="col-lg-2"><i class="fab fa-twitter" style="font-size: 16px;"></i></div>
+                                    <div class="col-lg-2"><i class="fab fa-youtube" style="font-size: 16px;"></i></div>
+                                </div>
+                                <hr class="m-0 mt-2">
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="m-0 mt-2">
+                <div class="float-right mt-2"><button class="btn btn-xs btn-primary" style="width: 130px;">Guardar</button></div>
+            </div> 
+        </div>
+    </div>
+</div>
+
+<!-----------------------------------------------------------------------------------MODAL1----------------------------------------------------------------------------------------------------------------------------------------->
+    
+      
+      <div class="modal fade bd-example-modal-lg" tabindex="-1 " role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+             <div class="modal-header bg-gradient-primary form-inline">
+                              <label for=""><i class="fas fa-file-signature"></i>  Editar firma</label> 
+                             
+                             
+                              
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              
+                          </div><!-- /.card-header -->
+                          <div class="card-body ">
+                           
+                              <div class="row">
+                              <div class="col-12">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-file-contract"></i></div>
+                                      </div>
+                                      <input type="text" class="form-control form-control-sm" id="inlineFormInputGroup" placeholder="Nombre de la firma">
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="mt-1" style="font-size: 10px">  
+                                <div class="card" style="height: 500px;">
+                                    
+                                </div>                     
+      
+                              </div>
+
+        </div>
+        <div class="card-footer">
+            <div class="float-right">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Guardar</button>
+                </div>
+    
+    </div>
+      </div>
+        </div>
+    </div>
+
+
+
+
+</body>

@@ -1,0 +1,158 @@
+.btn-circle {
+    width: 90px;
+    height: 90px;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 50px;
+}
+
+.scrollertarjeta {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 400px;
+}
+
+.scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 500px;
+}
+
+.scroll2 {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 250px;
+}
+
+.scroll3 {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 500px;
+}
+
+.scrollerIncidencia {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 350px;
+    min-height: 100px;
+}
+
+div#div_file {
+    position: relative;
+}
+
+input[type="file"] {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+
+/**css-tips**/
+
+[data-title] {
+    position: relative;
+    overflow: visible;
+}
+
+[data-title]:before,
+[data-title]:after {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    bottom: 100%;
+    transform: translate(-50%, -20px);
+    opacity: 0;
+    transition: .15s .15s;
+    color: #373c42;
+    visibility: hidden;
+}
+
+[data-title]:before {
+    content: attr(data-title);
+    border-radius: 3px;
+    padding: 6px 10px;
+    line-height: 18px;
+    text-align: left;
+    background-color: #373c42;
+    color: #fff;
+    font-size: 12px;
+    font-style: normal;
+    white-space: nowrap;
+}
+
+[data-title]:after {
+    content: '';
+    width: 0;
+    height: 0;
+    margin-bottom: -12px;
+    overflow: hidden;
+    border: 6px solid transparent;
+    border-top-color: currentColor;
+}
+
+[data-title]:hover:before,
+[data-title]:hover:after {
+    visibility: visible;
+    transform: translate(-50%, -10px);
+    opacity: 1;
+}
+
+
+/**slider**/
+
+.slider {
+    padding: 5px 0;
+    position: relative;
+    --percent: 0;
+    --color: red;
+    outline: 0;
+}
+
+.slider-track {
+    display: block;
+    width: 100%;
+    height: 6px;
+    background-color: rgb(173, 172, 172);
+    border: 0;
+    padding: 0;
+    outline: 0;
+}
+
+.slider-track::before {
+    content: '';
+    display: block;
+    height: 100%;
+    background: var(--color);
+    width: calc(1% * var(--percent));
+}
+
+.slider-thumb {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 0;
+    padding: 0;
+    background: #fff;
+    box-shadow: 0 0 0 1px skyblue;
+    border-radius: 50%;
+    left: calc(1% * var(--percent));
+    top: 0;
+    margin: auto -8px;
+    outline: 0;
+    transition: all .15s .15s, left 0s 0s;
+}
+
+
+/** hover & focus **/
+
+.slider:focus .slider-thumb,
+.slider-thumb:hover {
+    box-shadow: 0 0 0 2px skyblue;
+}

@@ -1,0 +1,70 @@
+.scrollerOsqi {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 630px;
+}
+
+div#div_file {
+position: relative;
+}
+
+input#subir {
+position: absolute;
+top: 0px;
+left: 0px;
+right: 0px;
+bottom: 0px;
+width: 100%;
+height: 100%;
+opacity: 0;
+}
+
+#simbologia {
+  font-size: 12px;
+  color: #444;
+  border: 1px solid #CCC;
+  position: absolute;
+  right: 0px;
+  bottom: 5px;
+  background: #fff;
+  padding: 5px;
+}
+
+.colorText {
+  float: left;
+}
+
+.color {
+width: 15px;
+height: 15px;
+float: right;
+margin-right: 5px;
+border: 1px solid #AAA;
+}
+
+#container {
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0%;
+  overflow: auto;
+  border:2px solid #FFFFFF;
+  width: 100%;
+  height: 100%;
+}
+
+#plano {
+  width: 100%;
+  height: 600px;
+}
+
+.progressBarStand {
+  background-color: #AAABAB;
+}
+
+
+/** { margin:0; padding:0; } /* to remove the top and left whitespace */
+
+/*html, body{ width:100%; height:100%; } /* just to be sure these are full screen*/
+
+/*canvas { display:block; } To remove the scrollbars*/

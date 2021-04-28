@@ -1,0 +1,391 @@
+<div class="wrapper">
+    <app-menu-fm></app-menu-fm>
+    <div class="content-wrapper">
+        <div class="wrapper">
+            <div class="container-fluid">
+                <div class="card mt-2 ">
+                    <div class="card-header card-outline card-primary">
+                        <mat-tab-group *ngIf="!loadingReunion">
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <mat-icon>pending_actions</mat-icon>
+                                    Pendientes
+                                </ng-template>
+                                <br>
+                                <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm"
+                                    *ngIf="reunionPendiente.length > 0">
+                                    <table class="table table-bordered table-hover table-sm small text-center">
+                                        <thead style="background-color: #4385ef;" class="text-white">
+                                            <tr>
+                                                <td> <i class="fas fa-handshake"></i> Reunión</td>
+                                                <td><i class="fas fa-calendar-alt"></i> Fecha </td>
+                                                <td><i class="fas fa-clock"></i> Hora</td>
+                                                <td><i class="fas fa-map-marker-alt"></i> Lugar</td>
+                                                <td><i class="fas fa-comment-alt"></i> Acción</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let rP of reunionPendiente; let ip = index"
+                                                style="font-size: 15px;">
+                                                <td>{{rP.nombre}}</td>
+                                                <td>{{rP.fecha | date: 'M/d/yy'}}</td>
+                                                <td>{{rP.hora | date:'shortTime'}}</td>
+                                                <td>{{rP.lugar}}</td>
+                                                <td><button class="btn btn-sm btn-outline-success" data-toggle="modal"
+                                                        data-target="#modal-CR" (click)="modalCReunion(rP, ip)">Cerrar
+                                                        Reunión</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="alert alert-light" *ngIf="reunionPendiente.length == 0">
+                                    <i class="far fa-list-alt"></i> Aquí aparecerán las reuniones que esten pendientes.
+                                </div>
+                            </mat-tab>
+
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <mat-icon>assignment_turned_in</mat-icon>
+                                    Concluidas
+                                </ng-template>
+                                <br>
+                                <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm"
+                                    *ngIf="reunionConcluida.length > 0">
+                                    <table class="table table-bordered table-hover table-sm small text-center">
+                                        <thead style="background-color: #4385ef;" class="text-white">
+                                            <tr>
+                                                <td> <i class="fas fa-handshake"></i> Reunión</td>
+                                                <td><i class="fas fa-calendar-alt"></i> Fecha </td>
+                                                <td><i class="fas fa-clock"></i> Hora</td>
+                                                <td><i class="fas fa-map-marker-alt"></i> Lugar</td>
+                                                <td><i class="fas fa-comment-alt"></i> Minutas</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let rC of reunionConcluida" style="font-size: 15px;">
+                                                <td>{{rC.nombre}}</td>
+                                                <td>{{rC.fecha | date: 'M/d/yy'}}</td>
+                                                <td>{{rC.hora | date:'shortTime'}}</td>
+                                                <td>{{rC.lugar}}</td>
+                                                <td><button class="btn btn-sm btn-outline-info" data-toggle="modal"
+                                                        data-target="#modal-vD" (click)="verDRConcluida(rC)">Ver
+                                                        Detalles</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="alert alert-light" *ngIf="reunionConcluida.length == 0">
+                                    <i class="far fa-list-alt"></i> Aquí aparecerán las reuniones que hayan concluido.
+                                </div>
+                            </mat-tab>
+                        </mat-tab-group>
+                        <!-- cargando -->
+                        <section class="text-center mt-5" *ngIf="loadingReunion">
+                            <div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                            <span class="text-primary h5">Cargando...</span>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <section>
+                <!--Modal-->
+                <div class="modal fade" id="modal-CR" *ngIf="cReunion" tabindex="-1">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+
+                            <div class="modal-header bg-gradient-primary form-inline">
+                                <div><i class="fas fa-clipboard"></i> Minuta</div>
+                                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="text-muted text-center" style="font-size: 11px;">Detalles</div>
+                                <div class="row text-center mt-3">
+                                    <div class="col-lg-3">
+                                        <div><b>{{cReunion.nombre}}</b></div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div>Fecha: <b> {{cReunion.fecha | date: 'M/d/yy'}} </b></div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div>Hora: <b> {{cReunion.hora | date:'shortTime'}} </b></div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div>Lugar: <b> {{cReunion.lugar}} </b></div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="">
+                                    <div class="text-muted text-center" style="font-size: 11px;">Temas a Tratar
+                                    </div>
+                                    <div class="container">
+                                        <ol>
+                                            <li *ngFor="let ct1 of cTratados">
+                                                <div class="rounded bg-light p-1 text-center mt-3 elevation-1"
+                                                    style="font-size: 12px;">
+                                                    {{ct1.descripcion}}
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="text-muted text-center" style="font-size: 11px;">Acuerdos Finales</div>
+                                <div class="row mt-3">
+                                    <div class="col-lg-6">
+                                        <label class="text-muted">Escriba los acuerdos que desea agregar a la
+                                            minuta</label>
+                                        <textarea [formControl]="addAcuerdo" class="form-control"
+                                            placeholder="Escriba el acuerdo..." rows="3"></textarea>
+                                        <button [disabled]="!addAcuerdo.valid" (click)="addAcuerdoCR()"
+                                            class="btn btn-sm btn-success mt-2 float-right"><i class="fas fa-plus"></i>
+                                            Agregar</button>
+                                    </div>
+                                    <div class="col-lg-6" *ngIf="cAcuerdos.length > 0">
+                                        <div class="text-center scrollerOsqi2">
+                                            <ol>
+                                                <li *ngFor="let cA of cAcuerdos; let i = index">
+                                                    <div class="rounded bg-light p-1 text-center mt-3 elevation-1 col-12"
+                                                        style="font-size: 12px;">
+                                                        <span
+                                                            style="hyphens: auto; word-break: break-all;">{{cA.descripcion}}</span>
+                                                        <button type="button" class="close"
+                                                            (click)="deleteAcuerdoCR(i)">
+                                                            <span class="text-danger small"><i
+                                                                    class="far fa-trash-alt"></i></span>
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6" *ngIf="cAcuerdos.length == 0">
+                                        <div class="alert alert-light text-center mt-2">
+                                            <i class="fas fa-info-circle"></i> ¡Vaya! Aún no se han agregado acuerdos.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="text-muted text-center" style="font-size: 11px;">Esta minuta será enviada a
+                                    las siguientes personas:</div>
+                                <div class="container">
+                                    <div class="callout callout-success mt-3 col-lg-12">
+                                        <div class="row text-center">
+                                            <div class="col-lg-4 p-1" *ngFor="let conEn of cContactoEnvio0">
+                                                <div style="font-size: 12px;"><i class="far fa-id-card"></i>
+                                                    {{conEn.agenda.nombre}} ({{conEn.agenda.rol}})
+                                                </div>
+                                                <div style="font-size: 13px;"><b> <i class="fab fa-whatsapp"></i>
+                                                        {{conEn.agenda.numero}} </b></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="text-center mt-3">
+                                    <button *ngIf="!btnCReunion" class="btn btn-sm btn-primary"
+                                        (click)="cerrarReunion()" [disabled]="cAcuerdos.length == 0"
+                                        style="width: 180px;"> Cerrar
+                                        reunión</button>
+                                    <button *ngIf="btnCReunion" class="btn btn-sm btn-primary" style="width: 180px;"
+                                        type="button" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                        Cerrando reunion...
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!------------------------->
+                <div class="modal fade" id="modal-vD" tabindex="-1" *ngIf="vDReunion">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+
+                            <div class="modal-header bg-gradient-primary form-inline">
+                                <div><i class="fas fa-clipboard"></i> Minuta</div>
+                                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="text-muted text-center" style="font-size: 11px;">Detalles</div>
+                                <div class="row text-center mt-3">
+                                    <div class="col-lg-3">
+                                        <div><b>{{vDReunion.nombre}}</b></div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div>Fecha: <b> {{vDReunion.fecha | date: 'M/d/yy'}} </b></div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div>Hora: <b> {{vDReunion.hora | date:'shortTime'}} </b></div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div>Lugar: <b> {{vDReunion.lugar}} </b></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="text-muted text-center" style="font-size: 11px;">Temas Finales</div>
+                            <div class="row text-center mt-3 container">
+                                <div class="col-lg-6">
+                                    <div class="text-center" style="font-size: 13px;"><b>Temas Tratados</b></div>
+                                    <div class="text-center">
+                                        <ol>
+                                            <li *ngFor="let vT of vDTratados">
+                                                <div class="rounded bg-light p-1 text-center mt-3 elevation-1"
+                                                    style="font-size: 12px;">
+                                                    <span style="hyphens: auto; word-break: break-all;">
+                                                        {{vT.descripcion}}</span>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="text-center" style="font-size: 13px;"><b>Acuerdos</b></div>
+                                    <div class="text-center scrollAcuerdo">
+                                        <ol>
+                                            <li *ngFor="let vA of vDAcuerdos">
+                                                <div class="rounded bg-light p-1 text-center mt-3 elevation-1"
+                                                    style="font-size: 12px;">
+                                                    <span
+                                                        style="hyphens: auto; word-break: break-all;">{{vA.descripcion}}</span>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
+                            <div class="text-muted text-center" style="font-size: 11px;">Esta Minuta se envió a las
+                                siguientes personas:</div>
+                            <div class="container">
+                                <div class="callout callout-success mt-3 col-lg-12">
+                                    <div class="row text-center">
+                                        <div class="col-lg-4 p-1" *ngFor="let conEn1 of vDContactoEnvio1">
+                                            <div style="font-size: 12px;"><i class="far fa-id-card"></i>
+                                                {{conEn1.agenda.nombre}} ({{conEn1.agenda.rol}})
+                                            </div>
+                                            <div style="font-size: 13px;"><b> <i class="fab fa-whatsapp"></i>
+                                                    {{conEn1.agenda.numero}} </b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container pt-3 pb-3">
+                                <mat-accordion>
+                                    <mat-expansion-panel hideToggle class="elevation-1 bg-light">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Envíar nuevamente la minuta.
+                                            </mat-panel-title>
+                                            <mat-panel-description
+                                                style="justify-content: space-between;align-items: center;">
+                                                Si desea envíar la minuta dar click aquí
+                                                <mat-icon>chat</mat-icon>
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <div class="">
+                                            <div class="input-group input-group-sm ">
+                                                <input type="text" class="form-control form-control-sm"
+                                                    placeholder="Busca un Invitado" aria-label="Search"
+                                                    style="font-size: 10px;"
+                                                    (input)="searchContact($event.target.value)" maxlength="50">
+                                                <div class="input-group-prepend rounded">
+                                                    <span class="input-group-text bg-success rounded-right"><i
+                                                            class="fas fa-search"></i></span>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm scrollerOsqi mt-3">
+                                                <table
+                                                    class="table table-bordered table-hover table-sm small text-center">
+                                                    <thead style="background-color: #4385ef;" class="text-white">
+                                                        <tr>
+                                                            <td><i class="fas fa-user-plus"></i> Invitado</td>
+                                                            <td><i class="fab fa-whatsapp"></i> Número</td>
+                                                            <td *ngIf="!vCAll">
+                                                                <i class="fas fa-plus-circle"></i> Seleccionar
+                                                                todos
+                                                                <input type="checkbox" class="form-check-input ml-1"
+                                                                    [checked]="vCheckedAll()"
+                                                                    (change)="checkAllContacts($event.target.checked)">
+                                                            </td>
+                                                            <td *ngIf="vCAll">
+                                                                <i class="fas fa-plus-circle"></i> Seleccionar
+                                                            </td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let contact of contactosAll">
+                                                            <td>{{contact.nombre}} ({{contact.rol}})</td>
+                                                            <td>{{contact.numero}}</td>
+                                                            <td>
+                                                                <div class="form-check"> 
+                                                                    <input class="form-check-input"
+                                                                        type="checkbox" [checked]="contact.envio"
+                                                                        (change)="checkContacto(contact)">
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr *ngIf="contactosAll.length == 0 && emptySearch">
+                                                            <td colspan="3">No se encontrarón coincidencias con el
+                                                                nombre <strong>{{vSearch}}</strong></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="text-center">
+                                                <button *ngIf="!loadBtnMinuta" class="btn btn-primary btn-sm"
+                                                    [disabled]="!vBtnEnvio()" (click)="sendMinuta()">Envíar
+                                                    minuta</button>
+                                                <button *ngIf="loadBtnMinuta" class="btn btn-sm btn-primary"
+                                                    style="width: 180px;" type="button" disabled>
+                                                    <span class="spinner-border spinner-border-sm" role="status"
+                                                        aria-hidden="true"></span>
+                                                    Enviando minuta...
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+.scrollhor {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.scrollerOsqi {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 170px;
+}
+
+.box {
+    width: 999px;
+}
+
+.imgprofile {
+    width: 35px;
+    height: 35px;
+    border-radius: 20px;
+    border: 2px solid #666;
+}
+
+.logosEmpresa {
+    width: 130px;
+    max-width: 128px;
+    min-width: 60px;
+    height: 40px;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-color: #1c0794;
+}
+
+.title-Naib {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: #0919adcc;
+    color: #fff;
+    border-radius: 4px 4px 0 0;
+}
+
+.cuerpoNodoNormal {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: #E8ECF3;
+    color: black;
+    border-radius: 4px 4px 0 0;
+}
+
+.title-Reed {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: hsla(143, 93%, 27%, 0.8);
+    color: #fff;
+    border-radius: 4px 4px 0 0;
+}
+
+.title-Banamex {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: #415876;
+    color: #fff;
+    border-radius: 4px 4px 0 0;
+}
+
+.wa-icon {
+    width: 12px;
+    height: 12px;
+}
+
+.orgchart {
+    color: blue;
+}

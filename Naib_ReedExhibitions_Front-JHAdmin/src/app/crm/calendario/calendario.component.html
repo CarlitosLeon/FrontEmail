@@ -1,0 +1,545 @@
+<app-menu-fm></app-menu-fm>
+<div class="wrapper">
+    <ngx-spinner name="crmCalendarioSpinner" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff"
+        type="square-loader" [fullScreen]="true">
+        <p style="color: white"> Cargando ... </p>
+    </ngx-spinner>
+    <div class="content-wrapper">
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-8 mt-2">
+                    <div class="card">
+                        <div class="card-header card-primary card-outline">
+                            <full-calendar [options]="calendarOptions"></full-calendar>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 mt-2">
+                    <div class="card">
+                        <div class="card-header card-primary card-outline">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="info-box bg-light">
+                                        <div class="row w-100">
+                                            <div class="col-lg-2 ml-0 mt-auto mb-auto">
+                                                <i class="far fa-calendar-alt" style="font-size: 20px;"></i>
+                                            </div>
+                                            <div class="col-lg-10 mr-0 mt-auto mb-auto text-right">
+                                                <span matBadge="4" matBadgeColor="warn" matBadgeOverlap="false"
+                                                    style="font-size: 12px;">Hoy</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="info-box bg-warning">
+                                        <div class="row w-100">
+                                            <div class="col-lg-2 ml-0 mt-auto mb-auto">
+                                                <span class="material-icons" style="font-size: 24px;">
+                                                    watch_later
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 mr-0 mt-auto mb-auto text-right">
+                                                <span matBadge="4" matBadgeColor="warn" matBadgeOverlap="false"
+                                                    style="font-size: 12px;">Programados</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row ">
+                                <a class="btn btn-app bg-secondary">
+                                    <span class="badge bg-success">2</span>
+                                    <i class="fas fa-user"></i>
+                                    Personal
+                                </a>
+                                <a class="btn btn-app bg-info">
+                                    <span class="badge bg-success">3</span>
+                                    <i class="fas fa-briefcase"></i>
+                                    Trabajo
+                                </a>
+                                <a class="btn btn-app bg-maroon">
+                                    <span class="badge bg-success">5</span>
+                                    <i class="fas fa-cogs"></i>
+                                    Sistema
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="callout callout-danger">
+                        <i class="fas fa-user bg-primary radius"></i> Asignados a mi
+                        <span class="badge float-right text-lg">3</span>
+                    </div>
+
+                    <b>Mis listas</b>
+                    <div class="card">
+                        <div class="card-header card-primary card-outline scrollerOsqi">
+
+                            <div class="accordion" id="accordionExample">
+                                <div class="">
+                                    <div class="card-header" id="headingOne">
+                                        <div class="  " type="button" data-toggle="collapse" data-target="#collapseOne"
+                                            aria-expanded="false" aria-controls="collapseOne">
+                                            <i class="fas fa-user bg-danger "
+                                                style="border-radius: 50%; font-size: 15px; line-height: 30px; text-align: center; top: 0; width: 30px;"></i>
+                                            Personal <span class=" float-right"> 23 <i
+                                                    class="fas fa-angle-down right"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <div id="collapseOne" class="collapse " aria-labelledby="headingOne"
+                                        data-parent="#accordionExample">
+                                        <div class="card-body bg-light p-1">
+                                            <div class=" text-right  "> Agregar <button type="button" class="btn border"
+                                                    data-toggle="modal" data-target="#exampleModal2" id="openModAdd"><i
+                                                        class="fas fa-plus-circle text-lg"></i></button> </div>
+
+                                            <div class="callout callout-danger p-1">
+                                                <div class="row">
+                                                    <div class="col-1 pt-2 radio-lg"><input class="ml-2" type="radio"
+                                                            value="2"> </div>
+                                                    <div class="col-11 ">
+                                                        <label data-toggle="modal" data-target=".bd-example-modal-lg">
+                                                            Junta Event Flow</label>
+
+                                                        <div class="float-right">
+                                                            <div class="btn-group dropright">
+                                                                <div class=" text-gray pt-2" style="font-size: 10px;">
+                                                                    <i> <i class="fa fa-calendar"></i>
+                                                                        17/09/21 </i> <i class="fa fa-clock"></i>
+                                                                    14:00
+                                                                </div>
+                                                                <button type="button" class="btn" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="fas fa-ellipsis-h"></i>
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    <button class="dropdown-item" data-toggle="modal"
+                                                                        data-target="#exampleModal3"><i
+                                                                            class="fas fa-edit text-primary   "></i>
+                                                                        Editar</button>
+                                                                    <button class="dropdown-item btn"><i
+                                                                            class="fas fa-trash-alt  text-danger  ">
+                                                                        </i> Eliminar</button>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class=" text-gray" style="font-size: 10px;">
+                                                            *Llevar equipos de seguridad
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="callout callout-danger p-1">
+                                                <div class="row">
+                                                    <div class="col-1 pt-2"><input class="ml-2"
+                                                            style="width: 15px; height: 15px;  transform: scale(1.5);"
+                                                            type="radio" value="2"> </div>
+                                                    <div class="col-11">
+                                                        Junta Event Flow
+                                                        <div class="float-right">
+                                                            <div class="btn-group dropright">
+                                                                <div class=" text-gray pt-2" style="font-size: 10px;">
+                                                                    <label class=""><i> <i class="fa fa-calendar"></i>
+                                                                            17/09/21 </i> <i class="fa fa-clock"></i>
+                                                                        14:00</label>
+                                                                </div>
+                                                                <button type="button" class="btn  "
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                    <i class="fas fa-ellipsis-h"></i>
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    <!-- Dropdown menu links -->
+                                                                    <a class="dropdown-item" href="#"><i
+                                                                            class="fas fa-edit text-primary   "></i>
+                                                                        Editar</a>
+                                                                    <a class="dropdown-item" href="#"><i
+                                                                            class="fas fa-trash-alt  text-danger  ">
+                                                                        </i> Eliminar</a>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class=" text-gray" style="font-size: 10px;">
+                                                            *Llevar equipos de seguridad
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer p-1">
+                            <div class="float-right"> CREAR LISTA<button type="button" class="btn border"
+                                    data-toggle="modal" data-target="#exampleModal"><i
+                                        class="fa fa-plus-circle text-primary" aria-hidden="true"></i></button> </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal1 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-2 bg-primary">
+                <i class="fa fa-list"></i> Crear una lista
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class=" text-center mb-2" type="button">
+                    <i class="fas fa-tools bg-teal"
+                        style="border-radius: 50%; font-size: 20px; line-height: 50px; text-align: center; top: 0; width: 50px;"></i>
+                    <span class=" float-right"></span>
+                </div>
+                <div class="input-group mb-2">
+                    <input class="form-control form-control-sm" type="text" placeholder="Titulo">
+                </div>
+                Escoge un color:
+                <div class="btn-group" style="width: 100%; margin-bottom: 2px;">
+
+                    <!--<button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>-->
+                    <ul class="fc-color-picker" id="color-chooser">
+                        <li><a class="text-primary" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-warning" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-success" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-danger" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-muted" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-gray-dark" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-dark" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-maroon" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-orange" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-lime" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-teal" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-olive" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-indigo" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-light-blue" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-navy" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-purple" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-fuchsia" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-pink" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-primary" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-warning" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-success" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-danger" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-muted" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-gray-dark" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-dark" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-maroon" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-light" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-orange" href="#"><i class="fas fa-square"></i></a></li>
+                        <li><a class="text-light" href="#"><i class="fas fa-square"></i></a></li>
+                    </ul>
+                </div> <!-- /btn-group -->
+                <hr class="m-1">
+                Escoge un icono:
+                <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
+                    <ul class="fc-color-picker">
+                        <li><a href="#"><i class="fas fa-list text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-address-card text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-calendar-check text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-camera-retro text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-car text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-chalkboard text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-chart-bar text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-chart-pie text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-check-circle text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-coffe text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-clock text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-cloud-download-alt text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-cloud-upload-alt  text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-city text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-cogs text-gray"></i></a></li>
+
+                        <li><a href="#"><i class="fas fa-list text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-address-card text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-calendar-check text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-camera-retro text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-car text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-chalkboard text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-chart-bar text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-chart-pie text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-check-circle text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-coffe text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-clock text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-cloud-download-alt text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-cloud-upload-alt  text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-city text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-cogs text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-list text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-address-card text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-calendar-check text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-camera-retro text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-car text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-chalkboard text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-chart-bar text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-chart-pie text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-check-circle text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-coffe text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-clock text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-cloud-download-alt text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-cloud-upload-alt  text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-city text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-cogs text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-list text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-address-card text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-calendar-check text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-camera-retro text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-car text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-chalkboard text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-chart-bar text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-chart-pie text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-check-circle text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-coffe text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-clock text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-cloud-download-alt text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-cloud-upload-alt  text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-city text-gray"></i></a></li>
+                        <li><a href="#"><i class="fas fa-cogs text-gray"></i></a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+            <div class="modal-footer p-2">
+                <button type="button " class="btn btn-sm btn-primary">Añadir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Agregar tarea -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-2 bg-primary">
+                <i class="fa fa-tasks"></i> Agregar tarea
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modCloseAdd">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-2">
+                    <mat-form-field class="example-full-width " appearance="">
+                        <mat-label>Titulo:</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+                <div class="form-group mb-2">
+                    <mat-form-field class="example-full-width " appearance="">
+                        <mat-label>Notas</mat-label>
+                        <textarea matInput></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="form-group mb-2">
+                    <div class="row">
+                        <div class="col-11">
+                            <mat-form-field class="example-full-width " appearance="">
+                                <mat-label>Subtareas:</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-1 text-center mt-auto mb-auto">
+                            <button class="btn p-0"><i class="fa fa-plus-circle text-primary"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <input class="form-control form-control-sm" type="date" name="trip-start" value="2020-07-22"
+                        min="2020-01-01">
+                </div>
+                <div class="mb-2">
+                    <i class="fas fa-clock  text-primary" aria-hidden="true"></i> Hora
+                    <input class="form-control form-control-sm" type="time" name="appt" min="09:00" max="18:00"
+                        required>
+
+                </div>
+                <div class="mb-2">
+                    <input type="text" class="form-control form-control-sm" placeholder="Link de la ubicación">
+                </div>
+
+
+                <div class=" text-info mb-2 ">
+                    <div class="btn btn-default bg-ligth btn-sm btn-file">
+                        <i class="fas fa-image text-primary"></i>
+                        Subir imagen
+                        <input type="file" name="attachment">
+                    </div>
+                </div>
+                <div class="input-group input-group-sm mb-2 ">
+                    <select class="form-control ">
+                        <option>Prioridad</option>
+                        <option>Alta</option>
+                        <option>Media</option>
+                        <option>Baja</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer p-2">
+                <button type="button" class="btn btn-sm btn-primary">Añadir</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal3  -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-2 bg-danger">
+                <i class="fa fa-edit"></i> Editar tarea
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-2">
+                    <input type="text" class="form-control form-control-sm" placeholder="Titulo">
+                </div>
+                <div class="form-group mb-2">
+                    <textarea class="form-control" style="height: 100px; " id="exampleFormControlTextarea1"
+                        placeholder="Notas" rows="3"></textarea>
+                </div>
+                <div class="form-group mb-2">
+                    <div class="row">
+                        <div class="col-11"><input type="text" class="form-control form-control-sm"
+                                placeholder="Subtareas"></div>
+                        <div class="col-1 text-center"> <button class="btn p-0 "><i
+                                    class="fa fa-plus-circle  text-primary"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <i class="fas fa-calendar-alt text-primary"></i> Fecha
+                    <input class="form-control form-control-sm" type="date" id="start" name="trip-start"
+                        value="2020-07-22" min="2020-01-01">
+                </div>
+                <div class="mb-2">
+                    <i class="fas fa-clock  text-primary" aria-hidden="true"></i> Hora
+                    <input class="form-control form-control-sm" type="time" id="appt" name="appt" min="09:00"
+                        max="18:00" required>
+
+                </div>
+                <div class="mb-2">
+                    <input type="text" class="form-control form-control-sm" placeholder="Link de la ubicación">
+                </div>
+
+
+                <div class=" text-info mb-2 ">
+                    <div class="btn btn-default bg-ligth btn-sm btn-file">
+                        <i class="fas fa-image text-primary"></i>
+                        Subir imagen
+                        <input type="file" name="attachment">
+                    </div>
+                </div>
+                <div class="input-group input-group-sm mb-2 ">
+                    <select class="form-control ">
+                        <option>Prioridad</option>
+                        <option>Alta</option>
+                        <option>Media</option>
+                        <option>Baja</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="modal-footer p-2">
+                <button type="button" class="btn btn-sm btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /.Modal4  -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header p-2 bg-danger">
+                <font> <i class="fas fa-user"></i> Personal </font>
+                <font class="float-right ml-5">(Alta)</font>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row ">
+                    <div class="col-6  mb-2" type="button">
+                        <i class="fas fa-user bg-danger"
+                            style="border-radius: 50%; font-size: 20px; line-height: 50px; text-align: center; top: 0; width: 50px;"></i>
+                        <span class=" float-right"></span>
+                        Junta Event Flow
+                    </div>
+                    <div class="col-6 pt-3 text-right">
+                        <font class="mr-3"> <i class="fa fa-calendar text-primary"></i> Fecha: 17/09/21 </font>
+                        <font><i class="fa fa-clock text-primary"></i> Hora: 14:00</font>
+                    </div>
+                    <div class="col-12">
+                        <div class="card p-2 bg-light">
+                            <font class="text-primary">Notas:</font>
+                            Llevar equipos de seguridad para la junta de Event Flow, temas a tratar "Nueva normailidad"
+                        </div>
+                    </div>
+
+                    <div class="col-12 card p-2 bg-light">
+
+                        <font class="text-primary">Subtareas:</font>
+                        <div>
+                            <input type="radio" value="2">
+                            <font class="pl-3"> Llevar cubrebocas</font>
+                        </div>
+                        <div>
+                            <input type="radio" value="2">
+                            <font class="pl-3"> Llevar equipo de seguridad </font>
+                        </div>
+                        <div>
+                            <input type="radio" value="2">
+                            <font class="pl-3"> Llevar planos </font>
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center m-3">
+                        <font class="text-primary">Ubicación:</font>
+                        <a href="">www.centrodeConveciones/googlemaps.com</a>
+                    </div>
+
+                    <div class="col-4 text-center">
+                        <img class="w-50" src="../../assets/img/6.png" alt="">
+                    </div>
+
+                    <div class="col-12 text-center mt-5">
+                        <mat-slide-toggle>Terminada!</mat-slide-toggle>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer p-1">
+                <button type="button" class="btn btn-sm btn-primary">Listo</button>
+            </div>
+        </div>
+    </div>
+</div>

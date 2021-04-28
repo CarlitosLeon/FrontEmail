@@ -1,0 +1,463 @@
+<div class="">
+    <!-- <mat-toolbar class="bg-light col-12 shadow" style=" height: 55px; border-bottom: 2px solid #007bff;"> -->
+    <mat-toolbar class="bg-blue1 col-12 shadow" style=" height: 55px">
+        <div class="nav-link text-light small align-items-center pl-0" (click)="listaExp.toggle()">
+            <img src="./assets/img_project/logo_light.png" alt="Naib" width="40" height="40">
+            <span class="txtW-500"> Expo Naib </span>
+        </div>
+        <span class="header-spacer"></span>
+        <!-- <div class="d-none">
+            <a class="btn btn-xs btn-light text-dark" (click)="snav.toggle()">
+                <i class="fas fa-address-book"></i> Mis Clientes</a>
+        </div> -->
+        <div class="text-light small align-items-center">
+            <span class="txtW-500">Plano Comercial</span>
+        </div>
+    </mat-toolbar>
+
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true" name="spinnerGlobal">
+        <p style="color: white" class="pt-2"> Loading... </p>
+    </ngx-spinner>
+
+    <mat-sidenav-container class="example-sidenav-container" [hasBackdrop]="false">
+        <!-- <mat-sidenav #snav fixedTopGap="56" position="end" mode="side" style=" background-color:#d1ecf1;">
+            <div class="text-center text-muted bg-white rounded m-2 elevation-2" style="font-size: 12px;">
+               
+            </div>
+            <div class="mt-3 text-center scrollerOsqi bg-white rounded m-3 elevation-2">
+                
+            </div>
+        </mat-sidenav> -->
+        <mat-sidenav #listaExp fixedTopGap="56" mode="side" [(opened)]="sidenavLeft">
+            <!-- (opened)="" (closed)="logJ()" -->
+            <div class="text-center p-2 bg-light">
+                <span class="font15"><strong><i class="fas fa-address-book"></i> Lista de
+                        espositores</strong></span>
+                <span class="badge badge-light float-right font13 border"><i class="fas fa-users"></i>
+                    {{Expositores.length}}</span>
+            </div>
+            <div class="">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item list-group-item-action  col-lg-12 p-0 m-0 puntero"
+                        *ngFor="let exp of Expositores">
+                        <div class="media p-2 shadow align-items-center border-list1">
+                            <img [src]="urlImgExp+exp.expositor.logo" alt="Expositor" class="img-size-50  ml-1"
+                                (click)="seleccionarModal(exp)">
+                            <div class=" ml-1">
+                                <span class="float-right text-sm text-danger btn btn-light btn-sm"
+                                    (click)="findStandsMap(exp.expositor.numStandEvento); listaExp.close();"
+                                    matTooltip="Ubicar en el plano" matTooltipPosition="right">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </span>
+                                <p class="m-0" style="width: 16rem;" (click)="seleccionarModal(exp)">
+
+                                    <span class="text-navy font-weight-bold text-sm"
+                                        [matTooltip]="exp.expositor.nombre_comercial" matTooltipPosition="right">
+                                        {{exp.expositor.nombre_comercial}}
+                                        /
+                                        {{exp.expositor.razon_social}}</span>
+                                    <br>
+                                    <span class="text-danger font-weight-bold"><i class="fas fa-store text-dark"></i>
+                                        <span *ngFor="let stand of exp.expositor.numStandEvento; let i = index">
+                                            {{stand}}
+                                            <span
+                                                *ngIf="exp.expositor.numStandEvento.length > 1 && i < exp.expositor.numStandEvento.length-1">
+                                                -
+                                            </span>
+                                        </span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+
+                <div class="alert alert-light shadow mt-2 wordBreak" style="width: 16rem;"
+                    *ngIf="isFind && Expositores.length == 0">
+                    <i class="fas fa-info-circle"></i> No se encontrarón coincidencias con
+                    <strong>{{search.value}}</strong>
+                </div>
+            </div>
+        </mat-sidenav>
+        <mat-sidenav-content class="mt-1">
+            <div class="container-fluid bg-light pt-0 pb-0 align-items-center">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mt-2">
+                        <button class="btn btn-light bg-blueJH2 btn-sm border" (click)="listaExp.toggle();" [disabled]="isFind">
+                            <span><i class="fas fa-address-book"></i> Lista de espositores</span>
+                        </button>
+                        <!-- <div class="dropright ml-3">
+                            <button mat-stroked-button class="dropdown-toggle btn-light btn-sm" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <span><i class="fas fa-info-circle"></i> Anotaciones</span>
+                            </button>
+
+                            <span class="dropdown-toggle btn btn-light btn-sm" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-info-circle"></i> Anotaciones
+                            </span>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item disabled txt-legend"><i
+                                        class="fas fa-square text-lightblue"></i>
+                                    Confirmado</a>
+                                <a class="dropdown-item disabled txt-legend"><i class="fas fa-square text-warning"></i>
+                                    Reservado</a>
+                                <a class="dropdown-item disabled txt-legend"><i class="fas fa-square"
+                                        style="color: #b6b8ba;"></i>
+                                    Libre</a>
+                                <div class="dropdown-divider disabled txt-legend"></div>
+                                <a class="dropdown-item disabled txt-legend"><i class="fas fa-square text-danger"></i>
+                                    Separated link</a>
+                            </div>
+                        </div> -->
+
+                        <button class="btn btn-light btn-sm ml-2 border" (click)="symbology()">
+                            <span><i class="fas fa-info-circle"></i> Simbología</span>
+                        </button>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mt-2 text-center">
+                        <button class="btn btn-light bg-blueJH2 btn-sm border" (click)="plusZoom()">
+                            <span><i class="fas fa-search-plus"></i> Acercar</span>
+                        </button>
+                        <button class="btn btn-light btn-sm border ml-2" (click)="centerZoom()">
+                            <span><i class="fas fa-map-marked-alt"></i> Ajustar</span>
+                        </button>
+                        <button class="btn btn-light bg-blueJH2 btn-sm border ml-2" (click)="minusZoom()">
+                            <span><i class="fas fa-search-minus"></i> Alejar</span>
+                        </button>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="float-right form-inline">
+                            <mat-form-field class="" style="width: 20em;">
+                                <mat-label>Buscar por expositor o stand...</mat-label>
+                                <input type="text" placeholder="Buscar..." aria-label="Number" matInput
+                                    [formControl]="search" [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option class="small" *ngFor="let option of filteredOptions | async"
+                                        [value]="option">
+                                        {{option}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            <div class="ml-1">
+                                <button mat-icon-button color="primary" *ngIf="!isFind" [disabled]="search.value == ''"
+                                    (click)="listaExp.open(); findList()">
+                                    <mat-icon>search</mat-icon>
+                                </button>
+                                <button mat-icon-button color="warn" *ngIf="isFind" [disabled]="search.value == ''"
+                                    (click)="listaExp.close(); clearSearch()">
+                                    <mat-icon>clear</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="" #divCanvas>
+                    <canvas class="col-12" id="canvas"></canvas>
+                </div>
+            </div>
+            <!-- <div (contextmenu)="onRightClick($event, 'Item 1')" class="mt-3" style="padding-bottom: 20px;">
+                <div class="scroll-top" (click)="asignSelectedElement()" (touchstart)="asignSelectedElement()">
+                    <canvas id="canvas" #img width="1800" height="1200" style="display:inline-block"></canvas>
+                </div>
+            </div> -->
+
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+    <section>
+        <div class="modal fade" id="detailModalPC" tabindex="-1" aria-labelledby="detailModalPCLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content" *ngIf="selectExpositor != null;">
+                    <div class="modal-header bg-gradient-dark">
+                        <div class="" style="font-size: 16px !important;"> <i class="fas fa-store"></i> Stand
+                            {{numStandSelect}}</div>
+                        <!-- <div class="mb-auto mt-auto" style="font-size: 20px;">
+                            {{selectExpositor.expositor.nombre_comercial.toUpperCase()}}</div> -->
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-4" style="text-align: justify;">
+                        <div class="text-center">
+                            <span class="my-4 text-navy h5">
+                                {{selectExpositor.expositor.nombre_comercial.toUpperCase()}}
+                            </span>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 text-center">
+                                <img [src]="urlImgExp+selectExpositor.expositor.logo" class="img-fluid"
+                                    style="width: 100%;">
+                            </div>
+                            <div class="col-lg-6 mb-auto mt-auto">
+                                <div class="h3" style="font-size: 19px;">
+                                    {{selectExpositor.expositor.razon_social.toUpperCase()}}</div>
+                                <div class="mt-2">
+                                    {{selectExpositor.expositor.acercaDe}}
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="h3" style="font-size: 19px;">Datos</div>
+                        <div class="mt-3 text-center">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div> <i class="fas fa-phone-alt text-primary" style="font-size: 21px;"></i></div>
+                                    <div> {{selectExpositor.expositor.telefono}} </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div><i class="fas fa-envelope text-primary" style="font-size: 21px;"></i></div>
+                                    <div> {{selectExpositor.expositor.email}} </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div><i class="fas fa-globe text-primary" style="font-size: 21px;"></i></div>
+                                    <div> {{selectExpositor.expositor.pagina_web}} </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div><i class="fas fa-map-marked text-primary" style="font-size: 21px;"></i></div>
+                                    <div> {{selectExpositor.expositor.direccion}} </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="h3" style="font-size: 19px;">Stands</div>
+                        <div class="mt-3 row text-center">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-6"><i class="fas fa-store text-primary" style="font-size: 21px;"></i>
+                                <span *ngFor="let s of selectExpositor.expositor.numStandEvento; let i = index">
+                                    {{s}}
+                                    <span
+                                        *ngIf="selectExpositor.expositor.numStandEvento.length > 1 && i < selectExpositor.expositor.numStandEvento.length-1">
+                                        /
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="col-lg-3 "></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="modal-content" *ngIf="selectExpositor != null;"
+                    style="border-left: 5px solid #007bff; border-right: 5px solid #007bff;">
+                    <div class="modal-header py-2">
+                        <span class="modal-title h6">
+                            <i class="fas fa-store"></i> Stand {{numStandSelect}}
+                        </span>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="">
+
+                            <div class="text-center">
+                                
+                                <span class="my-4 text-navy h5">
+                                    {{selectExpositor.expositor.nombre_comercial.toUpperCase()}}
+                                    <i class="fas fa-check-circle text-success small"></i>
+                                </span>
+                                <hr>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-5">
+                                    <img class="" [src]="urlImgExp+selectExpositor.expositor.logo" alt="" width="100%"
+                                        height="100%">
+                                </div>
+
+                                <div class="col-md-7 bg-light p-3 border rounded">
+                                    <div>
+                                        <span class="my-3 h6">
+                                            <span class=""><i class="fas fa-angle-right"></i> Acerca de </span>
+                                            <strong
+                                                class="">{{selectExpositor.expositor.razon_social.toUpperCase()}}</strong>
+                                        </span>
+                                    </div>
+                                    <p>{{selectExpositor.expositor.acercaDe}}</p>
+                                    <div>
+                                        <span class="my-3"><i class="fas fa-angle-right"></i> Datos</span>
+                                    </div>
+
+                                    <ul style="list-style: none;">
+                                        <li class="mt-1">
+                                            <span class="fa-stack fa-xs txt-blueH1">
+                                                <i class="fa fa-circle fa-stack-2x"></i>
+                                                <i class="fa fa-phone-alt fa-stack-1x fa-inverse"></i>
+                                            </span> {{selectExpositor.expositor.telefono}}
+                                        </li>
+                                        <li class="mt-1">
+                                            <span class="fa-stack fa-xs txt-blueH1">
+                                                <i class="fa fa-circle fa-stack-2x"></i>
+                                                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+                                            </span> {{selectExpositor.expositor.email}}
+                                        </li>
+                                        <li class="mt-1">
+                                            <span class="fa-stack fa-xs txt-blueH1">
+                                                <i class="fa fa-circle fa-stack-2x"></i>
+                                                <i class="fas fa-globe fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                            <a href="http://{{selectExpositor.expositor.pagina_web}}" target="_bank">
+                                                {{selectExpositor.expositor.pagina_web}} </a>
+                                        </li>
+                                        <li class="mt-1">
+                                            <span class="fa-stack fa-xs txt-blueH1">
+                                                <i class="fa fa-circle fa-stack-2x"></i>
+                                                <i class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                            {{selectExpositor.expositor.direccion}}
+                                        </li>
+                                    </ul>
+
+                                    <div class="">
+                                        <span class="my-4"> <i class="fas fa-angle-right"></i> Stand</span>
+                                        <div class="mx-5 mt-2">
+                                            <span class="h6" *ngFor="let s of selectExpositor.expositor.numStandEvento">
+                                                <i class="fas fa-store"></i> {{s}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="float-right" *ngIf="stsAsignacion != null">
+                                        <span class="badge badge-light border" style="font-size: 14px;"
+                                            *ngIf="stsAsignacion == '3'">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Stand confirmado
+                                        </span>
+                                        <span class="badge badge-light border" style="font-size: 14px;"
+                                            *ngIf="stsAsignacion == '1' || stsAsignacion == '2'">
+                                            <i class="fas fa-info-circle text-warning"></i>
+                                            Stand reservado
+                                        </span>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="float-right">
+                                        <button class="btn btn-light btn-sm border"
+                                            (click)="findStandsMap(selectExpositor.expositor.numStandEvento)"><i
+                                                class="fas fa-street-view"></i> Mostrar en el plano</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-none">
+                    </div>
+                </div> -->
+                <div class="modal-content" *ngIf="selectExpositor == null;">
+                    <!-- <div class="modal-header py-2">  
+                    style="border-left: 5px solid #007bff; border-right: 5px solid #007bff;"
+                        <span class="modal-title h6">
+                            <i class="fas fa-store"></i> Stand {{numStandSelect}}
+                        </span>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div> -->
+                    <div class="modal-header text-center bg-gradient-dark">
+                        <div class="" style="font-size: 16px !important;"> <i class="fas fa-store"></i> Stand
+                            {{numStandSelect}}</div>
+                        <!-- <div class="">
+                            <i class="fas fa-check-circle text-lime"></i>
+                            Reservame
+                        </div> -->
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <span class="my-4 text-navy h5">
+                                <i class="fas fa-check-circle text-success small"></i>
+                                Reservame
+                            </span>
+                            <hr>
+                        </div>
+                        <div>
+                            <mat-horizontal-stepper linear #stepper>
+                                <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+                                    <form [formGroup]="firstFormGroup">
+                                        <ng-template matStepLabel>Datos personales</ng-template>
+                                        <div class="row">
+                                            <mat-form-field class="col-lg-6">
+                                                <mat-label>Nombre(s)</mat-label>
+                                                <input matInput formControlName="firstCtrl"
+                                                    placeholder="Escriba su nombre..." required>
+                                            </mat-form-field>
+                                            <mat-form-field class="col-lg-6">
+                                                <mat-label>Apellido(s)</mat-label>
+                                                <input matInput formControlName="firstCtrl"
+                                                    placeholder="Escriba su apellido..." required>
+                                            </mat-form-field>
+                                            <mat-form-field class="col-lg-6">
+                                                <mat-label>Teléfono</mat-label>
+                                                <input matInput formControlName="firstCtrl"
+                                                    placeholder="Escriba su Teléfono..." required>
+                                            </mat-form-field>
+                                            <mat-form-field class="col-lg-6">
+                                                <mat-label>Email</mat-label>
+                                                <input matInput formControlName="firstCtrl"
+                                                    placeholder="Escriba su email..." required>
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-sm btn-primary" mat-button
+                                                matStepperNext>Siguiente</button>
+                                        </div>
+                                    </form>
+                                </mat-step>
+                                <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+                                    <form [formGroup]="secondFormGroup">
+                                        <ng-template matStepLabel>Empresa</ng-template>
+                                        <div class="row">
+                                            <mat-form-field class="col-lg-6">
+                                                <mat-label>Nombre de la empresa</mat-label>
+                                                <input matInput formControlName="secondCtrl"
+                                                    placeholder="Escriba el nombre la empresa..." required>
+                                            </mat-form-field>
+                                            <mat-form-field class="col-lg-6">
+                                                <mat-label>Razón social</mat-label>
+                                                <input matInput formControlName="secondCtrl"
+                                                    placeholder="Escriba la razón social..." required>
+                                            </mat-form-field>
+                                            <mat-form-field class="col-lg-6">
+                                                <mat-label>Teléfono de oficina</mat-label>
+                                                <input matInput formControlName="secondCtrl"
+                                                    placeholder="Escriba el teléfono..." required>
+                                            </mat-form-field>
+                                            <mat-form-field class="col-lg-6">
+                                                <mat-label>Giro comercial</mat-label>
+                                                <input matInput formControlName="secondCtrl"
+                                                    placeholder="Escriba el giro comercial..." required>
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <button mat-button matStepperPrevious>Anterior</button>
+                                            <button mat-button matStepperNext>Siguiente</button>
+                                        </div>
+                                    </form>
+                                </mat-step>
+                                <mat-step>
+                                    <ng-template matStepLabel>Enviar solicitud</ng-template>
+                                    <p>Listo</p>
+                                    <div>
+                                        <button mat-button matStepperPrevious>Back</button>
+                                        <button mat-button (click)="stepper.reset()">Reset</button>
+                                    </div>
+                                </mat-step>
+                            </mat-horizontal-stepper>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

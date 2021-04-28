@@ -1,0 +1,2200 @@
+<app-menu-fm></app-menu-fm>
+
+<div class="wrapper">
+
+    <ngx-spinner name="crmSpinner" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader"
+        [fullScreen]="true">
+        <p style="color: white"> Cargando ... </p>
+    </ngx-spinner>
+
+    <div class="content-wrapper ">
+
+        <div class="card" *ngIf="idEventoSelected">
+            <div class="card-header ">
+                <ul class="nav nav-pills">
+                    <li class="nav-item" (click)="miCartera()"><a class="nav-link active" href="#a" data-toggle="tab"><i
+                                class="fas fa-address-book"></i> Mi Cartera</a></li>
+                    <li class="nav-item" (click)="resetFormExpositor(fEx, fCo)"><a class="nav-link" href="#b"
+                            data-toggle="tab"><i class="fas fa-user-plus"></i> Nuevo Cliente</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#c" data-toggle="tab"><i
+                                class="fas fa-file-import"></i> Importar Clientes</a></li>
+                </ul>
+            </div>
+            <div class="card-body ">
+                <div class="tab-content">
+                    <div class="active tab-pane" id="a">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="row">
+                                    <div class="input-group input-group-sm col-lg-8">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="validatedInputGroupSelect"><i
+                                                    class="fas fa-search"></i></label>
+                                        </div>
+                                        <input type="search" class="form-control" placeholder="Busca un cliente"
+                                            [(ngModel)]="searchModel" name="searchModel" style="font-size: 10px;"
+                                            (keyup)="search($event.target.value)">
+                                    </div>
+                                    <div class="input-group input-group-sm col-lg-4">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="validatedInputGroupSelect"><i
+                                                    class="fas fa-filter" style="font-size: 11px;"></i></label>
+                                        </div>
+                                        <select [(ngModel)]="searchPrioridad" name="searchPrioridad"
+                                            class="custom-select" id="validatedInputGroupSelect"
+                                            style="font-size: 10px;" (change)="buscarPrioridad()">
+                                            <option value="0" selected>Todos</option>
+                                            <option value="2">Alta</option>
+                                            <option value="1">Media</option>
+                                            <option value="3">Baja</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="progress rounded elevation-2" style="height: 35px; font-size: 10px;">
+                                    <div class="progress-bar-striped progress-bar-animated bg-danger form-inline"
+                                        role="progressbar" style="width: 18%" aria-valuenow="25" aria-valuemin="0"
+                                        aria-valuemax="100" (click)="filtrarEstatusEmbudo(0)">
+                                        <div class="ml-2">Prospecto</div>
+                                        <div class="ml-auto mr-3">{{countProspecto}}</div>
+                                    </div>
+                                    <div class="progress-bar-striped progress-bar-animated bg-orange form-inline"
+                                        role="progressbar" style="width: 16%" aria-valuenow="25" aria-valuemin="0"
+                                        aria-valuemax="100" (click)="filtrarEstatusEmbudo(1)">
+                                        <div class="ml-2">Contactado</div>
+                                        <div class="ml-auto mr-3">{{countContactado}} </div>
+                                    </div>
+                                    <div class="progress-bar-striped progress-bar-animated bg-warning form-inline"
+                                        role="progressbar" style="width: 17%" aria-valuenow="20" aria-valuemin="0"
+                                        aria-valuemax="100" (click)="filtrarEstatusEmbudo(2)">
+                                        <div class="ml-2">Posible cliente</div>
+                                        <div class="ml-auto mr-3">{{countPosibleCliente}} </div>
+                                    </div>
+                                    <div class="progress-bar-striped progress-bar-animated bg-info form-inline"
+                                        role="progressbar" style="width: 17%" aria-valuenow="15" aria-valuemin="0"
+                                        aria-valuemax="100">
+                                        <div class="ml-2">Stands reservados</div>
+                                        <div class="ml-auto mr-3">{{countReservaStand}} </div>
+                                    </div>
+                                    <div class="progress-bar-striped progress-bar-animated bg-primary form-inline"
+                                        role="progressbar" style="width:16%" aria-valuenow="10" aria-valuemin="0"
+                                        aria-valuemax="100">
+                                        <div class="ml-2">Esperando firma</div>
+                                        <div class="ml-auto mr-3">{{countEsperandoFirma}} </div>
+                                    </div>
+                                    <div class="progress-bar-striped progress-bar-animated bg-success form-inline"
+                                        role="progressbar" style="width: 16%" aria-valuenow="5" aria-valuemin="0"
+                                        aria-valuemax="100">
+                                        <div class="ml-2">Stands vendidos</div>
+                                        <div class="ml-auto mr-3">{{countStandsConfirmados}} </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="row text-center" *ngIf="validRol == false">
+                                    <div class="col-lg-6">
+                                        <button class="btn btn-xs btn-primary" (click)="filtroCartera('a')">Mis
+                                            clientes
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <button class="btn btn-xs btn-secondary" (click)="filtroCartera('b')">Clientes
+                                            Generales </button>
+                                    </div>
+                                </div>
+                                <div class="text-center" *ngIf="validRol == true">
+                                    <button class="btn btn-xs btn-outline-secondary w-100"
+                                        (click)="filtroCartera('b')"><i class="fas fa-sync-alt"></i> Clientes
+                                    </button>
+                                </div>
+                                <div class="card bg-light elevation-1 mt-2 text-center">
+                                    <div class="card-body scrollerOsqi p-0 m-0">
+
+                                        <div id="misExpositores" *ngIf="clientes === 'a'">
+
+                                            <div *ngFor="let exp of misClientes2; let i = index"
+                                                [ngClass]="{'bg-primary': exp.expositor.id == idSelect}">
+
+                                                <div class="p-1 puntero" (click)="miExpositorSelected(i)">
+                                                    <div style="text-align: left;">
+                                                        {{exp.expositor.nombre_comercial}}
+                                                    </div>
+                                                    <div class="badge badge-danger"
+                                                        *ngIf="exp.expositor.estatusCrm == 0">
+                                                        PROSPECTO
+                                                    </div>
+                                                    <div class="badge" style="background-color: #fd7e14;"
+                                                        *ngIf="exp.expositor.estatusCrm == 1">
+                                                        CONTACTADO
+                                                    </div>
+                                                    <div class="badge badge-warning"
+                                                        *ngIf="exp.expositor.estatusCrm == 2">
+                                                        POSIBLE CLIENTE
+                                                    </div>
+                                                    <div class="badge badge-success"
+                                                        *ngIf="exp.expositor.estatusCrm == 3">
+                                                        CLIENTE
+                                                    </div>
+                                                    <div class="badge badge-white border border-dark ml-1"
+                                                        *ngIf="exp.expositor.prioridad == 0">
+                                                        <b>B</b>
+                                                    </div>
+                                                    <div class="badge badge-white border border-dark ml-1"
+                                                        *ngIf="exp.expositor.prioridad == 1">
+                                                        <b>M</b>
+                                                    </div>
+                                                    <div class="badge badge-white border border-dark ml-1"
+                                                        *ngIf="exp.expositor.prioridad == 2">
+                                                        <b>A</b>
+                                                    </div>
+                                                </div>
+                                                <hr class="p-0 m-0">
+                                            </div>
+                                            <div class="text-center" *ngIf="sinResultadosMi == true">
+                                                <div class="alert alert-warning" role="alert" style="font-size: 12px;">
+                                                    No hay resultados.
+                                                </div>
+                                            </div>
+                                            <div *ngIf="!misClientes">
+                                                Aún no tienes expositores asignados.
+                                            </div>
+                                        </div>
+                                        <div id="expositoresGenerales" *ngIf="clientes === 'b'">
+                                            <div *ngFor="let expositor of clientesGenerales2; let a = index"
+                                                [ngClass]="{'bg-primary': expositor.expositor.id == idSelect}">
+                                                <div class="p-1 puntero" (click)="genExpositorSelected(a)">
+                                                    <div style="text-align: left;">
+                                                        {{expositor.expositor.nombre_comercial}}
+                                                    </div>
+                                                    <div class="badge badge-danger"
+                                                        *ngIf="expositor.expositor.estatusCrm == 0">
+                                                        PROSPECTO
+                                                    </div>
+                                                    <div class="badge" style="background-color: #fd7e14;"
+                                                        *ngIf="expositor.expositor.estatusCrm == 1">
+                                                        CONTACTADO
+                                                    </div>
+                                                    <div class="badge badge-warning"
+                                                        *ngIf="expositor.expositor.estatusCrm == 2">
+                                                        POSIBLE CLIENTE
+                                                    </div>
+                                                    <div class="badge badge-success"
+                                                        *ngIf="expositor.expositor.estatusCrm == 3">
+                                                        CLIENTE
+                                                    </div>
+                                                    <div class="badge badge-white border border-dark ml-1"
+                                                        *ngIf="expositor.expositor.prioridad == 0">
+                                                        <b>B</b>
+                                                    </div>
+                                                    <div class="badge badge-white border border-dark ml-1"
+                                                        *ngIf="expositor.expositor.prioridad == 1">
+                                                        <b>M</b>
+                                                    </div>
+                                                    <div class="badge badge-white border border-dark ml-1"
+                                                        *ngIf="expositor.expositor.prioridad == 2">
+                                                        <b>A</b>
+                                                    </div>
+                                                    <div class="badge btn btn-outline-dark ml-1"
+                                                        *ngIf="validRol == true" data-toggle="modal"
+                                                        data-target="#modal-lg"
+                                                        (click)="consAsignacionVendedor(expositor.expositor.id)">
+
+                                                        <i class="fas fa-user-check"></i>
+                                                    </div>
+                                                </div>
+                                                <hr class="p-0 m-0">
+                                            </div>
+                                            <div class="text-center" *ngIf="sinResultadosGen == true">
+                                                <div class="alert alert-warning" role="alert" style="font-size: 12px;">
+                                                    No hay resultados.
+                                                </div>
+                                            </div>
+                                            <div *ngIf="!clientesGenerales">
+                                                Sin expositores.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-9">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row" *ngIf="infoExpositor == false">
+                                            <div class="col-lg-1"></div>
+                                            <div class="col-lg-10">
+                                                <div class="callout callout-success text-center elevation-1"
+                                                    style="height: 230px;">
+                                                    <div style="font-size: 13px;"><b> No tienes algún expositor
+                                                            seleccionado</b></div>
+                                                    <img src="./assets/img_prospectos/embudo03.png" style="width: 45%;">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-1"></div>
+                                        </div>
+                                        <div class="card bg-light elevation-1" *ngIf="infoExpositor == true">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab"
+                                                            role="tablist" aria-orientation="vertical">
+                                                            <a class="nav-link active" style="font-size: 12px;"
+                                                                id="vert-tabs-home-tab" data-toggle="pill"
+                                                                href="#vert-tabs-1" role="tab"
+                                                                aria-controls="vert-tabs-home" aria-selected="true">
+                                                                <i class="fas fa-building" style="font-size: 21px;"></i>
+                                                            </a>
+
+                                                            <a class="nav-link" style="font-size: 12px;"
+                                                                id="vert-tabs-messages-tab" data-toggle="pill"
+                                                                href="#vert-tabs-3" role="tab"
+                                                                aria-controls="vert-tabs-messages"
+                                                                aria-selected="false">
+                                                                <i class="fas fa-address-card"
+                                                                    style="font-size: 21px;"></i>
+                                                            </a>
+                                                            <a class="nav-link" style="font-size: 12px;"
+                                                                id="vert-tabs-settings-tab" data-toggle="pill"
+                                                                href="#vert-tabs-4" role="tab"
+                                                                aria-controls="vert-tabs-settings"
+                                                                aria-selected="false">
+                                                                <i class="fas fa-info-circle"
+                                                                    style="font-size: 21px;"></i>
+                                                            </a>
+                                                            <a class="nav-link" style="font-size: 12px;"
+                                                                id="vert-tabs-profile-tab" data-toggle="pill"
+                                                                href="#vert-tabs-2" role="tab"
+                                                                aria-controls="vert-tabs-profile" aria-selected="false">
+                                                                <i class="fas fa-pencil-ruler"
+                                                                    style="font-size: 21px;"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <div class="tab-content" id="vert-tabs-tabContent">
+                                                            <div class="scroller-tarjeta tab-pane text-center fade show active"
+                                                                id="vert-tabs-1" role="tabpanel"
+                                                                aria-labelledby="vert-tabs-home-tab">
+                                                                <div class="row">
+                                                                    <div class="col-lg-2">
+                                                                        <button *ngIf="validRol == true"
+                                                                            class="btn btn-sm bg-danger elevation-1 mt-2"
+                                                                            style="font-size: 13px; width: 50px;"
+                                                                            (click)="borrarExpositor()"><i
+                                                                                class="fas fa-trash"></i></button>
+                                                                    </div>
+                                                                    <div class="col-lg-8">
+                                                                        <img *ngIf="clienteSeleccionado.logo"
+                                                                            src="{{urlImgEx}}{{clienteSeleccionado.logo}}"
+                                                                            class="img-circle" style="width: 25%;">
+                                                                        <img *ngIf="!clienteSeleccionado.logo"
+                                                                            src="./assets/views_ayuda/dist/img/nouser.png"
+                                                                            class="img-circle" style="width: 25%;">
+                                                                    </div>
+                                                                    <div class="col-lg-2">
+                                                                        <button
+                                                                            class=" btn btn-sm bg-white elevation-1 mt-2"
+                                                                            style="font-size: 13px; width: 50px;"
+                                                                            data-toggle="modal"
+                                                                            data-target="#modal-lg01"
+                                                                            (click)="enviarDatosExpositorEdit()"><i
+                                                                                class="fas fa-user-edit"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mt-2">
+                                                                    <b>{{clienteSeleccionado.nombre_comercial}}</b>
+                                                                </div>
+                                                                <div class="mt-2" style="font-size: 14px;">
+                                                                    {{clienteSeleccionado.direccion}}
+                                                                </div>
+                                                                <div> <a
+                                                                        href="{{clienteSeleccionado.pagina_web}}">{{clienteSeleccionado.pagina_web}}</a>
+                                                                </div>
+                                                                <div class="mt-2">
+                                                                    <div style="font-size: 12px;">
+                                                                        {{clienteSeleccionado.telefono}} /
+                                                                        {{clienteSeleccionado.email}}</div>
+                                                                </div>
+
+                                                                <div class="row mt-2">
+                                                                    <div class="col-lg-2"></div>
+                                                                    <div class="col-lg-4">
+                                                                        <select id="selectEstatusCrm"
+                                                                            [class]="estatusClaseCRM"
+                                                                            [(ngModel)]="selectEstatusCrm"
+                                                                            class="form-control form-control-sm"
+                                                                            (change)="cambiarStatusCrm()">
+                                                                            <option value="0">Prospecto</option>
+                                                                            <option value="1">Contactado</option>
+                                                                            <option value="2">Posible Cliente
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        <select [(ngModel)]="selectPrioridadCrm"
+                                                                            class="form-control form-control-sm"
+                                                                            (change)="cambiarPrioridadCrm()">
+                                                                            <option value="0">Baja</option>
+                                                                            <option value="1">Media</option>
+                                                                            <option value="2">Alta</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-lg-2"></div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="scroller-tarjeta tab-pane text-center fade show"
+                                                                id="vert-tabs-2" role="tabpanel"
+                                                                aria-labelledby="vert-tabs-home-tab">
+                                                                <div class="text-muted" style="font-size: 11px;">
+                                                                    <b>Nota:</b>
+                                                                </div>
+                                                                <textarea [(ngModel)]="inptNewNota"
+                                                                    class="form-control mt-1" rows="2"
+                                                                    required></textarea>
+                                                                <div class="float-right"><button
+                                                                        class="btn btn-xs btn-primary"
+                                                                        [disabled]="!inptNewNota"
+                                                                        (click)="guardarNewNota()">Guardar</button>
+                                                                </div>
+                                                                <hr>
+                                                                <div style="font-size: 12px;">
+                                                                    <ol *ngIf="notasCliente">
+                                                                        <li *ngFor="let nota of notasCliente">
+                                                                            <div
+                                                                                class="rounded bg-white  text-center mt-3 elevation-1">
+                                                                                {{nota.descripcion}}
+                                                                            </div>
+                                                                        </li>
+                                                                    </ol>
+                                                                    <h4 *ngIf="!notasCliente">Sin notas.</h4>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="scroller-tarjeta tab-pane text-center fade show scrollerOsqi05"
+                                                                id="vert-tabs-3" role="tabpanel"
+                                                                aria-labelledby="vert-tabs-home-tab">
+                                                                <div class="mb-1" style="font-size: 20px;">
+                                                                    <b>Contacto:</b>
+                                                                </div>
+                                                                <button
+                                                                    class="btn-flotante02 btn btn-xs btn-success elevation-3"
+                                                                    style="font-size: 10px;" data-toggle="modal"
+                                                                    data-target="#modal-lg06"
+                                                                    (click)="abrirModalContacto(fCS)">
+                                                                    <i class="fas fa-user-plus"></i> Nuevo contacto
+                                                                </button>
+                                                                <div
+                                                                    *ngFor="let contacto of contactoCliente; let z = index">
+
+                                                                    <div class="rounded elevation-1 mt-2"
+                                                                        style="font-size: 11px; border: 1px solid #ccc; border-radius: 16px;">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-5 mt-2 mb-auto">
+                                                                                <div><img *ngIf="contacto.img"
+                                                                                        src="{{urlImgC}}{{contacto.img}}"
+                                                                                        class="img-circle"
+                                                                                        style="width: 50px;">
+                                                                                    <img *ngIf="!contacto.img"
+                                                                                        src="./assets/views_ayuda/dist/img/nouser.png"
+                                                                                        class="img-circle"
+                                                                                        style="width: 50px;">
+                                                                                </div>
+                                                                                <div>{{contacto.nombre}}</div>
+                                                                            </div>
+
+                                                                            <div class="col-lg-5 mt-auto mb-auto">
+                                                                                <div><b>
+                                                                                        <i class="fab fa-whatsapp"
+                                                                                            style="font-size: 15px;"></i>
+                                                                                        {{contacto.telefono}}</b>
+                                                                                </div>
+                                                                                <div><b>
+                                                                                        <i class="far fa-envelope"
+                                                                                            style="font-size: 15px;"></i>
+                                                                                        {{contacto.email}}</b>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-2 mt-0 mr-0">
+                                                                                <div class="btn-group">
+                                                                                    <button type="button"
+                                                                                        class="btn  dropdown-toggle-split"
+                                                                                        data-toggle="dropdown">
+
+                                                                                        <i style="font-size: 14px;"
+                                                                                            class="fas fa-ellipsis-v"></i>
+                                                                                    </button>
+                                                                                    <div class="dropdown-menu">
+                                                                                        <button
+                                                                                            class="btn btn-sm dropdown-item"
+                                                                                            data-toggle="modal"
+                                                                                            data-target="#mensajeriaModal"
+                                                                                            (click)="enviarContacto(z)"><i
+                                                                                                class="fas fa-comments"></i>
+                                                                                            Mensajería</button>
+
+                                                                                        <button
+                                                                                            class="btn btn-sm dropdown-item"
+                                                                                            data-toggle="modal"
+                                                                                            data-target="#modal-lg05"
+                                                                                            (click)="enviarDatosContactoEditar(z)"><i
+                                                                                                class="fas fa-user-edit"
+                                                                                                style="font-size: 13px;"></i>
+                                                                                            Editar</button>
+
+                                                                                        <button
+                                                                                            class="btn btn-sm dropdown-item"
+                                                                                            (click)="eliminarContacto(z)"><i
+                                                                                                class="fas fa-trash"
+                                                                                                style="font-size: 13px;"></i>
+                                                                                            Eliminar</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div *ngIf="!contactoCliente">
+                                                                    <h4 class="mt-5">Sin contactos.</h4>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="tab-pane text-center fade show" id="vert-tabs-4"
+                                                                role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+                                                                <div style="font-size: 20px;"><b>Acerca de esta
+                                                                        Empresa:</b></div>
+                                                                <div class="mt-2" style="font-size: 12px;">
+                                                                    {{clienteSeleccionado.acercaDe}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+                                        <div style="font-size: 12px;" class="row">
+                                            <div class="col-6">
+                                                <b>ACTIVIDADES</b>
+                                            </div>
+                                            <div class="col-6" *ngIf="validRol == false">
+                                                <h5 *ngIf="clientes === 'b'" class="float-right text-danger"><i
+                                                        class="fas fa-exclamation-circle"></i> Sólo puedes registrar
+                                                    actividades a tus expositores.</h5>
+                                            </div>
+                                        </div>
+                                        <div class="card bg-light elevation-1 mt-0">
+                                            <div class="card-body text-center" *ngIf="!actividades">
+                                                <button *ngIf="clientes === 'a' && infoExpositor == true"
+                                                    class=" btn-flotante btn btn-sm border float-right elevation-3 bg-white"
+                                                    style="font-size: 12px;" data-toggle="modal"
+                                                    data-target="#modal-lgActividad">
+                                                    <img src="./assets/img_prospectos/mas.png" style="width: 20px;">
+                                                    Actividad
+                                                </button>
+                                                <button
+                                                    *ngIf="clientes === 'b' && infoExpositor == true && validRol == true"
+                                                    class=" btn-flotante btn btn-sm border float-right elevation-3 bg-white"
+                                                    style="font-size: 12px;" data-toggle="modal"
+                                                    data-target="#modal-lgActividad">
+                                                    <img src="./assets/img_prospectos/mas.png" style="width: 20px;">
+                                                    Actividad
+                                                </button>
+                                                <img src="./assets/img_prospectos/embudo02.png" style="width: 63%;">
+                                            </div>
+                                            <div class="card-body scrollerOsqi02" style="font-size: 13px;"
+                                                *ngIf="actividades">
+                                                <button *ngIf="clientes === 'a'"
+                                                    class=" btn-flotante btn btn-sm border float-right elevation-3 bg-white"
+                                                    style="font-size: 12px;" data-toggle="modal"
+                                                    data-target="#modal-lgActividad">
+                                                    <img src="./assets/img_prospectos/mas.png" style="width: 20px;">
+                                                    Actividad
+                                                </button>
+                                                <button *ngIf="clientes === 'b' && validRol == true"
+                                                    class=" btn-flotante btn btn-sm border float-right elevation-3 bg-white"
+                                                    style="font-size: 12px;" data-toggle="modal"
+                                                    data-target="#modal-lgActividad">
+                                                    <img src="./assets/img_prospectos/mas.png" style="width: 20px;">
+                                                    Actividad
+                                                </button>
+
+                                                <div *ngFor="let act of actividadesExpositor">
+                                                    <div
+                                                        *ngIf="act.tipo == 0 || act.tipo == 1 || act.tipo == 2 || act.tipo == 3">
+                                                        <div class="row text-center" style="font-size: 12px;">
+                                                            <div class=" bg-white elevation-1 border col-lg-3">
+                                                                <b>{{act.fecha_hora | date: 'dd/MM/yyyy'}} </b>
+                                                            </div>
+                                                            <div class="col-lg-9"></div>
+                                                        </div>
+                                                        <div class="mt-2">
+                                                            <div><b>{{act.fecha_hora | date: 'h:mm a'}}</b></div>
+                                                            <div class="form-inline mt-1 text-danger ">
+                                                                <i *ngIf="act.tipo == 0" class="fas fa-handshake"
+                                                                    style="font-size: 20px;"></i>
+                                                                <i *ngIf="act.tipo == 1" class="fas fa-phone"
+                                                                    style="font-size: 20px;"></i>
+                                                                <i *ngIf="act.tipo == 2" class="fas fa-envelope"
+                                                                    style="font-size: 20px;"></i>
+                                                                <i *ngIf="act.tipo == 3" class="fab fa-whatsapp"
+                                                                    style="font-size: 20px;"></i>
+                                                                <div class="ml-1"> {{act.descripcion}}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-primary  mt-2">
+                                                            <div><b>Acción a Tomar:</b></div>
+                                                            <div class="form-inline mt-1">
+                                                                {{act.accion}}
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="row mt-3" *ngIf="act.tipo == 4">
+                                                        <div class="col-lg-2"><b>{{act.fecha_hora | date: 'h:mma'}}</b>
+                                                        </div>
+                                                        <div class="col-lg-3"></div>
+                                                        <div class=" rounded bg-warning col-lg-7 text-center border border-dark"
+                                                            style="font-size: 10px;">
+                                                            El estatus cambió de: <b>{{act.descripcion}}</b> a:
+                                                            <b>{{act.accion}}</b>
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="row mt-3" *ngIf="act.tipo == 5">
+                                                        <div class="col-lg-2"><b>{{act.fecha_hora | date: 'h:mma'}}</b>
+                                                        </div>
+                                                        <div class="col-lg-3"></div>
+                                                        <div class=" rounded bg-warning col-lg-7 text-center border border-dark"
+                                                            style="font-size: 10px;">
+                                                            La prioridad cambió de: <b>{{act.descripcion}}</b> a:
+                                                            <b>{{act.accion}}</b>
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="row mt-3" *ngIf="act.tipo == 6 ">
+                                                        <div class="col-lg-2"><b>{{act.fecha_hora | date: 'h:mma'}}</b>
+                                                        </div>
+                                                        <div class="col-lg-3"></div>
+                                                        <div class=" rounded bg-success col-lg-7 text-center border border-dark"
+                                                            style="font-size: 10px;">
+                                                            {{act.descripcion}}
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="row mt-3" *ngIf=" act.tipo == 7 ">
+                                                        <div class="col-lg-2"><b>{{act.fecha_hora | date: 'h:mma'}}</b>
+                                                        </div>
+                                                        <div class="col-lg-3"></div>
+                                                        <div class=" rounded bg-warning col-lg-7 text-center border border-dark"
+                                                            style="font-size: 10px;">
+                                                            {{act.descripcion}}
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="row mt-3" *ngIf="act.tipo == 8">
+                                                        <div class="col-lg-2"><b>{{act.fecha_hora | date: 'h:mma'}}</b>
+                                                        </div>
+                                                        <div class="col-lg-3"></div>
+                                                        <div class=" rounded bg-primary col-lg-7 text-center border border-dark"
+                                                            style="font-size: 10px;">
+                                                            {{act.descripcion}}
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="row mt-3" *ngIf="act.tipo == 9">
+                                                        <div class="col-lg-2"><b>{{act.fecha_hora | date: 'h:mma'}}</b>
+                                                        </div>
+                                                        <div class="col-lg-3"></div>
+                                                        <div class=" rounded bg-info col-lg-7 text-center border border-dark"
+                                                            style="font-size: 10px;">
+                                                            El stand: <b>{{act.accion}}</b> ha sido enviado al área
+                                                            de
+                                                            reubicación.
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="row mt-3" *ngIf="act.tipo == 10">
+                                                        <div class="col-lg-2"><b>{{act.fecha_hora | date: 'h:mma'}}</b>
+                                                        </div>
+                                                        <div class="col-lg-3"></div>
+                                                        <div class=" rounded bg-danger col-lg-7 text-center border border-dark"
+                                                            style="font-size: 10px;">
+                                                            El stand: <b>{{act.accion}}</b> ha sido cancelado.
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+
+                                        <div class="card bg-light elevation-1 mt-2">
+                                            <div class="card-body text-center" *ngIf="historialExpH.length == 0">
+                                                <img src="./assets/img_prospectos/embudo04.png" style="width: 70%;">
+                                            </div>
+                                            <div class="card-body scrollerOsqi03" *ngIf="historialExpH.length > 0">
+                                                <div class="timeline">
+                                                    <div>
+                                                        <i class="fas fa-clock bg-gray"></i>
+                                                    </div>
+                                                    <br><br>
+                                                    <div class="" *ngFor="let hExpH of historialExpH">
+                                                        <i class="fas" *ngIf="hExpH.tipo != '3'" [ngClass]="{'fa-phone bg-time0': hExpH.tipo == '1',
+                                                            'fa-handshake bg-time1': hExpH.tipo == '0',
+                                                            'fa-envelope bg-time2': hExpH.tipo == '2',
+                                                            'fa-user-edit bg-time4': hExpH.tipo == '4' || hExpH.tipo == '5' ,
+                                                        'fa-check-circle bg-success': hExpH.tipo == '6',
+                                                         'fa-user-clock bg-warning': hExpH.tipo == '7',
+                                                         'fa-user-check bg-primary': hExpH.tipo == '8',
+                                                         'fa-exchange-alt bg-info': hExpH.tipo == '9',
+                                                         'fa-ban bg-danger': hExpH.tipo == '10'}"></i>
+                                                        <i class="fab fa-whatsapp bg-time3"
+                                                            *ngIf="hExpH.tipo == '3'"></i>
+                                                        <div class="timeline-item shadow">
+
+                                                            <div class="timeline-header col-12" style="font-size: 14px;"
+                                                                [ngClass]="{'border-time03': hExpH.tipo == '0' || hExpH.tipo == '1' || hExpH.tipo == '2' || hExpH.tipo == '3',
+                                                                'border-time45': hExpH.tipo == '4' || hExpH.tipo == '5',
+                                                                'border-time610': hExpH.tipo == '6' || hExpH.tipo == '7' || hExpH.tipo == '8' || hExpH.tipo == '9' || hExpH.tipo == '10'}">
+                                                                <span class="float-right text-muted small"> <i
+                                                                        class="fas fa-calendar-alt"></i>
+                                                                    {{hExpH.fecha_hora | date: 'dd/MM/yyyy'}} <i
+                                                                        class="fas fa-clock pl-1"></i>
+                                                                    {{hExpH.fecha_hora | date:
+                                                                    'hh:mm aa'}}</span><br>
+                                                                <span [ngSwitch]="hExpH.tipo">
+                                                                    <span *ngSwitchCase="'0'">
+                                                                        {{hExpH.descripcion}}
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'1'">
+                                                                        {{hExpH.descripcion}}
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'2'">
+                                                                        {{hExpH.descripcion}}
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'3'">
+                                                                        {{hExpH.descripcion}}
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'4'">
+                                                                        El estatus cambio de
+                                                                        <strong
+                                                                            class="text-dark">{{hExpH.descripcion}}</strong>
+                                                                        a <strong
+                                                                            class="text-dark">{{hExpH.accion}}</strong>.
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'5'">
+                                                                        La prioridad cambio de
+                                                                        <strong
+                                                                            class="text-dark">{{hExpH.descripcion}}</strong>
+                                                                        a <strong
+                                                                            class="text-dark">{{hExpH.accion}}</strong>.
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'6'">
+                                                                        El Expositor reservo el stand <strong
+                                                                            class="text-navy">{{hExpH.accion}}</strong>.
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'7'">
+                                                                        Esperando firma del Expositor para el stand
+                                                                        <strong
+                                                                            class="text-navy">{{hExpH.accion}}</strong>.
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'8'">
+                                                                        El Expositor ha confirmado el stand <strong
+                                                                            class="text-navy">{{hExpH.accion}}</strong>.
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'9'">
+                                                                        El Expositor ha sido mandado al área de
+                                                                        reubicación por
+                                                                        el stand <strong
+                                                                            class="text-navy">{{hExpH.accion}}</strong>.<br>
+                                                                        <span class="text-navy">Motivo:
+                                                                        </span>{{hExpH.descripcion}}
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'10'">
+                                                                        El Expositor ha cancelado el stand <strong
+                                                                            class="text-navy">{{hExpH.accion}}</strong>.<br>
+                                                                        <span class="text-navy">Motivo:
+                                                                        </span>{{hExpH.descripcion}}
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div>
+                                                        <i class="fas fa-clock bg-gray"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" tab-pane" id="b">
+                        <div class="text-muted " style="font-size: 14px;"> <b>Información General</b></div>
+                        <form name="formularioExpo" #fEx="ngForm">
+                            <div class="row text-center mt-3">
+                                <div class="col-lg-3">
+                                    <div class="example-form">
+                                        <mat-form-field style="width: 100%">
+                                            <mat-label>Razón social</mat-label>
+                                            <input required matInput name="razonSocial" ngModel maxlength="220">
+                                            <mat-error *ngIf="formD.controls['razonSocial'].errors.required">La
+                                                razon
+                                                social es requerida.</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="example-form">
+                                        <mat-form-field style="width: 100%">
+                                            <mat-label>Nombre comercial</mat-label>
+                                            <input required matInput name="nombreComercial" ngModel maxlength="220">
+                                            <mat-error *ngIf="formD.controls['nombreComercial'].errors.required">El
+                                                nombre comercial es requerido.</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="example-form">
+                                        <mat-form-field style="width: 100%">
+                                            <mat-label>Correo</mat-label>
+                                            <input required matInput name="correo" ngModel maxlength="180">
+                                            <mat-error *ngIf="formD.controls['correo'].errors.required">El correo es
+                                                requerido.</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="example-form">
+                                        <mat-form-field style="width: 100%">
+                                            <mat-label>Página web</mat-label>
+                                            <input required matInput name="paginaWeb" ngModel maxlength="220">
+                                            <mat-error *ngIf="formD.controls['paginaWeb'].errors.required">La página
+                                                web
+                                                es requerida.</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-lg-3">
+                                    <div class="example-form">
+                                        <mat-form-field style="width: 100%">
+                                            <mat-label>Rfc</mat-label>
+                                            <input required matInput name="rfc" ngModel maxlength="20"
+                                                (focusout)="verificarRfc($event)">
+                                            <mat-error *ngIf="formD.controls['rfc'].errors.required">El rfc es
+                                                requerido
+                                                y único.</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="example-form">
+                                        <mat-form-field style="width: 100%">
+                                            <mat-label>Teléfono</mat-label>
+                                            <input required type="tel" matInput name="telefono" ngModel
+                                                onkeyup="this.value=this.value.replace(/[^\d]/,'')" minlength="10"
+                                                maxlength="15">
+                                            <mat-error *ngIf="formD.controls['telefono'].errors.required">El
+                                                teléfono es
+                                                requerido. (10 a 15 dígitos).</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="example-form">
+                                        <mat-form-field style="width: 100%">
+                                            <mat-label>Dirección</mat-label>
+                                            <input required matInput name="direccion" ngModel maxlength="230">
+                                            <mat-error *ngIf="formD.controls['direccion'].errors.required">La
+                                                dirección
+                                                es requerida.</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-lg-4">
+                                    <div class="example-form">
+                                        <mat-form-field style="width: 100%">
+                                            <mat-label>País</mat-label>
+                                            <input required matInput name="pais" ngModel maxlength="200">
+                                            <mat-error *ngIf="formD.controls['pais'].errors.required">El País es
+                                                requerido.</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="example-form">
+                                        <mat-form-field style="width: 100%">
+                                            <mat-label>Estado</mat-label>
+                                            <input required type="text" name="estado" matInput [formControl]="myControl"
+                                                [matAutocomplete]="auto" id="estadoCrm">
+                                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                                <mat-option *ngFor="let option of filteredOptions | async"
+                                                    [value]="option">
+                                                    {{option}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                            <mat-error *ngIf="formD.controls['estado'].errors.required">El Estado es
+                                                requerido.</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4" id="subirImgExpositor">
+                                    <span class="btn btn-primary btn-file btn-sm mt-4">
+                                        <i class="fas fa-camera"></i> Subir logotipo<input type="file"
+                                            id="subirImgExpositor" accept="image/*"
+                                            (change)="seleccionarFotoExpositor($event)">
+                                    </span>
+                                </div>
+                                <div class="col-lg-4" id="eliminarImgExpositor" style="display: none;">
+                                    <button class="btn btn-danger btn-sm mt-4" (click)="eliminarImgExpositor()">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <hr>
+                            <div class="text-muted" style="font-size: 14px;"> <b>Acerca de la Empresa</b></div>
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4">
+                                    <div class="text-muted float-left" style="font-size: 12px;"><b>Escribe algo:</b>
+                                    </div>
+                                    <div class="example-form">
+                                        <mat-form-field style="width: 100%">
+                                            <textarea name="acercaDe" matInput required ngModel maxlength="240"
+                                                style="resize: vertical; max-height: 150px;"></textarea>
+                                            <mat-hint></mat-hint>
+                                            <mat-error *ngIf="formD.controls['acercaDe'].errors.required">La
+                                                descripción
+                                                es
+                                                requerida.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4"></div>
+                            </div>
+
+                            <hr>
+                            <div class="text-muted mt-2" style="font-size: 14px;"> <b>Contacto</b></div>
+                            <form ame="formularioExpo" #fCo="ngForm">
+                                <div class="row text-center mt-3">
+                                    <div class="col-lg-3" id="imgContactoExpositor">
+                                        <span class="btn btn-primary btn-file btn-sm">
+                                            <i class="fas fa-camera"></i> Subir foto<input type="file"
+                                                id="subirImgContactoExpositor" accept="image/*"
+                                                (change)="seleccionarFotoContactoExpo($event)">
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-3" id="elimImgContactoExpositor" style="display: none;">
+                                        <button class="btn btn-danger btn-sm" (click)="eliminarImgContacto()">
+                                            <i class="fas fa-trash"></i> Eliminar
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="example-form">
+                                            <mat-form-field style="width: 100%">
+                                                <mat-label>Nombre</mat-label>
+                                                <input required matInput name="contactoNombre" ngModel maxlength="100">
+                                                <mat-error *ngIf="formC.controls['contactoNombre'].errors.required">
+                                                    El
+                                                    nombre es requerido.</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="example-form">
+                                            <mat-form-field style="width: 100%">
+                                                <mat-label>WhatsApp</mat-label>
+                                                <input required matInput name="contactoWhats" ngModel
+                                                    onkeyup="this.value=this.value.replace(/[^\d]/,'')" minlength="10"
+                                                    maxlength="15">
+                                                <mat-error *ngIf="formC.controls['contactoWhats'].errors.required">
+                                                    El
+                                                    whats
+                                                    es requerido. (10 - 15 dígitos)</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="example-form">
+                                            <mat-form-field style="width: 100%">
+                                                <mat-label>Correo</mat-label>
+                                                <input required matInput name="contactoCorreo" ngModel maxlength="100">
+                                                <mat-error *ngIf="formC.controls['contactoCorreo'].errors.required">
+                                                    El
+                                                    correo es requerido.</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="mt-3 text-center">
+                                <button type="button" class="btn btn-sm btn-success rounded-circle"
+                                    (click)="addContacto(fCo)" [disabled]="!fCo.valid"><i
+                                        class="fas fa-plus"></i></button> <br>
+                                <h4 class="text-muted">Agregar contacto</h4>
+                            </div>
+
+                            <div class="mt-3" *ngIf="hayContactos == true">
+                                <div class="row">
+                                    <div class="col-lg-3"></div>
+                                    <div class="col-lg-6">
+                                        <table class="table table-sm table-bordered table-hover text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Foto</th>
+                                                    <th scope="col">Nombre</th>
+                                                    <th scope="col">WhatsApp</th>
+                                                    <th scope="col">Correo</th>
+                                                    <th scope="col">Eliminar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let ele of arrayContactos; let i = index">
+                                                    <th *ngIf="ele.img == ''"><i class="fas fa-question"></i></th>
+                                                    <th>{{ele.nombre}}</th>
+                                                    <td>{{ele.telefono}}</td>
+                                                    <td>{{ele.email}}</td>
+                                                    <td><button class="btn btn-xs btn-danger"
+                                                            (click)="deleteContacto(i)"><i
+                                                                class="far fa-trash-alt"></i></button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-lg-3"></div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-5">
+                                <button class="btn btn-primary btn-sm"
+                                    [disabled]="!fEx.valid || !hayContactos || varRfc== true || !myControl.value"
+                                    (click)="saveExpositor(fEx, fCo)">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class=" tab-pane" id="c">
+                        <div class="text-muted text-center" style="font-size: 14px;"><b>Esta es una visualización
+                                del
+                                archivo que se tiene que llenar y subir, no se aceptan campos de más.
+                            </b>
+                            <h5 class="text-danger"><b>*Campos obligatorios: </b>Razón Social y Nombre Comercial.</h5>
+                        </div>
+                        <div class="text-muted text-center mt-2" style="font-size: 12px;">(Para tener mayor éxito en el
+                            registro, descargar la plantilla.)</div>
+                        <div class="text-center mt-3 elevation-2 p-1">
+                            <img class="w-75" src="./assets/img_prospectos/EjemploExcel.PNG">
+                        </div>
+                        <div class="row text-center mt-3">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-3">
+                                <span class="btn btn-primary btn-file btn-sm">
+                                    <i class="fas fa-file-upload"></i> Subir excel<input type="file" id="subirExcelFile"
+                                        (change)="onFileChange($event)" multiple="false" accept=".xlsx, .xls, .csv">
+                                </span>
+                            </div>
+                            <div class="col-lg-3">
+                                <a href="./assets/archivos_prospectos/Plantilla.xlsx" class="btn btn-sm bg-primary"><i
+                                        class="fas fa-file-download"></i> Descargar
+                                    excel</a>
+                            </div>
+                            <div class="col-lg-3"></div>
+                        </div>
+                        <div class="mt-3 text-center" *ngIf="loadExcel == true">
+
+                            <div class="alert alert-light alert-dismissible fade show border-dark" role="alert">
+                                <strong *ngIf="numRegistros > 0" class="text-success">NUEVOS REGISTROS:
+                                    {{numRegistros}}</strong>
+                                <br *ngIf="numRegistros > 0">
+                                <strong *ngIf="numNoRegistros > 0" class="text-danger">NO REGISTRADOS:
+                                    {{numNoRegistros}}, asegúrate que todos los campos tengan Nombre comercial y Razón
+                                    social.</strong>
+                                <br *ngIf="numNoRegistros > 0">
+                                <strong *ngIf="numRfcRepetidos > 0" class="text-danger">RFC REPETIDOS:
+                                    {{numRfcRepetidos}} RFC's han sido repetidos.</strong>
+                                <br *ngIf="numRfcRepetidos > 0">
+                                <strong *ngIf="numTelefonosInvalidos > 0" class="text-danger">TELÉFONOS NO REGISTRADOS:
+                                    {{numTelefonosInvalidos}}; mínimo 10 dígitos, máximo 15.</strong>
+                                <br *ngIf="numTelefonosInvalidos > 0">
+                                <strong *ngIf="numContactosRegistrados > 0" class="text-success">CONTACTOS REGISTRADOS:
+                                    {{numContactosRegistrados}}; el nombre y teléfono del contacto es obligatorio para
+                                    registrar.</strong>
+                                <br *ngIf="numContactosRegistrados > 0">
+                                <strong *ngIf="errors != ''" class="text-danger">ERROR: {{errors}}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="containter m-4 pt-4" *ngIf="!idEventoSelected">
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading"><b>Ups! </b><i class="fas fa-frown"></i></h4>
+                <p class="mb-4">Para visualizar esta pantalla debes de seleccionar un evento.</p>
+                <hr>
+                <p class="mt-4 mb-4">En el menú lateral izquierdo podrás seleccionar uno.</p>
+            </div>
+        </div>
+
+
+    </div>
+    <section>
+        <!--  M O D A L  C A R L O S -->
+
+        <div class="modal" id="mensajeriaModal">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+
+                    <div class="modal-header bg-gradient-dark">
+                        <div> <mat-icon>question_answer</mat-icon> Mensajería</div>
+                        <button type="button" class="close text-white " data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <mat-tab-group mat-align-tabs="start">
+                        <ng-container *ngIf="nuevoCliente != undefined">
+                        <mat-tab *ngIf="nuevoCliente.email" >
+                            <ng-template  mat-tab-label>
+                                <i class="fa fa-envelope text-primary mr-1" aria-hidden="true"></i>
+                                <span>Email</span> 
+                              </ng-template>
+                            
+
+                            
+                              <!-- cuerpo del email-->
+
+                            
+                              <div class="modal-body" style="border: 0px ;z-index: 100">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="row text-center">
+                                            <div class="col-lg-8 mb-auto mt-auto">
+                                                <button (click)="cambio()" type="button" class="btn btn-primary btn-xs btnresponsive"><i class="fa fa-plus"></i> Nuevo</button>
+                                            </div>
+                                            <div class="col-lg-2 ">
+                                                <div *ngIf="!btnDelete" class="mt-2">
+                                                    <mat-checkbox  [checked]="eCheckedAll()" (change)="seleccionarTodo($event.checked)">
+
+                                                    </mat-checkbox>
+                                                </div>
+                                            </div>
+                                            <div  class="col-lg-2 mb-auto mt-auto">
+                                                <i (click)="borrarE()" class="fas fa-trash btn text-danger"></i>
+                                            </div>
+
+                                        </div>
+                                        <hr>
+                                        <mat-tab-group >
+                                            <mat-tab *ngIf="countCarlos <1">
+                                                <ng-template mat-tab-label>
+                                                    <i (click)="borrarMat2()" class="fas fa-paper-plane iconTab"></i> Enviados
+                                                </ng-template>
+                                                <div class="table-responsive  table-responsive-lg table-responsive-md table-responsive-sm mt-2 scrollerOsqi2">
+                                                    <table  class="table  table-striped table-hover" style="font-size: 10px;">
+                                                        <tbody>
+                                                            <tr>
+                                                               
+                                                               <th></th>
+                                                              
+                                                            </tr>
+                                                            
+                                                          
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </mat-tab>
+                                            <mat-tab *ngIf="countCarlos">
+                                                <ng-template mat-tab-label>
+                                                    <i class="fas fa-paper-plane iconTab" (click)="borrarMat2()"></i>Enviados
+                                                </ng-template>
+                                                <div class="table-responsive  table-responsive-lg table-responsive-md table-responsive-sm mt-2 scrollerOsqi2">
+                                                    <table  class="table table-success table-striped table-hover" style="font-size: 10px;">
+                                                        <tbody *ngFor="let email of checkTrue; let c = index" >
+                                                            <tr *ngIf="email.status <= 0" class="p-1 puntero" (click)="genEmails(c)">
+                                                                <th><div><mat-checkbox [checked]="email.checked"  (change)="getEmailId(email)"></mat-checkbox></div></th>
+                                                               <th>{{email.asunto}}</th>
+                                                               <th>{{email.creacion | date: "dd/MM/yyyy'"}}</th>
+                                                            </tr>
+                                                            
+                                                          
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </mat-tab>
+
+                                            <mat-tab *ngIf="countCarlos2 <1">
+                                                <ng-template mat-tab-label>
+                                                    <i (click)="borrarMat()" class="fas fa-paper-plane iconTab"></i> Programados
+                                                </ng-template>
+                                                <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm mt-2 scrollerOsqi2">
+                                                    <table class="table table-striped table-hover" style="font-size: 10px;">
+                                                        <tbody >
+                                                            <tr >                                                                
+                                                               <th></th>
+                                                            </tr>
+                                                           
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </mat-tab>
+                                            
+                                            <mat-tab *ngIf="countCarlos2" >
+                                                <ng-template mat-tab-label >
+                                                    <i (click)="borrarMat()" class="fas fa-clock iconTab" ></i> Programados
+                                                </ng-template>
+                                                <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm mt-2 scrollerOsqi2">
+                                                    <table class="table table-warning table-striped table-hover" style="font-size: 10px;">
+                                                        <tbody *ngFor="let emailP of checktrueP; let c = index">
+                                                            <tr *ngIf="emailP.status >= 1" class="p-1 puntero" >
+                                                                <th><div><mat-checkbox [checked]="emailP.checked"  (change)="getEmailIdP(emailP)"></mat-checkbox></div></th>
+                                                               <th>{{emailP.asunto}}</th>
+                                                               <th>{{emailP.creacion | date: "dd/MM/yyyy'"}}</th>
+                                                            </tr>
+                                                           
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </mat-tab>
+                                        </mat-tab-group>
+                                    </div>
+                                    <ng-container *ngIf="emailsele != undefined">
+                                       
+                                    <div class="col-lg-9" *ngIf="!otrapantalla" >
+                                        <div id="pruebaC" class="textdecor" style="font-size: 22px;"> <b>{{emailsele.asunto}}</b></div>
+                                        <div class="mt-1 text-primary" style="font-size: 12px;">{{emailsele.creacion | date:'medium'}}</div>
+                                        <div class="mt-1" style="font-size: 11px;"><b>Para: {{ emailsele.contacto.email}}</b></div>
+                                        <hr class="m-0 mt-1">
+
+                                        <div  class="scrollhor mt-2">
+                                           <div  *ngFor="let nPdf of archivosPdf" class="contenedor ">
+                                                <div *ngIf="nuvoPdf == nPdf.email.id " class="info-box bg-blue adjunto">
+                                                    <span class="info-box-icon "><i class="fas fa-file-word"></i></span>
+                                                    <div class="mb-auto mt-auto ContenedorText" style="font-size: 12px;">
+                                                        <b>{{nPdf.archivo | slice: 37}}</b>
+                                                    </div>
+                                                    <div class="mb-auto mt-auto btn text-white">
+                                                        <i class="fas fa-trash  " style="font-size: 11px;"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                         
+                                        </div>
+                                        <hr>
+                                        <div class="row mt-5">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                                <div class="elevation-2 bg-light rounded p-4" style="font-size: 12px; text-align: justify;">
+                                                    <b> 
+                                                        
+                                                        <div class="mt-3"
+                                                        [ngxSummernoteView]="emailsele.descripcion "
+                                                        >
+                                                            
+                                                        </div>
+                                                    </b> 
+                                                    <ng-container *ngIf="firmasele != undefined">
+                                                    <br>
+                                                    <hr>                                                    
+                                                        <div class="mt-3"
+                                                        [ngxSummernoteView]="firmasele.descripcion "
+                                                        >                                                            
+                                                        </div>
+                                                        <hr>
+                                                        <img *ngIf="firmasele?.archivo" src="{{urlPdfs}}{{firmasele.archivo}}" style="width:100%;
+                                                                height:auto" class="card-img-top" alt="{{firmasele.archivo | slice: 37}}">
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-2"></div>
+                                       
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+
+                                    <div class="col-lg-9" *ngIf="otrapantalla">
+                                        <form [formGroup]="formEmail">
+                                            <ng-container *ngIf="nuevoCliente != undefined">
+
+                                        <div class="textdecor" style="font-size: 17px;"> <b>Para: {{nuevoCliente.email }}</b></div> 
+                                    </ng-container>
+
+                                        <div class="row col-lg-12 text-center">
+                                            <div class="col-lg-6">
+                                                <mat-form-field class=" ancho" style="font-size: 12px;">
+                                                    <mat-label>Asunto:</mat-label>
+                                                    <input formControlName="asunto" matInput>
+                                                </mat-form-field> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <mat-form-field class=" ancho" style="font-size: 12px;">
+                                                    <mat-label>CC:</mat-label>
+                                                    <input matInput>
+                                                </mat-form-field> 
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row col-lg-12 ">
+                                            <div class="col-lg-3 mb-auto mt-auto">
+                                                <div class="upload  btn-xs elevation-1 btnresponsive">
+                                                    <input 
+                                                    (change)="save($event)"
+                                                    type="file" id="ArchivoEmail" class="subir" value="">
+                                                    <i class="fas fa-paperclip"></i> Adjuntar archivo
+                                                </div>
+                                            </div>
+                                            <div  class="col-lg-9 mb-auto mt-auto">
+                                                <div class="scrollhor ">
+                                                    <div *ngFor="let aFirma of archivosFirma; let i = index" class="contenedor" >
+                                                        <div *ngIf="aFirma.tipoAr == '.docx' || aFirma.tipoAr == '.doc' || aFirma.tipoAr == '.txt' " class="info-box bg-blue adjunto">
+                                                            <span class="info-box-icon"><i class="fas fa-file-pdf"></i></span>
+                                                            <div class="mb-auto mt-auto ContenedorText" style="font-size: 12px;">
+                                                                <b>{{aFirma.name}}</b>
+                                                            </div>
+                                                            <div class="mb-auto mt-auto  btn text-white">
+                                                                <i (click)="deleteArchivo(i)" class="fas fa-trash " style="font-size: 11px;"></i>
+                                                            </div>
+                                                        </div>
+
+                                                        <div *ngIf="aFirma.tipoAr == '.pdf'" class="info-box bg-red adjunto">
+                                                            <span class="info-box-icon"><i class="fas fa-file-pdf"></i></span>
+                                                            <div class="mb-auto mt-auto ContenedorText" style="font-size: 12px;">
+                                                                <b>{{aFirma.name}}</b>
+                                                            </div>
+                                                            <div class="mb-auto mt-auto  btn text-white">
+                                                                <i (click)="deleteArchivo(i)" class="fas fa-trash " style="font-size: 11px;"></i>
+                                                            </div>
+                                                        </div>
+                                                   
+                                                        <div *ngIf="aFirma.tipoAr == '.xlsx' || aFirma.tipoAr == '.xls'  " class="info-box bg-green adjunto">
+                                                            <span class="info-box-icon"><i class="fas fa-file-excel"></i></span>
+                                                            <div class="mb-auto mt-auto ContenedorText" style="font-size: 12px;">
+                                                                <b>{{aFirma.name}}</b>
+                                                            </div>
+                                                            <div class="mb-auto mt-auto btn text-white">
+                                                                <i (click)="deleteArchivo(i)" class="fas fa-trash" style="font-size: 11px;"></i>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                        <div *ngIf="aFirma.tipoAr == '.pptx' || aFirma.tipoAr == '.ppsx' || aFirma.tipoAr == '.pps'" class="info-box bg-orange adjunto ">
+                                                            <span class="info-box-icon"><i class="fas fa-file-powerpoint"></i></span>
+                                                            <div class="mb-auto mt-auto ContenedorText" style="font-size: 12px;">
+                                                                <b>{{aFirma.name}}</b>
+                                                            </div>
+                                                            <div class="mb-auto mt-auto  btn">
+                                                                <i (click)="deleteArchivo(i)" class="fas fa-trash " style="font-size: 11px;"></i>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                        <div *ngIf="aFirma.tipoAr == '.jpg' || aFirma.tipoAr == '.jpeg' || aFirma.tipoAr == '.svg' || aFirma.tipoAr == '.ico' || aFirma.tipoAr == '.gif' || aFirma.tipoAr == '.png'" class="info-box bg-light adjunto ">
+                                                            <span class="info-box-icon"><i class="fas fa-file-image"></i></span>
+                                                            <div class="mb-auto mt-auto ContenedorText" style="font-size: 12px;">
+                                                                <b>{{aFirma.name}}</b>
+                                                            </div>
+                                                            <div class="mb-auto mt-auto  btn">
+                                                                <i (click)="deleteArchivo(i)" class="fas fa-trash " style="font-size: 11px;"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="m-0">
+                                            <div class="mt-2">
+                                                
+                                                <div 
+                                                formControlName="descripcion"
+                                                [ngxSummernote]="correo4" ></div>
+                                            </div>
+                                            <div class="row col-lg-12 text-center">
+                                                <div class="col-lg-3 mt-auto mb-auto">
+                                                    <div class="accordion" id="accordionExample">
+                                                        <div class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                            <button class="btn btn-xs btn-light elevation-1 btnresponsive" ><i class="fas fa-pen-alt"></i> Gestionar firmas</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-3 mb-auto mt-auto">
+                                                    <mat-form-field class="ancho">
+                                                        <mat-label style="font-size: 12px;">Mis Firmas</mat-label>
+
+                                                        <mat-select formControlName="firma" disableRipple style="font-size: 12px;">
+                                                          <mat-option  [value]="sFirma.id" *ngFor="let sFirma of showFirma">{{sFirma.nombre}}
+
+                                                          </mat-option>
+                                                         
+                                                        </mat-select>
+                                                      </mat-form-field>
+                                                </div>
+                                                <!--<pre *ngIf="showFirma">{{showFirma | json}}</pre>-->
+
+
+                                                <div class="col-lg-3"></div>
+                                                <div class="btn-group btnresponsive col-lg-3 mb-auto mt-auto" role="group" aria-label="Basic example">
+
+                                                    <button (click)="envioEmail()"
+                                                    [disabled]="!formEmail.valid" 
+                                                    class="btn btn-xs btn-primary "><i class="fas fa-paper-plane"></i> Enviar</button>
+
+
+                                                    <button                                                     
+                                                    data-toggle="collapse" data-target="#Programado" aria-expanded="false" aria-controls="collapse3" type="button" class="btn btn-xs btn-warning"><i class="fas fa-clock"></i></button>
+                                                </div>
+                                            </div>
+                                            <div id="collapseTwo" class="collapse col-lg-12" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                                <div class="card bg-light">
+                                                    <div class="card-body ">
+                                                        <mat-tab-group mat-align-tabs="center" >
+                                                            <mat-tab >
+                                                                <ng-template mat-tab-label >
+                                                                    <i class="fas fa-pen-alt iconTab" style="font-size: 22px;"></i> Crear firma
+                                                                </ng-template>
+                                                                <form [formGroup]="formFirma">
+                                                                <div class="row col-lg-12">                                                                  
+                                                                    <div class="col-lg-5">
+                                                                        <mat-form-field class=" ancho" style="font-size: 12px;">
+                                                                            <mat-label>Nombre de firma:</mat-label>
+                                                                            <input formControlName="nombre" matInput>
+                                                                        </mat-form-field> 
+                                                                    </div>
+                                                                    <div class="col-lg-7"> <div class="upload  btn-xs elevation-0 btnresponsive">
+                                                                        <input 
+                                                                        (change)="updateF($event)"
+                                                                        type="file" id="Firmas" class="subir" value="">
+                                                                        <i class="fas fa-paperclip"></i> Subir Imagen
+                                                                    </div></div>
+                                                                </div>
+                                                                <div class="mt-2">
+                                                                    <div class="mt-2">
+                                                                        <div 
+                                                                            formControlName="descripcion"
+                                                                            [ngxSummernote]="correo5" ></div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                                <hr>
+                                                                <div class="float-right mt-auto mb-auto">
+                                                                    <button 
+                                                                    (click)="saveFirmas()"
+                                                                    [disabled]="!formFirma.valid"
+                                                                    class="btn btn-xs btn-primary btnresponsive">Guardar</button>
+                                                                </div>
+                                                            </mat-tab>
+                                                            <mat-tab >
+                                                                <form [formGroup]="updaFirma">
+                                                                <ng-template  mat-tab-label >
+                                                                    <i class="fas fa-edit iconTab" style="font-size: 22px;"></i> Subir Imagen
+                                                                </ng-template>
+                                                                <div class="row col-lg-12">
+                                                                    <div class="col-lg-4"></div>
+                                                                    <div class="col-lg-4">
+                                                                        <mat-form-field class="ancho">
+                                                                            <mat-label style="font-size: 12px;">Elige entre tus firmas</mat-label>
+                                                                            <mat-select formControlName="firma" (selectionChange)="onEditClick($event.value)" disableRipple style="font-size: 12px;">
+                                                                              <mat-option  *ngFor="let firmasE of showFirma" [value]="firmasE.id">{{firmasE.nombre}}</mat-option>
+                                                                              
+                                                                            </mat-select>
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        <div class="upload  btn-xs elevation-0 btnresponsive">
+                                                                            <input 
+                                                                            (change)="updateF($event)"
+                                                                            type="file" id="Firmas" class="subir" value="">
+                                                                            <i class="fas fa-paperclip"></i> Adjuntar archivo
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <hr class="m-0">
+                                                                <ng-container *ngIf="firmaEmail != undefined"> 
+                                                                <div class="mt-2">
+                                                                                                                                                                                                                  
+                                                                        <div  class="form-group">
+                                                                            <label for="exampleInputEmail1">Asigna un nombre a la nueva firma</label>                                                                           
+                                                                            <input formControlName="nombre" type="text" class="form-control" [value]="nombreEditFirma">
+                                                                           
+                                                                          </div>
+                                                                    <div>
+                                                                        <div *ngIf="firmaEmail?.descripcion" class="border p-3"
+                                                                        formControlName="descripcion"
+                                                                        [ngxSummernote]="correoEdit"
+                                                                        [ngxSummernoteView]="nombreEditdescrip"
+                                                                        >                                                   
+                                                      
+                                                                </div>
+                                                                <div *ngIf="!btnActulizar" class="card w-75">
+                                                                    <div class="card-body" style="width: auto; margin: auto auto;">
+                                                                        <div *ngIf="firmaEmail?.descripcion" class="border p-3"
+                                                                        [ngxSummernoteView]="firmaEmail.descripcion">                                                   
+                                                      
+                                                                </div>
+                                                                <img *ngIf="firmaEmail?.archivo" src="{{urlPdfs}}{{firmaEmail.archivo}}" style="width:100%;
+                                                                height:auto" class="card-img-top" alt="{{firmaEmail.archivo | slice: 37}}">
+                                                                      
+                                                                    </div>
+                                                                  </div>
+                                                                        <!--<div [ngxSummernote]="correo6" ></div>-->
+                                                                    </div>
+                                                                
+                                                                </div>
+                                                            </ng-container>
+                                                                <hr>
+                                                                <div class="float-right mt-auto mb-auto">
+                                                                    <button [disabled]="!updaFirma.valid" (click)="updateFirmas()" class="btn btn-xs btn-primary btnresponsive">Actualizar</button>
+                                                                </div>
+                                                            </form>
+                                                            </mat-tab>
+                                                        </mat-tab-group>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="Programado" class="collapse col-lg-12" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                                <form [formGroup]="formemailPro"> 
+                                                <div class="card bg-light">
+                                                    <div class="card-body ">
+                                                        <div class="textdecor" style="font-size: 14px;"> <b>Enviar para el día:</b></div>
+                                                        <div class="mt-2">
+                                                            <div class="row col-lg-12">
+                                                                <div class="col-lg-6 mt-auto mb-auto">
+                                                                    <input formControlName="fecha_programado"  class="form-control form-control-sm"  type="date" id="start" name="trip-start" value="2020-07-22" min="{{validaDia}}" max="2022-12-31">
+                                                                </div>
+                                                                <div class="col-lg-6 mt-auto mb-auto">
+                                                                    <div class="row col-lg-12 text-center">
+                                                                        <div class="col-lg-6">
+                                                                            <select formControlName="hora_programado" class="form-control form-control-sm">
+                                                                                <option value="Hora">Hora</option>
+                                                                                <option [value]="Hrs" *ngFor="let Hrs of listaHrs">{{Hrs}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-lg-6">
+                                                                            <select formControlName="minuto_programado" class="form-control form-control-sm">
+                                                                                <option value="Minuto">Minuto</option>
+                                                                                <option [value]="mtos" *ngFor="let mtos of listaMnts">{{mtos}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="float-right"><button
+                                                            (click)="horaPro()"
+                                                            [disabled]="formemailPro.invalid || formemailPro.controls['hora_programado'].value == 'Hora' || formemailPro.controls['minuto_programado'].value == 'Minuto' "
+                                                             class="btn btn-xs btn-primary" style="width: 130px;">Programar</button></div> 
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            </mat-tab >
+                        </ng-container>
+
+
+
+                            
+                            
+                            <!-- /.cuerpo del email -->
+                       
+                            <!-- cuerpo de whats-->
+                            <ng-container *ngIf="nuevoCliente != undefined">
+                            <mat-tab *ngIf="nuevoCliente.telefono">
+                                <ng-template mat-tab-label>
+                                    <i class="fab fa-whatsapp text-success mr-1"></i>
+                                    <span  >WhatsApp</span> 
+                                  </ng-template>
+                            <!--------------------------------cuerpo de whats  ---------------------------------------------------------->
+                           
+                            
+                                <form [formGroup]="formTems">
+                                    <div class="col-12">
+                                        <div class="row" style="background-color: #eeeeee">
+                                            <div class="col-lg-8 col-sm-12" style="font-size: 12px">
+                                                <div class="card cardutline direct-chat mb-0"
+                                                    style="background-color: #eeeeee">
+                                                    <div class="card-header" style="background-color: #025f57">
+                                                        <ng-container *ngIf="nuevoCliente != undefined">
+                                                            <div class="row">
+                                                                <img *ngIf="nuevoCliente.img"
+                                                                    src="{{urlImgC}}{{nuevoCliente.img}}"
+                                                                    class="img-circle" style="width: 25px; height: 25px"
+                                                                    class="img-circle">
+                                                                <img *ngIf="!nuevoCliente.img"
+                                                                    src="./assets/views_ayuda/dist/img/nouser.png"
+                                                                    class="img-circle" style="width: 25px; height: 25px"
+                                                                    class="img-circle">
+                                                                <label class="card-title pl-3 text-white">
+                                                                    {{ nuevoCliente.expositor.nombre_comercial }}
+                                                                </label>
+                                                            </div>
+                                                        </ng-container>
+                                                    </div>
+                                                    <!-- /.card-header -->
+                                                    <div class="card-body fondo scrolwhtas" style="height: 440px">
+                                                        <div class="row message-body"
+                                                            *ngFor="let cliente of tTratar; let i = index">
+                                                            <div class="col-sm-12 message-main-sender">
+                                                                <div class="sender">
+                                                                    <div>
+                                                                        {{ cliente.temas }}
+                                                                    </div>
+                                                                    <button type="button" class="close"
+                                                                        (click)="btn(i)">
+                                                                        <span class="text-danger small"><i
+                                                                                class="far fa-trash-alt"></i></span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row message-body"
+                                                            *ngFor="let pdfs of Pdf; let i = index">
+                                                            <div class="col-sm-12 message-main-sender">
+                                                                <div class="sender">
+                                                                    <div class="message-text">
+                                                                        <div class="card">
+                                                                            <div class="card-body p-2">
+                                                                                <div class="row">
+                                                                                    <div class="col-1">
+                                                                                        <i *ngIf="pdfs.tipoAr == '.pdf' "
+                                                                                            class="far fa-file-pdf text-primary text-xl"></i>
+                                                                                        <i *ngIf="pdfs.tipoAr == '.docx' "
+                                                                                            class="far fa-file-word text-primary text-xl"></i>
+                                                                                        <i *ngIf="pdfs.tipoAr == '.xls' "
+                                                                                            class="far fa-file-excel text-primary text-xl"></i>
+                                                                                    </div>
+                                                                                    <div class="col-11 text-right"
+                                                                                        style="font-size: 9px">
+                                                                                        {{ pdfs.name }}
+                                                                                        <i class="fas fa-paperclip"></i>
+                                                                                        <div class="text-right">
+                                                                                            <span class=""><b>{{
+                                                                                                    pdfs.size
+                                                                                                    }}</b></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button type="button" class="close"
+                                                                        (click)="deletePdf(i)">
+                                                                        <span class="text-danger small"><i
+                                                                                class="far fa-trash-alt"></i></span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div></div> -->
+                                                            <!-- <pre *ngIf="Pdf">
+                                    {{Pdf | json}}
+                                    </pre>  -->
+                                                        </div>
+
+                                                        <!-- Conversations are loaded here -->
+                                                    </div>
+                                                    <!-- /.card-body -->
+                                                    <div class="card-footer">
+                                                        <div class="row">
+                                                            <div class="input-group input-group-sm col-11">
+                                                                <input type="text" name="message"
+                                                                    placeholder="Escribir mensaje ..."
+                                                                    class="form-control" formControlName="descripcion"
+                                                                    [(ngModel)]="textoDeInput" [ngClass]="{
+                                        'is-invalid':
+                                          formTems.controls['descripcion'].invalid &&
+                                          formTems.controls['descripcion'].dirty
+                                      }" />
+                                                                <span class="text-danger small" *ngIf="
+                                        formTems.controls['descripcion'].invalid &&
+                                        formTems.controls['descripcion'].dirty
+                                      "></span>
+                                                                <span class="input-group-append">
+                                                                    <div>
+                                                                        <button *ngIf="textoDeInput" (click)="AgregaP()"
+                                                                            class="btn btn-primary btn-sm fa fa-paper-plane"
+                                                                            style="height: 30px"></button>
+                                                                    </div>
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-1 text-right">
+                                                                <!--adjuntar archivos-->
+                                                                <div class="btn btn-secondary btn-sm btn-file">
+                                                                    <i class="fas fa-paperclip"></i>
+                                                                    <input (change)="handleFileSelect($event)"
+                                                                        type="file" #attachment
+                                                                        id="uploadCaptureInputFile" name="attachment"
+                                                                        accept="application/pdf,application/vnd.ms-excel"
+                                                                        multiple="true" />
+                                                                </div>
+                                                            </div>
+                                                            <!--./adjuntar archivos-->
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.card-footer-->
+                                                </div>
+                                                <!--------------------------------Boton de enviar y programar  ---------------------------------------------------------->
+                                                <div class="row float-right pt-2">
+                                                    <div class="text-center mr-2 ml-2">
+                                                        <button *ngIf="!envioY" type="submit"
+                                                            [disabled]="tTratar.length == 0 && Pdf.length == 0"
+                                                            (click)="mostrardatetime()" class="btn btn-warning btn-sm"
+                                                            id="pro">
+                                                            <i class="fa fa-clock" aria-hidden="true"></i>
+                                                            Programar
+                                                        </button>
+                                                    </div>
+                                                    <div class="text-center mr-2 ml-2">
+                                                        <button *ngIf="envioY" type="submit" (click)="ocultardatetime()"
+                                                            class="btn btn-danger btn-sm" id="cancelar">
+                                                            <i class="far fa-times-circle" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="text-center mr-2">
+                                                        <button *ngIf="!envioY"
+                                                            [disabled]="tTratar.length == 0 && Pdf.length == 0"
+                                                            (click)="envioYa()" type="submit"
+                                                            class="btn btn-primary btn-sm" id="eY">
+                                                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                                            Enviar
+                                                        </button>
+                                                    </div>
+                                                    <div class="text-center mr-2">
+                                                        <button *ngIf="envioY" [disabled]="formTems.invalid"
+                                                            (click)="envioP()" type="submit"
+                                                            class="btn btn-primary btn-sm" id="eP">
+                                                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                                            Enviar
+                                                        </button>
+                                                    </div>
+                                                    <button *ngIf="loadPdf" class="btn btn-primary btn-sm"
+                                                        style="width: 180px;" type="button" disabled>
+                                                        <span class="spinner-border spinner-border-sm" role="status"
+                                                            aria-hidden="true"></span>
+                                                        cargando PDF ...
+                                                    </button>
+                                                </div>
+                                                <!--------------------------------/.Boton de enviar y programar   ---------------------------------------------------------->
+                                                <div id="datetime">
+                                                    <!--input fecha y hora-->
+                                                    <div class="row pt-2">
+                                                        <div class="col-6">
+                                                            <input class="form-control form-control-sm"
+                                                                formControlName="fecha_programado" type="date"
+                                                                id="start" name="trip-start" value="{{validaDia}}"
+                                                                min="{{validaDia}}" max="2021-12-31" [ngClass]="{
+                                      'is-invalid':
+                                        formTems.controls['fecha_programado'].invalid &&
+                                        formTems.controls['fecha_programado'].dirty
+                                    }" />
+                                                            <span class="text-danger small" *ngIf="
+                                      formTems.controls['fecha_programado'].invalid &&
+                                      formTems.controls['fecha_programado'].dirty
+                                    "></span>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <input class="form-control form-control-sm"
+                                                                formControlName="hora_programado" type="time" id="appt"
+                                                                name="appt" min="09:00" max="18:00" required [ngClass]="{
+                                      'is-invalid':
+                                        formTems.controls['hora_programado'].invalid &&
+                                        formTems.controls['hora_programado'].dirty
+                                    }" />
+                                                            <span class="text-danger small" *ngIf="
+                                      formTems.controls['hora_programado'].invalid &&
+                                      formTems.controls['hora_programado'].dirty
+                                    "></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/.fecha y hora-->
+                                            </div>
+                                            <!-------------------------------- /. col-8 termina la primera parte---------------------------------------------------------->
+                                            <!--------------------------------col-4 historial segunda parte ---------------------------------------------------------->
+                                            <div class="col-lg-4 col-sm-12 border-right">
+                                                <div class="text-center fixed bg-dark">
+                                                    <i class="fas fa-history"></i> Historial
+                                                </div>
+                                                <div class="card bg-light">
+                                                    <div class="card-body scrolHistorial fondo shadow"
+                                                        style="height: 560px">
+                                                        <!-- <!--------------------------------imagen ---------------------------------------------------------- -->
+                                                        <div *ngIf="fechasH?.length == 0">
+                                                            <img class="w-100"
+                                                                src="./assets/img_prospectos/embudo04.png"
+                                                                style="width: 70%" alt="" />
+                                                        </div>
+                                                        <!-- ------------------------------/.imagen ---------------------------------------------------------->
+                                                        <div class="timeline">
+                                                            <div class="timeline p-0 m-0" *ngFor="let fecha of fechasH">
+                                                                <!--div que encierra -->
+                                                                <div class="elevation-1 border text-center"
+                                                                    style="font-size: 12px; background-color: #e0f3fa">
+                                                                    <!--fecha -->
+                                                                    <b>{{ fecha }}</b>
+                                                                </div>
+                                                                <!--./fecha -->
+                                                                <div *ngFor="let sms of getSmsWFecha(fecha)">
+                                                                    <!--icono de whtas y  cuerpo de mensaje  -->
+                                                                    <i *ngIf="sms.status >= 1"
+                                                                        class="fab fa-whatsapp bg-primary"></i>
+                                                                    <i *ngIf="sms.status <= 0"
+                                                                        class="fas fa-clock bg-warning"></i>
+                                                                    <i *ngIf="sms.tipo >= 1"
+                                                                        class="fas fa-paperclip bg-danger"
+                                                                        aria-hidden="true"></i>
+                                                                    <div class="timeline-item" style="
+                                          font-size: 12px;
+                                          background-color: #e2ffc7;
+                                        ">
+                                                                        <span class="time"><i class="fas fa-clock"></i>
+                                                                            {{ sms.creacion | date: "HH:mm" }}</span>
+                                                                        <div *ngIf="sms.tipo <= 0"
+                                                                            class="timeline-header"
+                                                                            style="font-size: 12px">
+                                                                            {{ sms.descripcion }}
+                                                                        </div>
+                                                                        <div *ngIf="sms.tipo >= 1" class="timeline-item"
+                                                                            style="
+                                            font-size: 12px;
+                                            background-color: #e2ffc7;
+                                          ">
+                                                                            <div class="timeline-header"
+                                                                                style="font-size: 10px;">
+                                                                                <img src="./assets/sms/img/pdf.png"
+                                                                                    style="width: 25px; height: 35px"
+                                                                                    alt="{{ sms.descripcion | slice: 37}}" />
+                                                                                <label class="ml-1"> {{ sms.descripcion
+                                                                                    | slice: 37}}</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--./ fin primer mensaje -->
+                                                            </div>
+                                                            <!--./div que encierra -->
+                                                        </div>
+                                                        <!-- /. time-lime-->
+                                                    </div>
+                                                    <!-- /. card-body-->
+                                                </div>
+                                                <!-- /. card-->
+                                            </div>
+                                            <!-- /. col-4-->
+                                            <!--------------------------------./historial ---------------------------------------------------------->
+                                        </div>
+                                        <!-- /. row-->
+                                    </div>
+                                    <!-- /.col-12 -->
+                                </form>
+                            
+                           
+                            <!-- /.cuerpo de whats -->
+                            <!-- /.cuerpo de whats -->
+                        
+                      
+                    <!-- /.card-body -->
+                </mat-tab>
+            </ng-container>
+            </mat-tab-group>
+                </div>
+                <!-- modal-content -->
+            </div>
+        </div>
+        <!--Fin Modal Carlos-->
+        <!-- fin Modal Carlos -->
+    </section>
+</div>
+
+<!-----------------------------------------------------------------------------------MODAL----------------------------------------------------------------------------------------------------------------------------------------->
+<div class="modal" id="modal-lg01">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header bg-gradient-primary form-inline">
+                <div><i class="fas fa-user-edit"></i> Editar Expositor</div>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"
+                    id="btnCloseModalExpositor">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="text-muted" style="font-size: 14px;"> <b>Información General</b></div>
+                <div class="row text-center">
+                    <div class="col-lg-8 mt-2">
+                        <div class="row text-center mt-3">
+                            <div class="col-lg-3">
+                                <input type="text" [(ngModel)]="razonSocial" class="form-control"
+                                    placeholder="Razón Social" maxlength="250">
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="text" [(ngModel)]="nombreComercial" class="form-control"
+                                    placeholder="Nombre Comercial" maxlength="250">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" [(ngModel)]="direccion" class="form-control" placeholder="Dirección"
+                                    maxlength="250">
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-lg-3">
+                                <input type="text" [(ngModel)]="rfc" class="form-control mt-4" placeholder="RfC"
+                                    (focusout)="verificarRfcEdit($event)" maxlength="20">
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="number" [(ngModel)]="telefono" class="form-control mt-4"
+                                    placeholder="Teléfono" maxlength="15">
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="email" [(ngModel)]="correo" class="form-control mt-4 " placeholder="Correo"
+                                    maxlength="180">
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="text" [(ngModel)]="paginaWeb" class="form-control mt-4"
+                                    placeholder="Página Web" maxlength="250">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <input type="text" [(ngModel)]="pais" class="form-control mt-4" placeholder="País"
+                                    maxlength="250">
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="text" [(ngModel)]="estado" class="form-control mt-4" placeholder="Estado"
+                                    maxlength="250">
+                            </div>
+                            <div class="col-lg-4">
+                                <div id="imgEditExpositor">
+                                    <span class="btn btn-primary btn-file btn-sm mt-4 p-2">
+                                        <i class="fas fa-camera"></i> Subir logo<input type="file"
+                                            id="subirImgEditExpositor" accept="image/*"
+                                            (change)="seleccionarFotoEditExpositor($event)">
+
+                                    </span>
+                                </div>
+                                <div id="elimImgEditExpositor" style="display: none;" class="mt-4 p-2">
+                                    <button class="btn btn-sm btn-outline-danger" (click)="borrarImgEditExpo()">Eliminar
+                                        imagen</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <div class="mt-2"> <b>{{nombreComercial}}</b></div>
+                                <div class="mt-2" style="font-size: 14px;">{{direccion}}</div>
+                                <a href="{{paginaWeb}}">{{paginaWeb}}</a>
+                                <div class="mt-2" style="font-size: 12px;">{{telefono}} / {{correo}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-muted" style="font-size: 14px;"> <b>Acerca de la Empresa</b></div>
+                <div class="row text-center">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-4 mt-4">
+                        <div class="text-muted float-left" style="font-size: 12px;"><b>Escribe algo:</b></div>
+                        <textarea [(ngModel)]="acercaDe" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            maxlength="250"></textarea>
+                    </div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-4 mt-4" style="font-size: 12px;">
+                        <div class=" bg-light rounded border elevation-1 p-1 ">
+                            {{acercaDe}}
+                        </div>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <hr>
+                <div class="text-center mt-3">
+                    <button type="button" class="btn btn-sm btn-primary text-white" style="width: 150px;" [disabled]="!razonSocial || !nombreComercial || !direccion || !rfc
+                        || !telefono || !correo || !paginaWeb || !pais || !estado || !acercaDe"
+                        (click)="updateExpositor()">Guardar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-----------------------------------------------------------------------------------MODAL2----------------------------------------------------------------------------------------------------------------------------------------->
+<div class="modal" id="modal-lg">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-gradient-primary form-inline">
+                <div><i class="fas fa-user-edit"></i> Asignar Vendedor</div>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"
+                    id="btnCloseVendedor">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row" id="vendedorAsignado">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8" *ngFor="let vende of relacionVendedor">
+                        <div class="callout callout-success bg-light elevation-2 ">
+                            <div style="font-size: 12px;">Este cliente ya cuenta con vendedor asignado:</div>
+                            <div class="row">
+                                <div class="col-lg-9" style="font-size: 11px;">
+                                    <div class="mt-2"><b>{{vende.vendedor.nombre}} </b></div>
+                                    <div><b> {{vende.vendedor.telefono}}</b></div>
+                                    <div><b> {{vende.vendedor.email}}</b></div>
+                                </div>
+                                <div class="col-lg-3 text-center mt-2"><img
+                                        src="./assets/views_ayuda/dist/img/nouser.png" style="width: 55px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="float-right"><button class="btn btn-xs btn-danger mb-2" style="width: 130px;"
+                                (click)="eliminarRelacion(vende.id)">Cancelar
+                                Asignación</button></div>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+
+                <div id="asignarVendedor">
+                    <div class="text-muted text-center" style="font-size: 12px;">Asignar vendedor</div>
+                    <div class="row text-center mt-3">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8">
+                            <select [(ngModel)]="selectVendedores" class="form-control form-control-sm">
+                                <option value="0">Selecciona</option>
+                                <option *ngFor="let vend of vendedores" value="{{vend.id}}">{{vend.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                    <div class="float-right mt-3"><button class="btn btn-xs btn-primary" style="width: 130px;"
+                            [disabled]="selectVendedores == 0" (click)="registrarRelacion()">Guardar</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="modal-lgActividad">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-gradient-primary form-inline">
+                <div><i class="fas fa-plus-circle"></i> Crear Actividad</div>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"
+                    id="btnCloseModalAct">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row" style="font-size: 12px;">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                        <div class="text-muted "><b>Tipo de Actividad</b></div>
+                        <select [(ngModel)]="selectTipoActividad" class="form-control form-control-sm mt-1">
+                            <option value="1">Llamada Telefónica</option>
+                            <option value="5"> Cita con el Cliente</option>
+                            <option value="2">Correo Electrónico</option>
+                            <option value="3">Whatsapp</option>
+
+                        </select>
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+                <hr>
+                <div class="row" style="font-size: 12px;">
+                    <div class="col-lg-6">
+                        <div class="text-muted"><b>Descripción de Actividad</b></div>
+                        <textarea class="form-control mt-1" rows="3" [(ngModel)]="inptDescripcionAct" required
+                            maxlength="150"></textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-muted"><b>Acción a Tomar</b></div>
+                        <textarea class="form-control mt-1" rows="3" [(ngModel)]="inptAccionTomar" required
+                            maxlength="150"></textarea>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-center mt-3"><button class="btn btn-xs btn-primary" style="width: 100px;"
+                        [disabled]="!inptDescripcionAct || !inptAccionTomar || !selectTipoActividad || !infoExpositor"
+                        (click)="registrarActividad()">Guardar</button></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal-lg05">
+    <div class="modal-dialog modal-xl ">
+        <div class="modal-content modal">
+            <div class="modal-header bg-gradient-primary form-inline">
+                <div><i class="fas fa-user-edit"></i> Editar Contacto</div>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"
+                    id="btnCloseModalContacto">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <div class="row text-center">
+                    <div class="col-lg-2 mt-4">
+                        <div id="btnSubirFoto">
+                            <span class="btn btn-primary btn-file btn-sm">
+                                <i class="fas fa-camera"></i> Subir foto<input type="file" id="subirImg"
+                                    accept="image/*" (change)="seleccionarFoto($event)">
+                            </span>
+                        </div>
+                        <div id="btnEliminarFoto" style="display: none;">
+                            <button class="btn btn-sm btn-outline-danger" (click)="borrarImgInciG()">Eliminar
+                                imagen</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 mt-4">
+                        <input [(ngModel)]="nombreEditContacto" type="text" class="form-control" placeholder="Nombre"
+                            required maxlength="100">
+                    </div>
+                    <div class="col-lg-2 mt-4">
+                        <input [(ngModel)]="telefonoEditContacto" type="text" class="form-control"
+                            placeholder="Whatsapp" required onkeyup="this.value=this.value.replace(/[^\d]/,'')"
+                            minlength="10" maxlength="15">
+                    </div>
+                    <div class="col-lg-2 mt-4">
+                        <input [(ngModel)]="emailEditContacto" type="email" class="form-control"
+                            pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+                            placeholder="Correo" required maxlength="100">
+                    </div>
+                    <div class="col-lg-4 mt-4">
+                        <div class="rounded elevation-1 bg-light" style="font-size: 11px;">
+                            <div class="row ">
+                                <div class="col-lg-3">
+                                    <div><i class="fas fa-user"></i> Nombre:</div>
+                                    <div><b> {{nombreEditContacto}}</b></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div><i class="fab fa-whatsapp"></i> Whatsapp:</div>
+                                    <div><b> {{telefonoEditContacto}}</b></div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div><i class="fas fa-envelope"></i> Correo:</div>
+                                    <div><b> {{emailEditContacto}}</b></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-center mt-3"><button class="btn btn-xs btn-primary" style="width: 100px;"
+                        [disabled]="!nombreEditContacto || !telefonoEditContacto || !emailEditContacto"
+                        (click)="updateContacto()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!----------------------------------------------REGISTRAR CONTACTO-------------------------------------------------->
+<div class="modal" id="modal-lg06">
+    <div class="modal-dialog modal-xl ">
+        <div class="modal-content modal">
+            <div class="modal-header bg-gradient-primary form-inline">
+                <div><i class="fas fa-user-edit"></i> Nuevo Contacto</div>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"
+                    id="btnCloseModalSaveContacto">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <form name="formularioContactoSave" #fCS="ngForm">
+                    <div class="row text-center">
+                        <div class="col-lg-3 mt-2">
+                            <div id="imgContactoExpositorSave">
+                                <span class="btn btn-primary btn-file btn-sm p-2">
+                                    <i class="fas fa-camera"></i> Subir foto<input type="file"
+                                        id="subirImgContactoExpositorSave" accept="image/*"
+                                        (change)="seleccionarFotoContactoSave($event)">
+                                </span>
+                            </div>
+                            <div id="elimImgContactoExpositorSave" style="display: none;">
+                                <button class="btn btn-sm btn-outline-danger p-2"
+                                    (click)="borrarImgContactoSave()">Eliminar</button>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 mt-2">
+                            <div class="example-form">
+                                <mat-form-field style="width: 100%">
+                                    <mat-label>Nombre</mat-label>
+                                    <input required matInput name="contactoSaveNombre" ngModel maxlength="100">
+                                    <mat-error *ngIf="formCS.controls['contactoSaveNombre'].errors.required">El
+                                        nombre es requerido.</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mt-2">
+                            <div class="example-form">
+                                <mat-form-field style="width: 100%">
+                                    <mat-label>WhatsApp</mat-label>
+                                    <input required matInput name="contactoSaveWhats" ngModel
+                                        onkeyup="this.value=this.value.replace(/[^\d]/,'')" minlength="10"
+                                        maxlength="15">
+                                    <mat-error *ngIf="formCS.controls['contactoSaveWhats'].errors.required">El
+                                        whats
+                                        es requerido. (10 - 15 dígitos)</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mt-2">
+                            <div class="example-form">
+                                <mat-form-field style="width: 100%">
+                                    <mat-label>Correo</mat-label>
+                                    <input required matInput name="contactoSaveCorreo" ngModel maxlength="100">
+                                    <mat-error *ngIf="formCS.controls['contactoSaveCorreo'].errors.required">El
+                                        correo es requerido.</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="text-center mt-3"><button class="btn btn-xs btn-primary" style="width: 100px;"
+                            [disabled]="!fCS.valid" (click)="saveContacto(fCS)">Guardar</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,295 @@
+<app-menu-fm></app-menu-fm>
+<div class="content-wrapper bg-light">
+
+    <div class="container ">
+        <div class="text-center" *ngIf="!fechas">
+            <div class="alert alert-warning mt-5" role="alert">
+                <h2 class="alert-heading"><i class="far fa-smile-beam"></i></h2>
+                <p>Aún no hay horarios registrados.</p>
+                <hr>
+                <p>Dentro del menú: <b>Admin Floor Managers</b>, podrás registrar horarios.</p>
+              </div>
+              
+        </div>
+        <div class="card mt-5" *ngIf="fechas">
+            <div class="card-header ">
+                <ul class="nav nav-pills">
+                    <li *ngFor="let item of fechasFiltradas" class="nav-item"><a role="button"
+                            [ngClass]="{'active': activeBtn == item}" class="nav-link" href="#" data-toggle="tab"
+                            (click)="buscarFM(item)"><i class="fas fa-calendar-alt"></i> {{item | date }}</a></li>
+                </ul>
+            </div>
+            <div class="card-body ">
+                <div class="tab-content">
+
+                    <div class="active tab-pane">
+                        <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm ">
+                            <table class="table table-bordered table-hover table-sm small text-center">
+                                <thead style="background-color: #4385ef;" class="text-white">
+                                    <tr>
+                                        <td><i class="fas fa-map-marked-alt"></i> Zona</td>
+                                        <td><i class="fas fa-user-friends"></i> Floor Manager</td>
+                                        <td><i class="fas fa-clinic-medical"></i> No. Seguro Social</td>
+                                        <td><i class="fas fa-clock"></i> Hora de entrada</td>
+                                        <td><i class="fas fa-clock"></i> Hora de salida</td>
+                                        <td><i class="fas fa-mobile-alt"></i> Celular</td>
+                                        <td><i class="fas fa-envelope"></i> Correo</td>
+                                        <td><i class="fas fa-tools"></i> Equipo</td>
+                                        <td><i class="fas fa-check-circle"></i> Resumen de Actividades</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let items of resultadosHorariosFilter; let i = index">
+                                        <td>{{items.zona.nombre}}</td>
+                                        <td>{{items.detalleUsuario.usuario.nombre}}</td>
+                                        <td>{{items.detalleUsuario.usuario.numero_seguro}}</td>
+                                        <td>{{bH1(i, activeBtn) | date : 'dd/M/yyyy, h:mm a'}} </td>
+                                        <td>{{bH2(i, activeBtn) | date : 'dd/M/yyyy, h:mm a' }} </td>
+                                        <td>{{items.detalleUsuario.usuario.telefono}}</td>
+                                        <td>{{items.detalleUsuario.usuario.email}}</td>
+                                        <td>{{items.equipo}}</td>
+                                        <td><button class="btn btn-xs btn-outline-primary" (click)="modalActividades(items.detalleUsuario.usuario.id)"
+                                                data-toggle="modal" data-target="#modal-lg" style="width: 70px;"><i
+                                                    class="fas fa-eye"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal-lg">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary form-inline">
+
+                <div class="ml-auto"> <i class="fas fa-user-friends"></i> {{nombre}}</div>
+                <div class="ml-auto"> Incidencias totales: <b style="font-size: 17px;">{{numIncidenciasTotales}}</b>
+                </div>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row text-center">
+                    <div class="col-lg-4 text-center">
+                        <div>Celular:</div>
+                        <div class="ml-2"><b>{{tel}}</b></div>
+                    </div>
+                    <div class="col-lg-4  text-center">
+                        <div>Equipo:</div>
+                        <div class="ml-2"><b>{{equipo}}</b></div>
+                    </div>
+                    <div class="col-lg-4  text-center">
+                        <div>Detalles del Equipo:</div>
+                        <div class="ml-2"><b>{{detallesEquipo}}</b></div>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <section class="text-center" *ngIf="loadingInci">
+                        <div>
+                            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;">
+                                <div class="sr-only" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-primary h5">Cargando...</span>
+                    </section>
+                </div>
+                <div class="row" *ngIf="!loadingInci">
+                    
+                    <div class="col-lg-4 text-center">
+                        <div> Incidencias No iniciadas:</div>
+                        <div id="accordion">
+                            <div class=" card card-danger small">
+                                <div class="card-header p-0" data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse1">
+                                    <div class="text-white" style="font-size: 15px;">{{numIncidenciasNoIniciadas}}
+                                        Totales
+                                        <i class="ml-2" style="font-size: 11px;">Ver Detalles <i
+                                                class="fas fa-chevron-down ml-2"></i></i>
+                                    </div>
+                                </div>
+                                <div id="collapse1" class="panel-collapse collapse in ">
+                                    <div class="card-body p-0 m-0">
+                                        <div
+                                            class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm">
+                                            <table class="table table-striped text-center table-sm"
+                                                *ngIf="numIncidenciasNoIniciadas!==0">
+                                                <thead style="background-color: #4385ef;" class="text-white">
+                                                    <tr>
+                                                        <td><i class="fas fa-exclamation-circle"></i> Incidencias</td>
+                                                        <td><i class="fas fa-list"></i> Categoría</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let items of arrCategoriasNoIniciadas; let i = index">
+                                                        <td>{{countNoIniciadasNumero[items]}}</td>
+                                                        <td>{{items}} </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="alert alert-white" role="alert"
+                                                *ngIf="numIncidenciasNoIniciadas===0">
+                                                <h4 class="alert-heading"><b>Sin Incidencias.</b></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div> Incidencias En Proceso:</div>
+                        <div id="accordion">
+                            <div class=" card card-warning small">
+                                <div class="card-header p-0" data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse2">
+                                    <div class="" style="font-size: 15px;">{{numIncidenciasProceso}} Totales
+                                        <i class="ml-2" style="font-size: 11px;">Ver Detalles <i
+                                                class="fas fa-chevron-down ml-2"></i></i>
+                                    </div>
+                                </div>
+                                <div id="collapse2" class="panel-collapse collapse in ">
+                                    <div class="card-body p-0 m-0">
+                                        <div
+                                            class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm">
+                                            <table class="table table-striped text-center table-sm"
+                                                *ngIf="numIncidenciasProceso!==0">
+                                                <thead style="background-color: #4385ef;" class="text-white">
+                                                    <tr>
+                                                        <td><i class="fas fa-exclamation-circle"></i> Incidencias</td>
+                                                        <td><i class="fas fa-list"></i> Categoría</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let items of arrCategoriasProceso; let i = index">
+                                                        <td>{{countProcesoNumero[items]}}</td>
+                                                        <td>{{items}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="alert alert-white" role="alert"
+                                                *ngIf="numIncidenciasProceso===0">
+                                                <h4 class="alert-heading"><b>Sin Incidencias.</b></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div> Incidencias Terminadas:</div>
+                        <div id="accordion">
+                            <div class=" card card-success small">
+                                <div class="card-header p-0" data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse3">
+                                    <div class="" style="font-size: 15px;">{{numIncidenciasTerminadas}} Totales
+                                        <i class="ml-2" style="font-size: 11px;">Ver Detalles <i
+                                                class="fas fa-chevron-down ml-2"></i></i>
+                                    </div>
+                                </div>
+                                <div id="collapse3" class="panel-collapse collapse in ">
+                                    <div class="card-body p-0 m-0">
+                                        <div
+                                            class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm">
+                                            <table class="table table-striped text-center table-sm"
+                                                *ngIf="numIncidenciasTerminadas!==0">
+                                                <thead style="background-color: #4385ef;" class="text-white">
+                                                    <tr>
+                                                        <td><i class="fas fa-exclamation-circle"></i> Incidencias</td>
+                                                        <td><i class="fas fa-list"></i> Categoría</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let items of arrCategoriasTerminadas; let i = index">
+                                                        <td>{{countTerminadasNumero[items]}} </td>
+                                                        <td>{{items}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="alert alert-white" role="alert"
+                                                *ngIf="numIncidenciasTerminadas===0">
+                                                <h4 class="alert-heading"><b>Sin Incidencias.</b></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <!--
+                    <div class="text-center">
+                        <img src="dist/img/mapa3.png" style="width: 50%;">  
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-----------------------------------------------------------------------------------MODAL2----------------------------------------------------------------------------------------------------------------------------------------->
+<div class="modal" id="modal-lg2">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-gradient-primary form-inline">
+                <div><i class="fas fa-tasks"></i> Actividades Adicionales</div>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm mt-3">
+                    <table class="table table-bordered table-hover table-sm small text-center">
+                        <thead style="background-color: #4385ef;" class="text-white">
+                            <tr>
+                                <td><i class="fas fa-list-alt"></i> Tareas</td>
+                                <td><i class="fas fa-align-justify"></i> Descripción</td>
+                                <td><i class="fas fa-toggle-on"></i> Estatus</td>
+                                <td><i class="fas fa-clock"></i> Hora de Registro</td>
+                                <td><i class="fas fa-hourglass"></i> Tiempo Restante</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mover Stand</td>
+                                <td>Desplazar Stand 2 mts.</td>
+                                <td>
+                                    <div><i class="fas fa-check-circle text-success" style="font-size: 23px;"></i></div>
+                                </td>
+                                <td>3h 4m</td>
+                                <td>30 min. <i class="fas fa-history ml-2" style="font-size: 18px;"></i> </td>
+                            </tr>
+                            <tr>
+                                <td>Limpieza de Stand</td>
+                                <td>Limpiar las instalaciones</td>
+                                <td>
+                                    <div><i class="fas fa-times-circle text-danger" style="font-size: 23px;"></i></div>
+                                </td>
+                                <td>3h 4m</td>
+                                <td>30 min. <i class="fas fa-history ml-2" style="font-size: 18px;"></i> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <button class="btn btn-sm btn-danger"><i class="fas fa-plus-circle"></i> Agregar Tarea Adicional
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

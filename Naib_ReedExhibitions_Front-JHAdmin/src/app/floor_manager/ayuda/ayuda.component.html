@@ -1,0 +1,1189 @@
+<body class="layout-fixed bg-light" style="font-family: Segoe UI Emoji;">
+    <div class="wrapper">
+        <app-menu-fm></app-menu-fm>
+        <div class="content-wrapper bg-light">
+            <div class="container-fluid">
+
+                <div class="btn-group col-12 text-white mt-2" role="group" aria-label="Basic example">
+                    <a (click)="cambiarTabAyuda(1)" type="button" class="btn btn-xs bg-gradient-success elevation-2"><i
+                            class="fas fa-list-alt"></i> Manual de procedimientos</a>
+                    <a (click)="cambiarTabAyuda(2)" type="button" class="btn btn-xs bg-gradient-warning elevation-2 text-dark"><i
+                            class="fas fa-clinic-medical"></i> Protección civil</a>
+                    <a (click)="cambiarTabAyuda(3)" type="button" class="btn btn-xs bg-gradient-primary elevation-2"><i
+                            class="fas fa-users"></i> Manual del expositor</a>
+                    <a (click)="cambiarTabAyuda(4)" type="button" class="btn btn-xs bg-gradient-info elevation-2"><i
+                            class="fas fa-coins"></i> Proveedores & Tarifas</a>
+                </div>
+                <hr>
+                <!--Container Tab Manual de procedimientos-->
+                <div class=" container" *ngIf="tabAyuda==1">
+                    <div class="card p-3 container">
+                        <div class="card-header">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#a" data-toggle="tab"><i class="fas fa-store"></i> Stands</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#b" data-toggle="tab"><i class="fas fa-dolly"></i> Montaje</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#c" data-toggle="tab"><i class="fas fa-tools"></i> Servicios</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#d" data-toggle="tab"><i class="fas fa-users-cog"></i> Personal</a></li>
+                            </ul>
+                        </div>
+                        <b class="form-inline float-right">
+                            <div style="font-size: 12px;">
+                                Procedimiento realizado por: <i style="font-size: 15px;">Ricardo Krivac</i>
+                            </div>
+                            <div class="ml-3" style="font-size: 12px;">
+                                Ult. Act.: <i style="font-size: 15px;">30/08/20</i>
+                            </div>
+                        </b>
+                        <div class="card-body ">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="a">
+                                    <ul>
+                                        <li>
+                                            <div class="rounded bg-light p-2 mt-3 elevation-1">
+                                                <div class="row ">
+                                                    <div class="col-lg-8">
+                                                        <div style="font-size: 13px;" class="mt-2">Espacio de stand invadido</div>
+                                                        <div style="font-size: 12px;" class="mt-2"><b> En caso de que un stand tenga obstrucciones con su espacio establecido, 
+                                                            se tiene que llevar a cabo un standar de medición.</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 text-center">
+                                                        <img class="mt-2" src="../../../assets/src_ayuda/invadido01.png" style="width: 90px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="rounded bg-light p-2 mt-3 elevation-1" style="font-size: 12px;">
+                                                <div class="row ">
+                                                    <div class="col-lg-8">
+                                                        <div style="font-size: 13px;" class="mt-2">Espacio de stand excedido</div>
+                                                        <div style="font-size: 12px;" class="mt-2"><b>  Cuando un stand sobrepasa las dimensiones requeridas para su establecimiento se deben de checar los
+                                                             requerimentos para dicho stand y hacer cumplir con su armado correcto.</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 text-center">
+                                                        <img class="mt-2" src="../../../assets/src_ayuda/excedido01.png" style="width: 90px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                                <div class=" tab-pane" id="b">
+                                    <ul>
+                                        <li>
+                                            <div class="rounded bg-light p-2 mt-3 elevation-1">
+                                                <div class="row ">
+                                                    <div class="col-lg-8">
+                                                        <div style="font-size: 13px;" class="mt-2">Espacio de stand invadido</div>
+                                                        <div style="font-size: 12px;" class="mt-2"><b> En caso de que un stand tenga obstrucciones con su espacio establecido, 
+                                                            se tiene que llevar a cabo un standar de medición.</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 text-center">
+                                                        <img class="mt-2" src="../../../assets/src_ayuda/invadido01.png" style="width: 90px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="rounded bg-light p-2 mt-3 elevation-1" style="font-size: 12px;">
+                                                <div class="row ">
+                                                    <div class="col-lg-8">
+                                                        <div style="font-size: 13px;" class="mt-2">Espacio de stand excedido</div>
+                                                        <div style="font-size: 12px;" class="mt-2"><b>  Cuando un stand sobrepasa las dimensiones requeridas para su establecimiento se deben de checar los
+                                                             requerimentos para dicho stand y hacer cumplir con su armado correcto.</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 text-center">
+                                                        <img class="mt-2" src="../../../assets/src_ayuda/excedido01.png" style="width: 90px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                                <div class=" tab-pane" id="c">
+                                    <ul>
+                                        <li>
+                                            <div class="rounded bg-light p-2 mt-3 elevation-1">
+                                                <div class="row ">
+                                                    <div class="col-lg-8">
+                                                        <div style="font-size: 13px;" class="mt-2">Espacio de stand invadido</div>
+                                                        <div style="font-size: 12px;" class="mt-2"><b> En caso de que un stand tenga obstrucciones con su espacio establecido, 
+                                                            se tiene que llevar a cabo un standar de medición.</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 text-center">
+                                                        <img class="mt-2" src="../../../assets/src_ayuda/invadido01.png" style="width: 90px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="rounded bg-light p-2 mt-3 elevation-1" style="font-size: 12px;">
+                                                <div class="row ">
+                                                    <div class="col-lg-8">
+                                                        <div style="font-size: 13px;" class="mt-2">Espacio de stand excedido</div>
+                                                        <div style="font-size: 12px;" class="mt-2"><b>  Cuando un stand sobrepasa las dimensiones requeridas para su establecimiento se deben de checar los
+                                                             requerimentos para dicho stand y hacer cumplir con su armado correcto.</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 text-center">
+                                                        <img class="mt-2" src="../../../assets/src_ayuda/excedido01.png" style="width: 90px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                                <div class=" tab-pane" id="d">
+                                    <div class="row mt-3">
+                                        <div class="col-lg-4">
+                                            <ul>
+                                                <li>
+                                                    <div class="rounded bg-light p-2 elevation-1">
+                                                        <div>
+                                                            <b>Juan Perez</b>
+                                                        </div>
+                                                        <div>
+                                                            Andenes
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <ul>
+                                                <li>
+                                                    <div class="rounded bg-light p-2 elevation-1">
+                                                        <div>
+                                                            <b>Miguel Martinez</b>
+                                                        </div>
+                                                        <div>
+                                                            Unidades grandes, salón B
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <ul>
+                                                <li>
+                                                    <div class="rounded bg-light p-2 elevation-1">
+                                                        <div>
+                                                            <b>Pepe Rodriguez</b>
+                                                        </div>
+                                                        <div>
+                                                            Unidades pequeñas, salón A
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Container Tab Manual de procedimientos-->
+
+                <!--Container Tab Protecccion Civil-->
+                <div class="card p-3 container" *ngIf="tabAyuda==2">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" style="font-size: 12px;" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-1" role="tab" aria-controls="vert-tabs-home" aria-selected="true">NOM-001-STPS-2008</a>
+                                <a class="nav-link" style="font-size: 12px;" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-2" role="tab" aria-controls="vert-tabs-profile" aria-selected="false">NOM-002-STPS-2010</a>
+                                <a class="nav-link" style="font-size: 12px;" id="vert-tabs-messages-tab" data-toggle="pill" href="#vert-tabs-3" role="tab" aria-controls="vert-tabs-messages" aria-selected="false">NOM-017-STPS-2008</a>
+                                <a class="nav-link" style="font-size: 12px;" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-4" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">NOM-018-STPS-2015</a>
+                                <a class="nav-link" style="font-size: 12px;" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-5" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">NOM-026-STPS-2008</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="tab-content" id="vert-tabs-tabContent">
+                                <div class="tab-pane fade show active" id="vert-tabs-1" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+                                    <div class="callout callout-warning">
+                                        <div style="font-size: 12px;">Establecer las condiciones de seguridad de los edificios, locales, instalaciones y áreas en los centros de trabajo para su adecuado funcionamiento y conservación, con la finalidad de prevenir riesgos a los trabajadores.</div>
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <a target="_blank" href="../../../assets/src_ayuda/normas/NOM-035-STPS-2018.pdf">
+                                            <button class="btn btn-warning btn-sm" style="width: 250px;">
+                                                <i class="fas fa-file-pdf"></i>Documento completo
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade show" id="vert-tabs-2" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+                                    <div class="callout callout-warning">
+                                        <div style="font-size: 12px;">Establecer las condiciones de seguridad de los edificios, locales, instalaciones y áreas en los centros de trabajo para su adecuado funcionamiento y conservación, con la finalidad de prevenir riesgos a los trabajadores.</div>
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <a target="_blank" href="../../../assets/src_ayuda/normas/NOM-035-STPS-2018.pdf">
+                                            <button class="btn btn-warning btn-sm" style="width: 250px;">
+                                                <i class="fas fa-file-pdf"></i>Documento completo
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade show" id="vert-tabs-3" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+                                    <div class="callout callout-warning">
+                                        <div style="font-size: 12px;">Establecer las condiciones de seguridad de los edificios, locales, instalaciones y áreas en los centros de trabajo para su adecuado funcionamiento y conservación, con la finalidad de prevenir riesgos a los trabajadores.</div>
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <a target="_blank" href="../../../assets/src_ayuda/normas/NOM-035-STPS-2018.pdf">
+                                            <button class="btn btn-warning btn-sm" style="width: 250px;">
+                                                <i class="fas fa-file-pdf"></i>Documento completo
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade show" id="vert-tabs-4" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+                                    <div class="callout callout-warning">
+                                        <div style="font-size: 12px;">Establecer las condiciones de seguridad de los edificios, locales, instalaciones y áreas en los centros de trabajo para su adecuado funcionamiento y conservación, con la finalidad de prevenir riesgos a los trabajadores.</div>
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <a target="_blank" href="../../../assets/src_ayuda/normas/NOM-035-STPS-2018.pdf">
+                                            <button class="btn btn-warning btn-sm" style="width: 250px;">
+                                                <i class="fas fa-file-pdf"></i>Documento completo
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade show" id="vert-tabs-5" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+                                    <div class="callout callout-warning">
+                                        <div style="font-size: 12px;">Establecer las condiciones de seguridad de los edificios, locales, instalaciones y áreas en los centros de trabajo para su adecuado funcionamiento y conservación, con la finalidad de prevenir riesgos a los trabajadores.</div>
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <a target="_blank" href="../../../assets/src_ayuda/normas/NOM-035-STPS-2018.pdf">
+                                            <button class="btn btn-warning btn-sm" style="width: 250px;">
+                                                <i class="fas fa-file-pdf"></i>Documento completo
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Container Tab Protecccion Civil-->
+
+                <!--Container Tab MANUAL DEL EXPOSITOR-->
+                <div class=" container" *ngIf="tabAyuda==3">
+                    <div class="card">
+                        <div class="card-header  card-outline card-primary">
+                            <div class="row">
+                                <div class="col-lg-6 form-inline">
+                                    <div>
+                                        <img src="../../../assets/src_ayuda/ebs.png" style="width: 7rem;">
+                                    </div>
+                                    <div class="ml-2">Evento de Prueba 2020 </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="btn-group mt-1 text-white elevation-1" role="group">
+                                        <a type="button" class="btn btn-xs btn-primary" style="width: 90px;"><i class="fas fa-store"></i> Sala A</a>
+                                        <a type="button" class="btn btn-xs btn-primary" style="width: 90px;"><i class="fas fa-store"></i> Sala B</a>
+                                        <a type="button" class="btn btn-xs btn-primary" style="width: 90px;"><i class="fas fa-store"></i> Sala C</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="ml-auto mt-2">01 - 02 oct. 2020</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="scrollhor">
+                                <div class="">
+                                    <ul class="nav nav-pills">
+                                        <li class="nav-item"><a class="nav-link active" href="#a" data-toggle="tab"><i class="fas fa-dolly"></i> Montaje</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#b" data-toggle="tab"><i class="fas fa-id-badge"></i> Gafetes</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#c" data-toggle="tab"><i class="fas fa-calendar-alt"></i> Evento</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#d" data-toggle="tab"><i class="fas fa-truck-loading"></i> Desmontaje</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#e" data-toggle="tab"><i class="fas fa-tools"></i> Servicios Adicionales</a></li>
+                                        <!-----<li class="nav-item"><a class="nav-link" href="#f" data-toggle="tab"><i class="fas fa-car"></i> Estacionamientos</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#g" data-toggle="tab"><i class="fas fa-coffee"></i> Cafetería</a></li>---->
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="a">
+                                    <div class="text-center text-muted mt-3">
+                                        <i class="fas fa-clock"></i> Horarios
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-lg-6">
+                                            <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm  ">
+                                                <table class="table table-striped table-bordered table-hover table-sm small text-center ">
+                                                    <thead style="background-color: #4385ef;" class="text-white">
+                                                        <tr>
+                                                            <td><i class="fas fa-calendar-check"></i> Día</td>
+                                                            <td><i class="fas fa-clipboard-list"></i> Orden del Día</td>
+                                                            <td><i class="fas fa-clock"></i> Inicio</td>
+                                                            <td><i class="fas fa-clock"></i> Fin</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Trazo de salas "A" (Grupo SCH)</td>
+                                                            <td>00:01</td>
+                                                            <td>08:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Montaje de carpa (IFAHTO)</td>
+                                                            <td>00:00</td>
+                                                            <td>23:59</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Trazo de sals B, C y D</td>
+                                                            <td>08:00</td>
+                                                            <td>11:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Montaje de CCTV (praga)</td>
+                                                            <td>11:00</td>
+                                                            <td>22:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Trazo de salas "A" (Grupo SCH)</td>
+                                                            <td>00:01</td>
+                                                            <td>08:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Montaje de carpa (IFAHTO)</td>
+                                                            <td>00:00</td>
+                                                            <td>23:59</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Trazo de sals B, C y D</td>
+                                                            <td>08:00</td>
+                                                            <td>11:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Montaje de CCTV (praga)</td>
+                                                            <td>11:00</td>
+                                                            <td>22:00</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm  ">
+                                                <table class="table table-striped table-bordered table-hover table-sm small text-center ">
+                                                    <thead style="background-color: #4385ef;" class="text-white">
+                                                        <tr>
+                                                            <td><i class="fas fa-calendar-check"></i> Día</td>
+                                                            <td><i class="fas fa-clipboard-list"></i> Orden del Día</td>
+                                                            <td><i class="fas fa-clock"></i> Inicio</td>
+                                                            <td><i class="fas fa-clock"></i> Fin</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Todos los stands</td>
+                                                            <td>00:01</td>
+                                                            <td>08:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Detalles dentro de su stand</td>
+                                                            <td>00:00</td>
+                                                            <td>23:59</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Montaje de alfombra</td>
+                                                            <td>08:00</td>
+                                                            <td>11:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Todos los stands</td>
+                                                            <td>00:01</td>
+                                                            <td>08:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Detalles dentro de su stand</td>
+                                                            <td>00:00</td>
+                                                            <td>23:59</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Montaje de alfombra</td>
+                                                            <td>08:00</td>
+                                                            <td>11:00</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="b">
+                                    <div class="text-center text-muted mt-3">
+                                        <i class="fas fa-clock"></i> Horarios
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-lg-6">
+                                            <div class="text-center">Registro y Entrega</div>
+                                            <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm ">
+                                                <table class="table table-striped table-bordered table-hover table-sm small text-center ">
+                                                    <thead style="background-color: #4385ef;" class="text-white">
+                                                        <tr>
+                                                            <td><i class="fas fa-calendar-check"></i> Día</td>
+                                                            <td><i class="fas fa-clipboard-list"></i> Orden del Día</td>
+                                                            <td><i class="fas fa-clock"></i> Inicio</td>
+                                                            <td><i class="fas fa-clock"></i> Fin</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>30 de Sept.</th>
+                                                            <td>Entrega de gafetes para expositores, registro sala "C"</td>
+                                                            <td>14:00</td>
+                                                            <td>19:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Entrega de gafetes para expositores y visitantes</td>
+                                                            <td>08:00</td>
+                                                            <td>19:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Entrega de gafetes a visitantes</td>
+                                                            <td>08:30</td>
+                                                            <td>19:00</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="text-center">Lectora de Gafetes</div>
+                                            <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm ">
+                                                <table class="table table-striped table-bordered table-hover table-sm small text-center ">
+                                                    <thead style="background-color: #4385ef;" class="text-white">
+                                                        <tr>
+                                                            <td><i class="fas fa-calendar-check"></i> Día</td>
+                                                            <td><i class="fas fa-clock"></i> Inicio</td>
+                                                            <td><i class="fas fa-clock"></i> Fin</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>30 de Sept.</th>
+                                                            <td>14:00</td>
+                                                            <td>19:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>08:00</td>
+                                                            <td>20:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>08:30</td>
+                                                            <td>21:00</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="c">
+                                    <div class="row mt-3">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-8">
+                                            <div class="text-muted text-center" style="font-size: 11px;">Contacto</div>
+                                            <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm mt-4">
+                                                <table class="table table-bordered table-hover table-sm small text-center ">
+                                                    <thead style="background-color: #4385ef;" class="text-white">
+                                                        <tr>
+                                                            <td><i class="fas fa-user"></i> Nombre</td>
+                                                            <td><i class="fas fa-mobile-alt"></i> Celular</td>
+                                                            <td><i class="fas fa-map-marker-alt"></i> Lugar</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Juan Perez</td>
+                                                            <td><i class="fab fa-whatsapp" style="font-size: 16px;"></i> 55 7896 7425</td>
+                                                            <td>Bestíbulo A</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+                                    <hr>
+                                    <div class="text-center text-muted mt-3">
+                                        <i class="fas fa-clock"></i> Horarios
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-lg-6">
+                                            <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm ">
+                                                <table class="table table-bordered table-hover table-striped  table-sm small text-center ">
+                                                    <thead style="background-color: #4385ef;" class="text-white">
+                                                        <tr>
+                                                            <td><i class="fas fa-calendar-check"></i> Día</td>
+                                                            <td><i class="fas fa-clipboard-list"></i> Orden del Día</td>
+                                                            <td><i class="fas fa-clock"></i> Inicio</td>
+                                                            <td><i class="fas fa-clock"></i> Fin</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Auditorio Congreso Internacional Sala "A" </td>
+                                                            <td>09:00</td>
+                                                            <td>14:30</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Ingreso a expositores y decoradores para limpieza</td>
+                                                            <td>07:00</td>
+                                                            <td>11:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Inauguración</td>
+                                                            <td>11:05</td>
+                                                            <td>11:15</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Exposición</td>
+                                                            <td>11:00</td>
+                                                            <td>19:30</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Auditorio Logistic Talk 3 sala "A"</td>
+                                                            <td>11:30</td>
+                                                            <td>18:30</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Auditorio ANIERM Comercio Exterior sala "D" </td>
+                                                            <td>10:00</td>
+                                                            <td>13:45</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Auditorio Logistic Talk 1 sala "D" </td>
+                                                            <td>11:45</td>
+                                                            <td>18:30</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>01 de Oct.</th>
+                                                            <td>Auditorio Logistic Talk 2 sala "C"</td>
+                                                            <td>12:00</td>
+                                                            <td>18:45</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm ">
+                                                <table class="table table-bordered table-hover table-striped table-sm small text-center ">
+                                                    <thead style="background-color: #4385ef;" class="text-white">
+                                                        <tr>
+                                                            <td><i class="fas fa-calendar-check"></i> Día</td>
+                                                            <td><i class="fas fa-clipboard-list"></i> Orden del Día</td>
+                                                            <td><i class="fas fa-clock"></i> Inicio</td>
+                                                            <td><i class="fas fa-clock"></i> Fin</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Auditorio Congreso Internacional Sala "A"</td>
+                                                            <td>09:00</td>
+                                                            <td>14:30</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Ingreso a expositores y decoradores para limpieza</td>
+                                                            <td>07:00</td>
+                                                            <td>11:00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Inauguración</td>
+                                                            <td>11:05</td>
+                                                            <td>11:15</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Exposición</td>
+                                                            <td>11:00</td>
+                                                            <td>19:30</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Auditorio Logistic Talk 3 sala "A"</td>
+                                                            <td>11:30</td>
+                                                            <td>18:30</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Auditorio ANIERM Comercio Exterior sala "D" </td>
+                                                            <td>10:00</td>
+                                                            <td>13:45</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Auditorio Logistic Talk 1 sala "D" </td>
+                                                            <td>11:45</td>
+                                                            <td>18:30</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>02 de Oct.</th>
+                                                            <td>Auditorio Logistic Talk 2 sala "C"</td>
+                                                            <td>12:00</td>
+                                                            <td>18:45</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="d">
+                                    <div class="text-center text-muted mt-3">
+                                        <i class="fas fa-history"></i> Horario continuo
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-8">
+                                            <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm mt-2">
+                                                <table class="table table-bordered table-hover table-sm small text-center ">
+                                                    <thead style="background-color: #4385ef;" class="text-white">
+                                                        <tr>
+                                                            <td><i class="fas fa-calendar-check"></i> Día</td>
+                                                            <td><i class="fas fa-clock"></i> Inicio</td>
+                                                            <td><i class="fas fa-clock"></i> Fin</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Viernes 02 de Octubre</td>
+                                                            <td>21:00 hrs</td>
+                                                            <td>06:00 hrs</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane" id="e">
+                                    <div class="text-center text-muted mt-3">
+                                        <i class="fas fa-clock"></i> Horarios (Centro Citibanamex)
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-8">
+                                            <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm mt-2">
+                                                <table class="table table-bordered table-hover table-sm small text-center ">
+                                                    <thead style="background-color: #4385ef;" class="text-white">
+                                                        <tr>
+                                                            <td><i class="fas fa-tools"></i> Servicio</td>
+                                                            <td><i class="fas fa-building"></i> Empresa</td>
+                                                            <td><i class="fas fa-calendar-check"></i> Días de Servicio</td>
+                                                            <td><i class="fas fa-clock"></i>Horario de Inicio</td>
+                                                            <td><i class="fas fa-clock"></i>Horario de Fin</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>Electricidad</th>
+                                                            <td>Empresa 01</td>
+                                                            <td>L - V</td>
+                                                            <td>08:00</td>
+                                                            <td>20:00</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Internet & Telefonía</th>
+                                                            <td>Empresa 02</td>
+                                                            <td>L, Ma. & V</td>
+                                                            <td>08:00</td>
+                                                            <td>20:00</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Servicio de Limpieza</th>
+                                                            <td>Empresa 03</td>
+                                                            <td>L - V</td>
+                                                            <td>08:00</td>
+                                                            <td>20:00</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Alimentos & Bebidas</th>
+                                                            <td>Empresa 04</td>
+                                                            <td>L, J & V</td>
+                                                            <td>08:00</td>
+                                                            <td>20:00</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Agua & Drenaje</th>
+                                                            <td>Empresa 05</td>
+                                                            <td>L & Mi.</td>
+                                                            <td>08:00</td>
+                                                            <td>20:00</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Aire</th>
+                                                            <td>Empresa 06</td>
+                                                            <td>L, Mi. & J</td>
+                                                            <td>08:00</td>
+                                                            <td>20:00</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Colganteo & Riggeo</th>
+                                                            <td>Empresa 07</td>
+                                                            <td>L - V</td>
+                                                            <td>08:00</td>
+                                                            <td>20:00</td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="f">
+                                    <div class="text-center text-muted mt-3 h5">
+                                        <i class="fas fa-clock"></i> Horarios (Taquillas dentro de Expo)
+                                    </div>
+                                    <div class="row">
+                                        <div class="mt-5 col-lg-6">
+                                            <div class="callout callout-info " style="height: 120px;">
+                                                <b>Horarios de casetas en sala "B y C"</b>
+                                                <div style="font-size: 12px;"><i>10:00 - 22:00</i></div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 col-lg-6">
+                                            <div class="callout callout-info " style="height: 120px;">
+                                                <b>Transporte gratuito (Llega y sale del Sótano del Recinto)</b>
+                                                <div style="font-size: 12px;"><i>Polanco, Zona Rosa, Centro, Toreo</i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mt-5 col-lg-6">
+                                            <div class="callout callout-info " style="height: 120px;">
+                                                <b>Precio para visitantes</b>
+                                                <div style="font-size: 12px;"><i>$32.00 por persona</i></div>
+                                                <div style="font-size: 12px;"><i>$160.00 día completo</i></div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 col-lg-6">
+                                            <div class="callout callout-info " style="height: 120px;">
+                                                <b>Precio para expositores y pases Gold</b>
+                                                <div style="font-size: 12px;"><i>$128.00 por un día</i></div>
+                                                <div style="font-size: 12px;"><i>$224.00 por dos días</i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="g">
+                                    <div class="text-center text-muted mt-3 h5">
+                                        <i class="fas fa-clock"></i> Horarios
+                                    </div>
+                                    <div class="row mt-5 ">
+                                        <div class="col-lg-6">
+                                            <div class="callout callout-info " style="height: 120px;">
+                                                <b>Restuarante buffet (Concurse y Expo)</b>
+                                                <div style="font-size: 12px;">Jueves 01 y Viernes 02 de Oct. <i>10:00 - 19:00</i></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="callout callout-info " style="height: 120px;">
+                                                <div class="row text-center">
+                                                    <div class="col-6">
+                                                        <div><b>Días de montaje sala "B" (SNACK)</b></div>
+                                                        <div style="font-size: 12px;">Martes 29 y Miércoles 30 de Sept.</div>
+                                                        <div style="font-size: 12px;"><i>10:00 - 19:00</i></div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div><b>Días de evento sala "B y C" (SNACK)</b></div>
+                                                        <div style="font-size: 12px;">Jueves 01 y Viernes 02 de Oct.</div>
+                                                        <div style="font-size: 12px;"><i>10:00 - 19:30</i></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Container Tab Protecccion Civil-->
+
+                <!--container Tab Proveedores contratados-->
+                <div class=" " *ngIf="tabAyuda==4">
+                    <div class="col-12">
+                        <!-- Widget: user widget style 1 -->
+                        <div class="card card-widget widget-user">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header bg-info">
+                                <h3>EXPO ELA 2020</h3>
+                            </div>
+                            <div class="widget-user-image">
+                                <img class="img-circle elevation-2" src="../../../assets/src_ayuda/organigrama/ELA2.png" alt="Avatar de usuario">
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-4"></div>
+
+                                    <div class="col-md-4 col-sm-12">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <img class="w-75" src="../../../assets/src_ayuda/organigrama/REED.png" alt="Avatar de usuario">
+                                            </div>
+                                            <div class="card-footer text-muted p-0">
+                                                Organizador: Reed Exhibitions
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4"></div>
+                                    <!-- /.reed -->
+
+
+
+                                    <div class="col-12  text-info mb-2">
+                                        <h2>Servicios Adicionales:</h2>
+                                    </div>
+
+
+                                    <div class="col-md-3  col-sm-4 ">
+                                        <div class="card text-center" data-toggle="modal" data-target=".bd-example-modal-xl6">
+                                            <div class="card-body">
+                                                <h2><i class="fas fa-wifi "></i> </h2>
+                                            </div>
+                                            <div class="card-footer text-muted p-0 bg-danger elevation-2">
+                                                Wi-fi <i class="fas fa-angle-down"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h2><i class="fas fa-broom"></i></h2>
+
+                                            </div>
+                                            <div class="card-footer text-muted p-0 bg-danger elevation-2">
+                                                Limpieza <i class="fas fa-angle-down"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h2> <i class="fas fa-medkit"></i></h2>
+                                            </div>
+                                            <div class="card-footer text-muted p-0 bg-danger elevation-2">
+                                                Servicio Médico <i class="fas fa-angle-down"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h2>
+                                                    <i class="fas fa-user-shield"></i>
+                                                </h2>
+                                            </div>
+                                            <div class="card-footer text-muted p-0 bg-danger elevation-2">
+                                                Seguridad <i class="fas fa-angle-down"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h2>
+                                                    <i class="fas fa-bolt"></i>
+                                                </h2>
+                                            </div>
+                                            <div class="card-footer text-muted p-0 bg-danger elevation-2">
+                                                Electricidad <i class="fas fa-angle-down"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h2>
+                                                    <i class="fas fa-network-wired"></i>
+                                                </h2>
+                                            </div>
+                                            <div class="card-footer text-muted p-0 bg-danger elevation-2">
+                                                Colganteo <i class="fas fa-angle-down"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-3 col-sm-4">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h2><i class="fas fa-dolly-flatbed"></i></h2>
+                                            </div>
+                                            <div class="card-footer text-muted p-0 bg-danger elevation-2">
+                                                Maniobras <i class="fas fa-angle-down"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h2><i class="fas fa-plane-departure"></i></h2>
+                                            </div>
+                                            <div class="card-footer text-muted p-0 bg-danger elevation-2">
+                                                Aduana <i class="fas fa-angle-down"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h2><i class="fas fa-truck-moving"></i></h2>
+                                            </div>
+                                            <div class="card-footer text-muted p-0 bg-danger elevation-2">
+                                                Marshalling <i class="fas fa-angle-down"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                        </div>
+                        <!-- /.widget-user -->
+                    </div>
+                </div>
+                <!--container Tab Proveedores contratados-->
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!------------------------------------------------------------------------------------------MODAL------------------------------------------------------------------------------------------------------------------------------------->
+    <!--Modal stand/Montaje/Servicios-->
+    <div class="modal fade bd-example-modal-xl6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-info" id="exampleModalLabel"><i class="fas fa-wifi "></i> Servicio de Wi-fi
+                        <font class="text-navy"></font>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-light">
+                    <h5 class="text-primary">PROVEEDORES OFICIALES:</h5>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 ">
+                            <div class="info-box   efecto" (click)="showDetailsContact('Telmex')">
+                                <span class="info-box-icon "><img src="../../../assets/src_ayuda/organigrama/telmex.png" alt=""></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text text-success">
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">Telmex</font>
+                                        </font>
+                                        <font><i> $15,000 - $40,000</i> </font>
+                                    </span>
+                                    <span class="info-box-number text-sm">Ver más 
+                                        <i class="fas fa-angle-down"></i>
+                                    </span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+
+                        <div class="col-md-4 col-sm-6 ">
+                            <div class="info-box  efecto" (click)="showDetailsContact('Izzi')">
+                                <span class="info-box-icon "><img src="../../../assets/src_ayuda/organigrama/izzi.png " alt=" "></span>
+
+                                <div class="info-box-content ">
+                                    <span class="info-box-text text-success ">
+                                        <font style="vertical-align: inherit; ">
+                                            <font style="vertical-align: inherit; ">Izzi</font>
+                                        </font>
+                                        <font><i> $15,000 - $45,000</i> </font>
+                                    </span>
+                                    <span class="info-box-number text-sm ">Ver más <i
+                                            class="fas fa-angle-down "></i></span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+
+                        <div class="col-md-4 col-sm-6 ">
+                            <div class="info-box efecto " (click)="showDetailsContact('Total Play') ">
+                                <span class="info-box-icon "><img src="../../../assets/src_ayuda/organigrama/play.png" alt=" "></span>
+
+                                <div class="info-box-content ">
+                                    <span class="info-box-text text-success ">
+                                        <font style="vertical-align: inherit; ">
+                                            <font style="vertical-align: inherit; ">Total play</font>
+                                        </font>
+                                        <font><i> $20,000 - $45,000</i> </font>
+                                    </span>
+                                    <span class="info-box-number text-sm ">Ver más <i
+                                            class="fas fa-angle-down "></i></span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                    </div>
+                    <!-- /.row-->
+
+                    <div class="card card-body ">
+                        <span class="info-box-text text-success ">
+                            <font style="vertical-align: inherit; ">
+                                <font style="vertical-align: inherit; ">{{providerSelected}}</font>
+                            </font>
+                        </span>
+                        <div class="col-12" *ngIf="number!=0">
+                            <div class="row ">
+                                <div class="col-1 "></div>
+                                <div class="col-lg-10 bg-light rounded elevation-2 p-1" *ngIf="number>=1">
+                                    <div class="row text-center ">
+                                        <div class="col-lg-4 form-inline">
+                                            <div><img src="../../../assets/src_ayuda/organigrama/arturo.png " class="img-circle " style="width: 60px; ">
+                                            </div>
+                                            <div>
+                                                <div class="ml-2 ">Arturo Ortiz</div>
+                                                <div class="ml-2 " style="font-size: 13px; ">Encargado</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 mt-2 ">
+                                            <div class="text-center ">
+                                                <div><i class="fab fa-whatsapp "></i> Whatsapp:</div>
+                                                <div class="ml-2 "><b> 5596574821</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 mt-2 ">
+                                            <div class=" text-center ">
+                                                <div><i class="fas fa-location-arrow "></i> Ubicación: </div>
+                                                <div class="ml-2 "><b>Salón A - Pasillo 08</b></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1 "></div>
+                                <hr>
+                                <div class="col-1 "></div>
+                                <div class="col-lg-10 bg-light rounded elevation-2 p-1 mt-2" *ngIf="number>=2">
+                                    <div class="row text-center ">
+                                        <div class="col-lg-4 form-inline ">
+                                            <div><img src="../../../assets/src_ayuda/organigrama/user3-128x128.jpg " class="img-circle " style="width: 60px; "></div>
+                                            <div>
+                                                <div class="ml-2 ">Xochilt Mendoza</div>
+                                                <div class="ml-2 " style="font-size: 13px; ">Dudas</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 mt-2 ">
+                                            <div class="text-center ">
+                                                <div><i class="fab fa-whatsapp "></i> Whatsapp:</div>
+                                                <div class="ml-2 "><b> 559657890</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 mt-2 ">
+                                            <div class=" text-center ">
+                                                <div><i class="fas fa-location-arrow "></i> Ubicación: </div>
+                                                <div class="ml-2 "><b>Salón B - Pasillo 03</b></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1 "></div>
+                                <hr>
+                                <div class="col-1 "></div>
+                                <div class="col-lg-10 bg-light rounded elevation-2 p-1 mt-2" *ngIf="number>=3">
+                                    <div class="row text-center ">
+                                        <div class="col-lg-4 form-inline ">
+                                            <div><img src="../../../assets/src_ayuda/organigrama/user2.jpg " class="img-circle " style="width: 60px; ">
+                                            </div>
+                                            <div>
+                                                <div class="ml-2 ">Ppe Peerez </div>
+                                                <div class="ml-2 " style="font-size: 13px; ">Maniobras</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 mt-2 ">
+                                            <div class="text-center ">
+                                                <div><i class="fab fa-whatsapp "></i> Whatsapp:</div>
+                                                <div class="ml-2 "><b> 5596512345</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 mt-2 ">
+                                            <div class=" text-center ">
+                                                <div><i class="fas fa-location-arrow "></i> Ubicación: </div>
+                                                <div class="ml-2 "><b>Salón C - Pasillo 012</b></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1 "></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal stand/Montaje/Servicios-->
+    <!------------------------------------------------------------------------------------------MODAL------------------------------------------------------------------------------------------------------------------------------------->
+</body>

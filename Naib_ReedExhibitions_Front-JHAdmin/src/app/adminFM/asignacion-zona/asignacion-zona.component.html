@@ -1,0 +1,219 @@
+<div class="wrapper">
+    <app-menu-fm></app-menu-fm>
+    <div class="content-wrapper bg-light ">
+        <div class="container">
+            <div class="card mt-2">
+                <div class="card-body" *ngIf="!cargando">
+                    <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm mt-3 ">
+                        <table class="table table-bordered table-hover table-sm small text-center ">
+                            <thead style="background-color: #4385ef;" class="text-white">
+                                <tr>
+                                    <td><i class="fas fa-user-friends"></i> Floor Manager</td>
+                                    <td><i class="fas fa-clinic-medical"></i> No. Seguro Social</td>
+                                    <td><i class="fas fa-mobile-alt"></i> Celular</td>
+                                    <td><i class="fas fa-envelope"></i> Correo</td>
+                                    <td><i class="fas fa-list"></i> Elige uno</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let persona of floorManagerEvento">
+                                    <td>{{persona.usuario.nombre}}&nbsp;{{persona.usuario.aPaterno}}</td>
+                                    <td>{{persona.usuario.numero_seguro}}</td>
+                                    <td>{{persona.usuario.telefono}}</td>
+                                    <td>{{persona.usuario.email}}</td>
+                                    <td>
+                                        <button (click)="pickFloorManager(persona)" class="btn btn-sm btn-outline-primary" [matBadge]="valdiateMatBadge(persona)" matBadgePosition="after" matBadgeColor="primary">
+                                            <i class="fas fa-check-square"></i> Seleccionar
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col lg-2"></div>
+                        <div class="callout callout-success mt-3 col-lg-7">
+                            <div *ngIf="floorSelected==undefined">
+                                <h3><b>Seleccione a un floor manager para el evento</b></h3>
+                            </div>
+                            <div *ngIf="floorSelected!=undefined" style="font-size: 13px; color: #0B370B;">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <b>Ha seleccionado a:</b>&nbsp;{{floorSelected.detalleUsuario.usuario.nombre}} {{floorSelected.detalleUsuario.usuario.aPaterno}}
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <b>Seguro:&nbsp;</b>{{floorSelected.detalleUsuario.usuario.numero_seguro}}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <b>Telefono:&nbsp;</b>{{floorSelected.detalleUsuario.usuario.telefono}}
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <b>Correo:&nbsp;</b>{{floorSelected.detalleUsuario.usuario.email}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col lg-3"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-6">
+                            <div *ngIf="!erroresForm.seleccionado" style="font-size: 12px; color: red;">Este campo no puede ir vacío</div>
+                        </div>
+                        <div class="col-lg-3"></div>
+                    </div>
+                    <hr>
+                    <ng-container *ngIf="floorSelected!=undefined">
+                        <div class="text-muted text-center mt-3 mb-5" style="font-size: 18px;">Área de trabajo y Equipo
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <select class="custom-select " id="inlineFormCustomSelect" [(ngModel)]="zona" (change)="asignZona()">
+                                    <option *ngFor="let item of zonasEvento" [selected]="selectedZone == item.id"
+                                        value="{{item.id}}-{{item.nombre}}">
+                                        {{item.nombre}}
+                                    </option>
+                                </select>
+                                <div *ngIf="!erroresForm.zona" style="font-size: 12px; color: red;">Este campo no puede ir vacío</div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-tools"></i></div>
+                                    </div>
+                                    <input type="text" class="form-control" id="inlineFormInputGroup" (keyup)="asignEquipo($event)" placeholder="Equipo a cargo" [(ngModel)]="equipo">
+                                </div>
+                                <div *ngIf="!erroresForm.equipo" style="font-size: 12px; color: red;">Este campo no puede ir vacío</div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-6">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" (keyup)="asignDetallesEquipo($event)" [(ngModel)]="detallesEquipo" rows="3"></textarea>
+                                <div *ngIf="erroresForm.detallesEquipo" style="font-size: 12px;">Detalles de equipo
+                                </div>
+                                <div *ngIf="!erroresForm.detallesEquipo" style="font-size: 12px; color: red;">Detalles de equipo - Este campo no puede estar vacío</div>
+                            </div>
+                            <div class="col-lg-3"></div>
+                        </div>
+                        <hr>
+
+                        <ng-container *ngIf="diasEvento.length!=0">
+                            <div class="text-muted text-center mt-3" style="font-size: 18px;">Horarios</div><br>
+                            <div class="card border border-info mb-3 text-center">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <mat-form-field appearance="fill" style="width:100%;">
+                                                <mat-label>Dia de trabajo</mat-label>
+                                                <mat-select [formControl]="fechaValidator" required [(ngModel)]="fechaSelect" (selectionChange)="validSlider()">
+                                                    <mat-option>--Seleccione--</mat-option>
+                                                    <mat-option *ngFor="let dia of diasEvento" [value]="dia">
+                                                        {{dia.nomDia}}/{{dia.fecha}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="fechaValidator.hasError('required')">Por favor seleccione un dia para laborar</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label class="pr-2">Hora de entrada: </label><input type="time" class="time" [(ngModel)]="horaInicio" (change)="validSlider()" name="appt" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label class="pr-2">Horas de trabajo:</label>
+                                            <mat-slider (change)="calcularHoras();" [disabled]="!sliderActive" style="width: 60%;" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [(ngModel)]="horas">
+                                            </mat-slider>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <h3 *ngIf="horasCalculadas">SALIDA: {{diaFin}}&nbsp;<b><em>{{fechaFin}}</em></b> a las <b><em>{{horaFin}}</em></b></h3>
+                                            <h4 *ngIf="!horasCalculadas"><b><em>Seleccione fecha, hora de entrada y horas de
+                                                    trabajo para calcular la salida de floor manager</em></b></h4>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <button type="button" (click)="addHorario()" class="btn btn-success btn-circle btn-xl"><i
+                                                class="fas fa-plus fa-lg"></i></button>
+                                            <p *ngIf="error!=null" class="small t text-danger">{{error}}</p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </ng-container>
+                        <div class="row mt-5">
+                            <div class="col-lg-1">
+                                <br>
+                            </div>
+                            <div class="col-lg-10">
+                                <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm ">
+                                    <table class="table table-bordered table-hover table-sm small text-center" style="margin: auto;" *ngIf="horariosAgregados.length!=0">
+                                        <thead style="background-color: #4385EF;" class="text-white">
+                                            <tr>
+                                                <th><i class="fas fa-calendar-check"></i> Entrada</th>
+                                                <th><i class="fas fa-clock"></i>Hora</th>
+                                                <th><i class="fas fa-calendar-check"></i> Salida</th>
+                                                <th><i class="fas fa-clock"></i>Hora</th>
+                                                <th><i class="fas fa-trash-alt"></i></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of horariosAgregados">
+                                                <td>{{item.stringEntrada}}</td>
+                                                <td>{{item.horaEntrada}}</td>
+                                                <td>{{item.stringSalida}}</td>
+                                                <td>{{item.horaSalida}}</td>
+                                                <td>
+                                                    <button class="btn btn-danger btn-circle btn-sm" (click)="deleteHorario(item)">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="text-center mt-5">
+                            <button (click)="guardarAsignacionFM()" class="btn btn-sm btn-primary text-white" style="width: 180px;">
+                                Registrar
+                            </button>
+                        </div>
+                    </ng-container>
+                </div>
+                <section class="text-center mt-5" *ngIf="cargando">
+                    <div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    <span class="text-primary h5">Cargando...</span>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

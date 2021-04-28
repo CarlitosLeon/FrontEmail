@@ -1,0 +1,334 @@
+<div class="wrapper">
+    <app-menu-fm></app-menu-fm>
+    <div class="content-wrapper">
+        <div class="wrapper">
+            <div class="container-fluid">
+                <div class="card mt-1 contenedor">
+                    <div class="card card-outline card-primary mb-0" *ngIf="tipoInc && incidenciaR != null">
+                        <div class="card-header text-center puntero" data-toggle="collapse"
+                            data-target="#collapseHeaderChat">
+                            <div class="text-center">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <i class="fas fa-user"></i><b>
+                                            {{incidenciaR.detalleReferencia[0].stand.expositor.razon_social}}</b>
+                                    </div>
+                                    <div class="col-4 h5"><b>
+                                            <span [ngSwitch]="incidenciaR.categoria">
+                                                <span *ngSwitchCase="'Seguridad'"><i
+                                                        class="fas fa-shield-alt"></i></span>
+                                                <span *ngSwitchCase="'Daño'"><i
+                                                        class="fas fa-exclamation-triangle"></i></span>
+                                                <span *ngSwitchCase="'Emergencias'"><i
+                                                        class="fas fa-first-aid"></i></span>
+                                                <span *ngSwitchCase="'Servicios'"><i class="fas fa-tools"></i></span>
+                                                <span *ngSwitchCase="'Armado'"><i class="fas fa-hammer"></i></span>
+                                                <span *ngSwitchCase="'Apariencia'"><i
+                                                        class="fas fa-check-circle"></i></span>
+                                                <span *ngSwitchCase="'Otra'"><i class="fas fa-shield-alt"></i></span>
+                                            </span>
+                                            {{incidenciaR.categoria}} </b>
+                                        ( {{incidenciaR.subcategoria}} )<i
+                                            class="fa fa-spinner fa-spin ml-2 h6 text-lightblue"
+                                            *ngIf="loadingUpdIR"></i>
+
+                                        <div class="text-muted mt-2" style="font-size: 10px;">Más detalles <i
+                                                class="fas fa-chevron-down ml-2"></i></div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-center">
+                                            <i class="fas fa-ticket-alt"></i> Ticket:
+                                            <b>
+                                                <span *ngIf="incidenciaR.ticket < 10">00{{incidenciaR.ticket}}</span>
+                                                <span *ngIf="incidenciaR.ticket >= 10">{{incidenciaR.ticket}}</span>
+                                            </b>
+                                        </div>
+                                        <div class="text-center">
+                                            <i class="fas fa-store"></i> Stand:
+                                            <b>{{incidenciaR.detalleReferencia[0].stand.componente.numeroStand}}</b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapseHeaderChat">
+                            <div class="row m-2">
+                                <div class="col-6">
+                                    <div class="text-center"><i class="fas fa-user-circle"></i> Reportó:</div>
+                                    <div class="text-center" style="font-size: 12px;">
+                                        <b>
+                                            {{incidenciaR.nombreReporta}} /
+                                            Telefono: {{incidenciaR.telefonoReporta}}
+                                        </b>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center"><i class="fas fa-user-cog"></i> Seguimiento con:</div>
+                                    <div class="text-center" style="font-size: 12px;">
+                                        <b>
+                                            {{incidenciaR.nombreSeguimiento}} ({{incidenciaR.seguimiento}}) /
+                                            {{incidenciaR.empresaSeguimiento}}
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="text-center m-2">
+                                <div class="text-center"><i class="fas fa-street-view"></i> Floor Manager de Zona:</div>
+                                <div class="text-center" style="font-size: 12px;">
+                                    <b>
+                                        {{incidenciaR.idDetalleUsuario.usuario.nombre}}
+                                        {{incidenciaR.idDetalleUsuario.usuario.aPaterno}}
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-outline card-danger mb-0" *ngIf="!tipoInc && incidenciaG != null">
+                        <div class="card-header text-center puntero" data-toggle="collapse"
+                            data-target="#collapseHeaderChat">
+                            <div class="text-center">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="text-center">
+                                            <i class="fas fa-store"></i> Sala:<b>
+                                                {{incidenciaG.detalleGeneral[0].salon.nombre}}</b>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 h5"><b>
+                                            <span [ngSwitch]="incidenciaG.categoria">
+                                                <span *ngSwitchCase="'Seguridad'"><i
+                                                        class="fas fa-shield-alt"></i></span>
+                                                <span *ngSwitchCase="'Daño'"><i
+                                                        class="fas fa-exclamation-triangle"></i></span>
+                                                <span *ngSwitchCase="'Emergencias'"><i
+                                                        class="fas fa-first-aid"></i></span>
+                                                <span *ngSwitchCase="'Servicios'"><i class="fas fa-tools"></i></span>
+                                                <span *ngSwitchCase="'Armado'"><i class="fas fa-hammer"></i></span>
+                                                <span *ngSwitchCase="'Apariencia'"><i
+                                                        class="fas fa-check-circle"></i></span>
+                                                <span *ngSwitchCase="'Otra'"><i class="fas fa-shield-alt"></i></span>
+                                            </span>
+                                            {{incidenciaG.categoria}} </b> (
+                                        {{incidenciaG.subcategoria}} )<i
+                                            class="fa fa-spinner fa-spin ml-2 h6 text-lightblue"
+                                            *ngIf="loadingUpdIR"></i>
+                                        <div class="text-muted mt-2" style="font-size: 10px;">
+                                            Más detalles
+                                            <i class="fas fa-chevron-down ml-2"></i></div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="text-center">
+                                            <i class="fas fa-ticket-alt"></i> Ticket:
+                                            <b>
+                                                <span *ngIf="incidenciaG.ticket < 10">00{{incidenciaG.ticket}}</span>
+                                                <span *ngIf="incidenciaG.ticket >= 10">{{incidenciaG.ticket}}</span>
+                                            </b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="collapse" id="collapseHeaderChat">
+                            <div class="row m-2">
+                                <div class="col-6">
+                                    <div class="text-center"><i class="fas fa-user-circle"></i> Reportó:</div>
+                                    <div class="text-center" style="font-size: 12px;">
+                                        <b>
+                                            {{incidenciaG.nombreReporta}} /
+                                            Telefono: {{incidenciaG.telefonoReporta}}
+                                        </b>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center"><i class="fas fa-user-cog"></i> Seguimiento con:</div>
+                                    <div class="text-center" style="font-size: 12px;">
+                                        <b>
+                                            {{incidenciaG.nombreSeguimiento}} ({{incidenciaG.seguimiento}}) /
+                                            {{incidenciaG.empresaSeguimiento}}
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="text-center m-2">
+                                <div class="text-center"><i class="fas fa-street-view"></i> Floor Manager de Zona:</div>
+                                <div class="text-center" style="font-size: 12px;">
+                                    <b>
+                                        {{incidenciaG.idDetalleUsuario.usuario.nombre}}
+                                        {{incidenciaG.idDetalleUsuario.usuario.aPaterno}}
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-0 pt-1 pr-1 pl-1 pb-0">
+                        <div *ngIf="tipoInc && incidenciaR != null" class="bg-warning rounded p-1 text-center col-12"
+                            [ngClass]="{'bg-danger': incidenciaR.status == '0', 'bg-warning': incidenciaR.status == '1', 'bg-success': incidenciaR.status == '2'}">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span> {{incidenciaR.descripcion}}</span>
+                        </div>
+                        <div *ngIf="!tipoInc && incidenciaG != null" class="bg-warning rounded p-1 text-center col-12"
+                            [ngClass]="{'bg-danger': incidenciaG.status == '0', 'bg-warning': incidenciaG.status == '1', 'bg-success': incidenciaG.status == '2'}">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span> {{incidenciaG.descripcion}}</span>
+                        </div>
+                    </div>
+                    <div class="card-body serch body scrollerOsqi" id="conversationH">
+                        <div *ngIf="!loadingMessage">
+
+                            <div class="" *ngFor="let m of conversationI">
+                                <div class="right" *ngIf="m.tipo == '1' && m.detalleUsuario.usuario.id == idUser">
+                                    <div class=" clearfix">
+                                        <span class=" float-right"> {{m.detalleUsuario.usuario.nombre}}
+                                            {{m.detalleUsuario.usuario.aPaterno}} </span>
+                                        <span class="float-right mt-1 mr-2" style="font-size:12px;"><b>
+                                                {{formatTimeH(m.registro)}} </b></span>
+                                    </div>
+                                    <img class="direct-chat-img " src="./assets/img_project/ric.png">
+                                    <div class="anchoder">
+                                        {{m.mensaje}}
+                                    </div>
+                                </div>
+
+                                <div class="right" *ngIf="m.tipo == '2' && m.detalleUsuario.usuario.id == idUser">
+                                    <div class=" clearfix">
+                                        <span class=" float-right"> {{m.detalleUsuario.usuario.nombre}}
+                                            {{m.detalleUsuario.usuario.aPaterno}} </span>
+                                        <span class="float-right mt-1 mr-2"
+                                            style="font-size:12px;"><b>{{formatTimeH(m.registro)}}</b></span>
+                                    </div>
+                                    <img class="direct-chat-img " src="./assets/img_project/ric.png">
+                                    <div class="anchoder">
+                                        <div class="text-center">
+                                            <img src="{{urlImg}}{{m.mensaje}}" alt="img" class="img-thumbnail"
+                                                style="width: 400px; height: 300px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- !=user -->
+
+                                <div *ngIf="m.tipo == '1' && m.detalleUsuario.usuario.id != idUser">
+                                    <div class="clearfix">
+                                        <span class=" float-left">{{m.detalleUsuario.usuario.nombre}}
+                                            {{m.detalleUsuario.usuario.aPaterno}}</span>
+                                        <span class="float-left mt-1 ml-2"
+                                            style="font-size:12px;"><b>{{formatTimeH(m.registro)}}</b></span>
+                                    </div>
+                                    <img class="direct-chat-img" src="./assets/img_login/2.png"
+                                        alt="message user image">
+                                    <div class="anchoizq">
+                                        {{m.mensaje}}
+                                    </div>
+                                </div>
+
+
+                                <div *ngIf="m.tipo == '2' && m.detalleUsuario.usuario.id != idUser">
+                                    <div class="clearfix">
+                                        <span class=" float-left"> {{m.detalleUsuario.usuario.nombre}}
+                                            {{m.detalleUsuario.usuario.aPaterno}} </span>
+                                        <span class="float-left mt-1 ml-2"
+                                            style="font-size:12px;"><b>{{formatTimeH(m.registro)}}</b></span>
+                                    </div>
+                                    <img class="direct-chat-img" src="./assets/img_login/2.png"
+                                        alt="message user image">
+                                    <div class="anchoizq">
+                                        <div class="text-center">
+                                            <img src="{{urlImg}}{{m.mensaje}}" alt="img" class="img-thumbnail"
+                                                style="width: 400px; height: 300px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="m.tipo == '3'" class="text-center p-2">
+                                    <span class="badge badge-light border shadow"><i class="fas fa-cogs"></i>
+                                        {{m.detalleUsuario.usuario.nombre}} {{m.detalleUsuario.usuario.aPaterno}} cambio
+                                        el estatus a
+                                        <span [ngSwitch]="m.mensaje">
+                                            <span *ngSwitchCase="0" class="text-danger">No iniciada</span>
+                                            <span *ngSwitchCase="1" class="text-warning">En proceso</span>
+                                            <span *ngSwitchCase="2" class="text-success">Terminada</span>
+                                        </span>
+                                        hace {{formatTimeH(m.registro)}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- cargando -->
+                        <section class="text-center mt-5" *ngIf="loadingMessage">
+                            <div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                            <span class="text-primary h5">Cargando...</span>
+                        </section>
+                    </div>
+                    <div class="card-footer footer">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="input-group">
+                                    <select *ngIf="tipoInc && incidenciaR != null"
+                                        class="form-control form-control-sm col-2"
+                                        (input)="updateStsIncR(incidenciaR, $event.target.value)"
+                                        [ngClass]="{'bg-danger': incidenciaR.status == '0', 'bg-warning': incidenciaR.status == '1', 'bg-success': incidenciaR.status == '2'}">
+                                        <option *ngFor="let proceso of processInc" value="{{proceso.valor}}"
+                                            [selected]="proceso.valor == incidenciaR.status"> {{proceso.nombre}}
+                                        </option>
+                                    </select>
+                                    <select *ngIf="!tipoInc && incidenciaG != null"
+                                        class="form-control form-control-sm col-2"
+                                        (input)="updateStsIncR(incidenciaG, $event.target.value)"
+                                        [ngClass]="{'bg-danger': incidenciaG.status == '0', 'bg-warning': incidenciaG.status == '1', 'bg-success': incidenciaG.status == '2'}">
+                                        <option *ngFor="let proceso of processInc" value="{{proceso.valor}}"
+                                            [selected]="proceso.valor == incidenciaG.status"> {{proceso.nombre}}
+                                        </option>
+                                    </select>
+                                    <div class="col-9">
+                                        <div class="input-group">
+                                            <input type="text" name="message" placeholder="Responder..."
+                                                class="form-control form-control-sm" [(ngModel)]="txtMessage"
+                                                maxlength="255">
+                                            <span class="input-group-append" *ngIf="txtMessage">
+                                                <button (click)="sendMessage()" type="button"
+                                                    class="btn btn-sm btn-primary text-white"
+                                                    [disabled]="!txtMessage"><i class="fas fa-paper-plane"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary btn-sm col-1">
+                                        <form>
+                                            <div id="div_file">
+                                                <i class="fas fa-camera  text-white  " style="font-size: 18px;"></i>
+                                                <input type="file" id="sendImagenFile" accept="image/*"
+                                                    (change)="seleccionarImg($event)">
+                                            </div>
+                                        </form>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

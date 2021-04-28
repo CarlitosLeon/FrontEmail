@@ -1,0 +1,68 @@
+<div style="font-family: Segoe UI Emoji;">
+  <div class="container p-5 mt-5">
+    <div class="bg-white rounded p-2 elevation-3 fadeInUp">
+      <div class="row">
+        <div class="col-lg-5">
+          <div class="m-4">
+            <img src="./assets/img_login/logo.png" class="col-lg-12">
+          </div>
+          <form [formGroup]="formLoginH">
+            <div class="form-group m-4">
+              <input type="text" class="form-control elevation-1" placeholder="Correo Electronico" autofocus
+                formControlName="email">
+              <div *ngIf="formLoginH.controls['email'].invalid && formLoginH.controls['email'].dirty">
+                <div class="text-danger small" *ngIf="formLoginH.controls['email'].errors.required">
+                  El correo es requerido.
+                </div>
+                <div class="text-danger small" *ngIf="formLoginH.controls['email'].errors.email">
+                  El formato del correo es invalido.
+                </div>
+              </div>
+              <input type="password" class="form-control elevation-1 mt-4" placeholder="Contraseña"
+                formControlName="password">
+              <div *ngIf="formLoginH.controls['password'].invalid && formLoginH.controls['password'].dirty">
+                <div class="text-danger small" *ngIf="formLoginH.controls['password'].errors.required">
+                  La contraseña es requerida.
+                </div>
+              </div>
+            </div>
+            <div class="text-center m-3">
+              <button [disabled]="!formLoginH.valid" (click)="login()"
+                class="btn btn-outline-primary btn-sm elevation-1" style="width: 210px;">Ingresar</button>
+            </div>
+          </form>
+        </div>
+        <div id="carouselExampleIndicators" class="carousel slide col-lg-7" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <img class="d-block img-fluid" src="./assets/img_login/1.png" alt="First slide">
+              <div class="carousel-caption d-none d-md-block">
+                <div class="banner-text"></div>
+              </div>
+            </div>
+            <div class="carousel-item ">
+              <img class="d-block img-fluid" src="./assets/img_login/2.png" alt="First slide">
+              <div class="carousel-caption d-none d-md-block">
+                <div class="banner-text"></div>
+              </div>
+            </div>
+            <div class="carousel-item ">
+              <img class="d-block img-fluid" src="./assets/img_login/3.png" alt="First slide">
+              <div class="carousel-caption d-none d-md-block">
+                <div class="banner-text"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner bdColor="rgba(0,0,0,0.7)" size="medium" color="#0d245e" type="ball-atom" [fullScreen]="true">
+    <p style="color: white"> Cargando... </p>
+    </ngx-spinner>
+</div>

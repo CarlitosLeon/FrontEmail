@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+.puntero{
+  cursor: pointer;
+}
+
+.example-full-width {
+  
+  width: 100%;
+}
+
+.bg-tHeader{
+  background-color: #4385EF;
+  color: white;
+}
+
+.cdk-overlay-container, .cdk-overlay-pane {
+  z-index: 9999 !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Segoe UI Emoji', Tahoma, Geneva, Verdana, sans-serif}

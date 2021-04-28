@@ -1,0 +1,522 @@
+<div class="wrapper">
+    <app-menu-fm></app-menu-fm>
+    <div class="content-wrapper">
+        <div class="wrapper">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row ">
+                            <div class="col-lg-6">
+                                <div class="progress rounded elevation-2" style="height: 30px; font-size: 10px;">
+                                    <div class="progress-bar-striped progress-bar-animated bg-danger form-inline"
+                                        role="progressbar" style="width: 20%" aria-valuenow="25" aria-valuemin="0"
+                                        aria-valuemax="100">
+                                        <div class="ml-2">Prospecto</div>
+                                        <div class="ml-auto mr-3">25</div>
+                                    </div>
+                                    <div class="progress-bar-striped progress-bar-animated bg-orange form-inline"
+                                        role="progressbar" style="width: 20%" aria-valuenow="25" aria-valuemin="0"
+                                        aria-valuemax="100">
+                                        <div class="ml-2">Contactado</div>
+                                        <div class="ml-auto mr-3">25</div>
+                                    </div>
+                                    <div class="progress-bar-striped progress-bar-animated bg-warning form-inline"
+                                        role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+                                        aria-valuemax="100">
+                                        <div class="ml-2">Posible Cliente</div>
+                                        <div class="ml-auto mr-3">20</div>
+                                    </div>
+                                    <div class="progress-bar-striped progress-bar-animated bg-info form-inline"
+                                        role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0"
+                                        aria-valuemax="100">
+                                        <div class="ml-2">Reserva Stand</div>
+                                        <div class="ml-auto mr-3">15</div>
+                                    </div>
+                                    <div class="progress-bar-striped progress-bar-animated bg-primary form-inline"
+                                        role="progressbar" style="width:15%" aria-valuenow="10" aria-valuemin="0"
+                                        aria-valuemax="100">
+                                        <div class="ml-2">Esperando Firma</div>
+                                        <div class="ml-auto mr-3">10</div>
+                                    </div>
+                                    <div class="progress-bar-striped progress-bar-animated bg-success form-inline"
+                                        role="progressbar" style="width: 10%" aria-valuenow="5" aria-valuemin="0"
+                                        aria-valuemax="100">
+                                        <div class="ml-2">Cliente</div>
+                                        <div class="ml-auto mr-3">5</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div
+                                    class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm text-center">
+                                    <table class="table table-bordered  table-hover table-sm small ">
+                                        <tbody class="bg-white">
+                                            <tr>
+                                                <td class="text-center table-active"><b>Venta de Patrocinio</b></td>
+                                                <td>
+                                                    <div class="form-inline" style="font-size:11px;">
+                                                        <div><b>Previsto</b></div>
+                                                        <div class="ml-auto">100%</div>
+                                                    </div>
+                                                    <div class="progress rounded" style="height: 7px;">
+                                                        <div class="progress-bar bg-navy " role="progressbar"
+                                                            style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-inline" style="font-size:11px;">
+                                                        <div><b>Logrado</b></div>
+                                                        <div class="ml-auto">90%</div>
+                                                    </div>
+                                                    <div class="progress rounded" style="height: 7px;">
+                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                            style="width: 90%" aria-valuenow="90" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div
+                                    class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm text-center">
+                                    <table class="table table-bordered  table-hover table-sm small ">
+                                        <tbody class="bg-white">
+                                            <tr>
+                                                <td class="text-center table-active"><b>Reubicacion de Stands</b></td>
+                                                <td>
+                                                    <div class="form-inline" style="font-size:11px;">
+                                                        <div><b>Totales: 80</b></div>
+                                                        <div class="ml-auto">100%</div>
+                                                    </div>
+                                                    <div class="progress rounded" style="height: 7px;">
+                                                        <div class="progress-bar bg-navy " role="progressbar"
+                                                            style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-inline" style="font-size:11px;">
+                                                        <div><b>Reubicados: 50</b></div>
+                                                        <div class="ml-auto">70%</div>
+                                                    </div>
+                                                    <div class="progress rounded" style="height: 7px;">
+                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                            style="width: 90%" aria-valuenow="90" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <div class="card card-outline card-primary">
+                                    <div class="card-header bg-light">
+                                        Clientes alcanzados
+                                    </div>
+                                    <div class="card-body">
+                                        <div style="display: block;">
+                                            <canvas baseChart height="60" [datasets]="barChartData"
+                                                [labels]="barChartLabels" [options]="barChartOptions"
+                                                [legend]="barChartLegend" [chartType]="barChartType">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        Funnel personal
+                                    </div>
+                                    <div class="card-body ">
+                                        <div class="row mt-2">
+                                            <div class="col-lg-1"></div>
+                                            <div class="col-lg-10 rounded p-2 elevation-2 text-center"
+                                                style="font-size: 23px; background-color: #99DDFF;">
+                                                <b>100 Clientes</b>
+                                            </div>
+                                            <div class="col-lg-1"></div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8 rounded p-2 elevation-2 text-center"
+                                                style="font-size: 16px; background-color: #FCC956;">
+                                                <b>25 Alcanzados</b>
+                                            </div>
+                                            <div class="col-lg-2"></div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-lg-3"></div>
+                                            <div class="col-lg-6 rounded p-2 elevation-2 text-center"
+                                                style="font-size: 11px; background-color: #FFE94A;">
+                                                <b>25% Taza de conversión</b>
+                                            </div>
+                                            <div class="col-lg-3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="card card-outline card-primary">
+                                    <div class="card-header bg-light">
+                                        Comparativa compañeros
+                                    </div>
+                                    <div class="card-body">
+                                        <div style="display: block;">
+                                            <canvas baseChart height="90" [datasets]="barChartData1"
+                                                [labels]="barChartLabels1" [options]="barChartOptions"
+                                                [legend]="barChartLegend1" [chartType]="barChartType1">
+
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card card-outline card-primary">
+                                    <div class="card-header bg-light">
+                                        Cancelaciones
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart ">
+                                            <canvas baseChart height="90" [data]="pieChartData"
+                                                [labels]="pieChartLabels" [chartType]="pieChartType"
+                                                [options]="pieChartOptions" [colors]="pieChartColors"
+                                                [legend]="pieChartLegend">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card card-outline card-primary">
+                                    <div class="card-header bg-light">
+                                        Mi desempeño
+                                    </div>
+                                    <div class="card-body">
+                                        <div style="display: block;">
+                                            <canvas baseChart height="90" [datasets]="barChartData2"
+                                                [labels]="barChartLabels2" [options]="barChartOptions"
+                                                [legend]="barChartLegend2" [chartType]="barChartType2">
+
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header ">
+                                        <div>Comisiones</div>
+                                    </div>
+                                    <div class="card-body ">
+
+                                        <div
+                                            class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm text-center mt-2 scrollerOsqi">
+                                            <table class="table table-bordered  table-hover table-sm small ">
+                                                <tbody class="bg-white ">
+                                                </tbody>
+                                                <thead style="background-color: #4385ef;" class="text-white">
+                                                    <tr>
+                                                        <td> Dia</td>
+                                                        <td> Stands</td>
+                                                        <td> Expositor</td>
+                                                        <td>Valor</td>
+                                                        <td> Comision </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            20/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            250-251-252
+                                                        </td>
+                                                        <td>
+                                                            Expositor 1
+                                                        </td>
+                                                        <td>
+                                                            $5000.00
+                                                        </td>
+                                                        <td>
+                                                            $500.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            25/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            305
+                                                        </td>
+                                                        <td>
+                                                            Expositor 2
+                                                        </td>
+                                                        <td>
+                                                            $2500.00
+                                                        </td>
+                                                        <td>
+                                                            $250.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            31/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            541-544-547-548
+                                                        </td>
+                                                        <td>
+                                                            Expositor 3
+                                                        </td>
+                                                        <td>
+                                                            $10,000.00
+                                                        </td>
+                                                        <td>
+                                                            $1,000.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            20/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            250-251-252
+                                                        </td>
+                                                        <td>
+                                                            Expositor 1
+                                                        </td>
+                                                        <td>
+                                                            $5000.00
+                                                        </td>
+                                                        <td>
+                                                            $500.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            25/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            305
+                                                        </td>
+                                                        <td>
+                                                            Expositor 2
+                                                        </td>
+                                                        <td>
+                                                            $2500.00
+                                                        </td>
+                                                        <td>
+                                                            $500.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            31/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            541-544-547-548
+                                                        </td>
+                                                        <td>
+                                                            Expositor 3
+                                                        </td>
+                                                        <td>
+                                                            $10,000.00
+                                                        </td>
+                                                        <td>
+                                                            $500.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            20/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            250-251-252
+                                                        </td>
+                                                        <td>
+                                                            Expositor 1
+                                                        </td>
+                                                        <td>
+                                                            $5000.00
+                                                        </td>
+                                                        <td>
+                                                            $500.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            25/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            305
+                                                        </td>
+                                                        <td>
+                                                            Expositor 2
+                                                        </td>
+                                                        <td>
+                                                            $2500.00
+                                                        </td>
+                                                        <td>
+                                                            $500.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            31/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            541-544-547-548
+                                                        </td>
+                                                        <td>
+                                                            Expositor 3
+                                                        </td>
+                                                        <td>
+                                                            $10,000.00
+                                                        </td>
+                                                        <td>
+                                                            $500.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            20/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            250-251-252
+                                                        </td>
+                                                        <td>
+                                                            Expositor 1
+                                                        </td>
+                                                        <td>
+                                                            $5000.00
+                                                        </td>
+                                                        <td>
+                                                            $500.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            25/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            305
+                                                        </td>
+                                                        <td>
+                                                            Expositor 2
+                                                        </td>
+                                                        <td>
+                                                            $2500.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            31/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            541-544-547-548
+                                                        </td>
+                                                        <td>
+                                                            Expositor 3
+                                                        </td>
+                                                        <td>
+                                                            $10,000.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            20/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            250-251-252
+                                                        </td>
+                                                        <td>
+                                                            Expositor 1
+                                                        </td>
+                                                        <td>
+                                                            $5000.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            25/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            305
+                                                        </td>
+                                                        <td>
+                                                            Expositor 2
+                                                        </td>
+                                                        <td>
+                                                            $2500.00
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            31/Ene/2020
+                                                        </td>
+                                                        <td>
+                                                            541-544-547-548
+                                                        </td>
+                                                        <td>
+                                                            Expositor 3
+                                                        </td>
+                                                        <td>
+                                                            $10,000.00
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="card-footer ">
+                                        <div class="float-right">
+                                            TOTAL: $17,500
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card card-outline card-primary">
+                                    <div class="card-header bg-light">
+                                        Origen
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart ">
+                                            <canvas baseChart height="70" [data]="pieChartData1"
+                                                [labels]="pieChartLabels1" [chartType]="pieChartType1"
+                                                [options]="pieChartOptions1" [colors]="pieChartColors1"
+                                                [legend]="pieChartLegend1">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <section>
+
+            </section>
+        </div>
+    </div>
+</div>
