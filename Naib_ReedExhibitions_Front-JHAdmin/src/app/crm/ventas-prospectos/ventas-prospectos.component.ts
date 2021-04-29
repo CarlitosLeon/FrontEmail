@@ -38,9 +38,9 @@ import { element } from 'protractor';
 export class VentasProspectosComponent implements OnInit {
 
 
-public listaHrs:string[]= ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"];
-public listaMnts:string[]= ["00","15","30","45"];
-urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/`;
+  public listaHrs: string[] = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
+  public listaMnts: string[] = ["00", "15", "30", "45"];
+  urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/`;
 
 
 
@@ -108,9 +108,9 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
   };
   /**Fin del Enviar **/
   /**Firma del SUMMER NOTE 2 */
- 
+
   correo4: any = {
-   
+
     tabsize: 2,
     height: '400px',
     uploadImagePath: '/api/upload',
@@ -120,14 +120,14 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
       ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
       ['fontsize', ['fontname', 'fontsize', 'color']],
       ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
-      ['insert', ['table',  'link', 'hr']]
-  ],
-  fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
+      ['insert', ['table', 'link', 'hr']]
+    ],
+    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
 
 
   correo5: any = {
-   
+
     tabsize: 2,
     height: '200px',
     uploadImagePath: '/api/upload',
@@ -137,13 +137,13 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
       ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
       ['fontsize', ['fontname', 'fontsize', 'color']],
       ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
-      ['insert', ['table',  'link', 'hr']]
-  ],
-  fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
+      ['insert', ['table', 'link', 'hr']]
+    ],
+    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
 
   correoEdit: any = {
-   
+
     tabsize: 2,
     height: '100px',
     uploadImagePath: '/api/upload',
@@ -152,10 +152,10 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
       ['style', ['bold', 'italic', 'underline', 'clear']],
       ['font', ['bold', 'italic']],
       ['para', ['style', 'ul', 'ol', 'paragraph']]
-  ],
-  fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
+    ],
+    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
- /**Firma del SUMMER NOTE 2 */
+  /**Firma del SUMMER NOTE 2 */
 
   // V A L I D A C I Ó N     D I V S 
   public infoExpositor: boolean = false;
@@ -254,12 +254,12 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
   // B U S C A R    C O N    F I L T R O    E M B U D O
   public estatusEmbudo: number = null;
   // C O N S U L T   P D F' S
-  
+
   // C O N S U L T   I M A G E N E S
   urlImgC: string = `${environment.endPointBack}/ventasProspectos/getImgContacto/`;
   urlImgEx: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/`;
   urlPdfs: string = `${environment.endPointBack}/ventasProspectos/getImgFirma/`;
- 
+
 
   // E X C E L
   public data: Expositor[][];
@@ -279,26 +279,42 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
 
   // CARLOS
   archivosPdf: archivoContacto[];
+  /** E M A I L ' S  C A R L O S */
+
+  // MUESTRA FIRMAS EMAIL
   showFirma: FirmaEmail[];
- 
+  //MUESTRA PDFS
+  public nuvoPdf: any;
+  //MUESTRA FIRMAS EMAIL
+  public firmasele: any = null;
+  //SELECCION DETALLE EMAILS
+  public emailsele: any = null;
+  /** F o r m  e n v i o  e m a i l  p r o g r a m a d o */
+  formemailPro: FormGroup;
+  /**SUBIR Y EDITAR IMG FIRMA */
+  private imgUpdate: File;
+  /**RECUPERA IMG O ARCHIVO */
+  private fotoSeleccionada: File;
+  private archivosE: File[] = [];
+  public archivosFirma: Array<{ archivo: File, name: string, size: string, tipoAr: string }> = [];
+  progreso: number = 0;
+  /** F o r m  e n v i o  e m a i l  y f  i r m a */
+  formEmail: FormGroup;
+  formFirma: FormGroup;
+  updaFirma: FormGroup;
+  /** ACTUALIZAR FIRMA */
+  public firmaEmail: FirmaEmail = new FirmaEmail();
+  public nombreEditFirma: string = "";
+  public nombreEditdescrip: string = "";
   public firmasEmail: Array<any> = [];
   seleccionado: string[] = [];
+  //saveArchivos: EmailArchivosCon = new EmailArchivosCon();
+  saveEmail: EmailContacto = new EmailContacto();
 
+  /** F I N  E M A I L ' S  C A R L O S */
 
-  public infoEmail: boolean = false;
   /** V e r  W h a t s */
   public smsWhats: Array<any> = [];
-
-  /**V e r  e m a i l */
-
-  public emailContact: Array<any> = [];
-  public emailContact2: Array<any> = [];
-  public carlosContact: Array<any> = [];
-  public correContacto: Array<any> = [];
-
-  saveArchivos: EmailArchivosCon = new EmailArchivosCon();
-  saveEmail: EmailContacto = new EmailContacto();
- 
   public otrapantalla = false;
   public emailProgramado = false;
   public updateFirma = false;
@@ -308,7 +324,7 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
   saveSms: WhatsAppContacto = new WhatsAppContacto();
   listSms: any[] = [];
   text = '';
- 
+
   public validaDia: string;
 
   //T e m a s
@@ -316,15 +332,7 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
   newInsert: envioW = new envioW();
   pdfInsert: EnviowPdfComponent = new EnviowPdfComponent();
   formTems: FormGroup;
-  /** F o r m  e n v i o  e m a i l  y f  i r m a */
-  formEmail: FormGroup;
-  formFirma: FormGroup;
-  updaFirma: FormGroup;
-  /** F o r m  e n v i o  e m a i l  p r o g r a m a d o */
-  formemailPro: FormGroup; 
-  private fotoSeleccionada: File;
-  private imgUpdate : File;
-   progreso: number = 0;
+
   // Pdf
   public Pdf: Array<{ archivo: string, name: string, size: string, tipoAr: string }> = [];
   public base64textString: string = "";
@@ -336,14 +344,8 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
   textoDeInput: string = null;
   private pdFile: File;
   private archivos: File[] = [];
-
-  private archivosE : File[]=[];
-  public archivosFirma: Array<{ archivo: File, name: string, size: string, tipoAr: string }> = [];
   form: FormGroup;
-
-
   public nuevoCliente: any;
-  public nuvoPdf: any;
   public nuevoEmail: any;
   public format: any;
   /** F i n  C a r l o s */
@@ -394,12 +396,12 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
     this.validateFormEmail();
     this.validaFormEmailProgramado();
     this.validateFormFirma();
-    this.validateUpdateFirma(); 
-    this.verFirma();    
+    this.validateUpdateFirma();
+    this.verFirma();
     this.mostrartime();
-    
-    
-    
+
+
+
     this.envioY = false;
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -1044,114 +1046,6 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
   }
 
   /** C A R L O S */
-  private cleanFirmas() {
-    this.checkTrue = [];
-    this.dataEmail = []; 
-  }
-  private dataEmail: Array<EmailContacto> = new Array<EmailContacto>();
-  private dataEmailP: Array<EmailContacto> = new Array<EmailContacto>();
-
-  getEmail(res) {
-    this.dataEmail = []; 
-    this.dataEmailP =[];    
-
-    this.countCarlos = 0;
-    this.countCarlos2 = 0;
-   
-    
-    this.ventasService.getemailContacto(res).subscribe((result) => {
-      if (result.length == 0) {
-        return this.emailContact2 = null;
-      }
-
-      
-      
-    this.emailContact2 = result;    
-    this.carlosContact = result;
-    this.correContacto = result;
-    
-    this.carlosContact.forEach(e => { 
-      if(e.status == "0"){
-        
-        this.dataEmail.push({id: e.id,contacto_expositor:e.contacto_expositor,firma:e.firma,asunto:e.asunto,descripcion:e.descripcion,fecha_programado:e.fecha_programado,status:e.status,creacion:e.creacion,checked:false})
-        this.countCarlos = this.countCarlos+1;
-        
-      }
-    });
-
-    this.correContacto.forEach(e => { 
-      if(e.status == "1"){
-        this.dataEmailP.push({id: e.id,contacto_expositor:e.contacto_expositor,firma:e.firma,asunto:e.asunto,descripcion:e.descripcion,fecha_programado:e.fecha_programado,status:e.status,creacion:e.creacion,checked:false})
-        this.countCarlos2 = this.countCarlos2+1;
-        
-      }
-    });
-         
-     this.checkTrue = this.dataEmail;
-     this.checktrueP = this.dataEmailP;    
-
-    }, error => {
-      this.errorHTTP(error.status);
-    })
-  }
-  getshowEmail(res){
-    this.ventasService.getemailContacto(res).subscribe((result) => {
-      if (result.length == 0) {
-        return this.emailContact = null;
-      }
-      this.emailContact = result; 
-     this.getEmail(res);
-      console.log(this.emailContact);
-      
-    });
-  }
-  
-  /**Carlos */
-  public editFirma: Array<FirmaEmail> = new Array<FirmaEmail>();
-  public verFirma() {
-    this.ventasService.getFirmas().subscribe((result) =>{
-
-            if(result.length == 0){
-            return this.showFirma = null;
-}
-           this.showFirma = result;
-           this.editFirma = result;
-           
-    })
-  }
-  
-  public verPdf() {
-    let showPdf = this.nuvoPdf;
-    this.ventasService.getPdfs(showPdf).subscribe(
-      archivosPdf => this.archivosPdf = archivosPdf
-    );
-  }
-/** */
-
-
-  public emailsele: any = null;
-  public firmasele: any = null;
-
-
-  genEmails(res) {
-    
-     // console.log(res);
-      
-      this.infoEmail = true;
-      this.emailsele = this.emailContact[res];
-      this.nuvoPdf = this.emailContact[res].id;
-      this.firmasele = this.emailContact[res].firma;
-     // console.log(this.emailsele  = this.emailContact[res].firma);
-      this.verPdf();
-      this.otrapantalla = false;
-     // console.log(this.urlPdfs);
-    
-   
-
-
-  }
-
-
   fechasH: string[] = [];
   getSmsW(res) {
     this.fechasH = [];
@@ -1181,7 +1075,7 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
 
   enviarContacto(res) {
     // console.log(this.contactoCliente[res]);
-    
+
     this.contactoCliente[res].telefono;
     this.contactoCliente[res].expositor.id;
     this.contactoCliente[res].expositor.nombre_comercial;
@@ -1189,7 +1083,6 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
     this.nuevoCliente = this.contactoCliente[res];
     this.nuevoEmail = this.contactoCliente[res];
     this.getSmsW(this.contactoCliente[res].id);
-    this.getEmail(this.contactoCliente[res].id);
     this.getshowEmail(this.contactoCliente[res].id);
     //console.log( this.getEmail(this.contactoCliente[res].id));
   }
@@ -1658,7 +1551,7 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
   // Contacto desde C R M
   abrirModalContacto(f: NgForm) {
     console.log(f);
-    
+
     f.resetForm();
   }
 
@@ -1935,393 +1828,424 @@ urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/
     })
   }
 
-  /**************** C A R L O S ********************************************/
-/**************** Email ********************************************/
+  /**************** M E T O D O S   C A R L O S ********************************************/
+  
+  /** M E T O D O S  E M A I L ' S */
+  public dataEmail: Array<EmailContacto> = new Array<EmailContacto>();
+  public dataEmailP: Array<EmailContacto> = new Array<EmailContacto>();
 
-/** Envio Email Programados */
-private validaFormEmailProgramado(){
-  this.formemailPro = this.fb.group({
-    fecha_programado:['',Validators.required],
-    hora_programado:['Hora', Validators.required],
-    minuto_programado:['Minuto',Validators.required]
-  })
-}
+  getshowEmail(res) {
+    this.emailsele = null;
+    this.dataEmail = [];
+    this.dataEmailP = [];
 
-/** Envion Email Programado*/
-public horaPro(){ 
+    this.ventasService.getemailContacto(res).subscribe((result) => {
 
-  var fechaHo = new Date();  
-  let idFirma = this.formEmail.controls.firma.value;
-  var horaP=this.formemailPro.controls.hora_programado.value;
-  var minutoP=this.formemailPro.controls.minuto_programado.value;
-  var diaP = this.formemailPro.controls.fecha_programado.value;
+      console.log(result);
+      this.dataEmail = result.filter(e => e.status == 0);
+      this.dataEmailP = result.filter(e => e.status == 1);
+    });
+  }
 
-  const año = diaP.slice(0, 4);
-  const mes = diaP.slice(5, 7);
-  const dia = diaP.substr(-2);
+  /** METODO PARA VER FIRMAS  */
 
-  const horaPr = new Date(año, mes - 1, dia, horaP, minutoP, 0);
-  const horaA = new Date(año, mes - 1, dia, horaP, minutoP, 0);
- 
-  this.saveEmail.contacto_expositor = this.nuevoCliente.id;
-  this.saveEmail.firma = this.showFirma.find(f => f.id == idFirma);
-  this.saveEmail.asunto = this.formEmail.controls.asunto.value;
-  this.saveEmail.descripcion = this.formEmail.controls.descripcion.value;
-  this.saveEmail.fecha_programado = horaPr;
-  this.saveEmail.status = 1;
+  // public editFirma: Array<FirmaEmail> = new Array<FirmaEmail>();
+  public verFirma() {
+    this.ventasService.getFirmas().subscribe((result) => {
 
-  var horas = fechaHo.getHours();
-  var minutos = fechaHo.getMinutes();
+      if (result.length == 0) {
+        return this.showFirma = null;
+      }
+      this.showFirma = result;
+      //this.editFirma = result;
 
-  horaA.setHours(0,0,0,0);
-  fechaHo.setHours(0,0,0,0);  
+    })
+  }
+  /**METODO PARA VER QUE PDF LE CORRESPONDE AL EMAILCONTACTO */
+  public verPdf() {
+    let showPdf = this.nuvoPdf;
+    this.ventasService.getPdfs(showPdf).subscribe(
+      archivosPdf => this.archivosPdf = archivosPdf
+    );
+  }
 
-  if (fechaHo.getTime() == horaA.getTime()){
-    if(horas>=horaP && minutos>=minutoP){
-      Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'info',
-        title: 'No puedes mandar el correo a una hora menor ??',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      
-    }else{
+  /**MOSTRAR DETALLES EMAIL */
+  genEmails(res: EmailContacto) {
+    this.emailsele = res;
+    this.nuvoPdf = res.id;
+    this.firmasele = res.firma;
+    this.verPdf();
+    this.otrapantalla = false;
+    // console.log(this.urlPdfs);
+    // console.log(this.emailsele  = this.emailContact[res].firma);
+  }
+
+
+  /**************** Email ********************************************/
+
+  /** Envio Email Programados */
+  private validaFormEmailProgramado() {
+    this.formemailPro = this.fb.group({
+      fecha_programado: ['', Validators.required],
+      hora_programado: ['Hora', Validators.required],
+      minuto_programado: ['Minuto', Validators.required]
+    })
+  }
+
+  /** Envion Email Programado*/
+  public horaPro() {
+
+    var fechaHo = new Date();
+    let idFirma = this.formEmail.controls.firma.value;
+    if (idFirma === null) {
+      idFirma = 6;
+    }
+    var horaP = this.formemailPro.controls.hora_programado.value;
+    var minutoP = this.formemailPro.controls.minuto_programado.value;
+    var diaP = this.formemailPro.controls.fecha_programado.value;
+
+    const año = diaP.slice(0, 4);
+    const mes = diaP.slice(5, 7);
+    const dia = diaP.substr(-2);
+
+    const horaPr = new Date(año, mes - 1, dia, horaP, minutoP, 0);
+    const horaA = new Date(año, mes - 1, dia, horaP, minutoP, 0);
+
+    this.saveEmail.contacto_expositor = this.nuevoCliente.id;
+    this.saveEmail.firma = this.showFirma.find(f => f.id == idFirma);
+    this.saveEmail.asunto = this.formEmail.controls.asunto.value;
+    this.saveEmail.descripcion = this.formEmail.controls.descripcion.value;
+    this.saveEmail.fecha_programado = horaPr;
+    this.saveEmail.status = 1;
+
+    var horas = fechaHo.getHours();
+    var minutos = fechaHo.getMinutes();
+
+    horaA.setHours(0, 0, 0, 0);
+    fechaHo.setHours(0, 0, 0, 0);
+
+    if (fechaHo.getTime() == horaA.getTime()) {
+      if (horas >= horaP && minutos >= minutoP) {
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          icon: 'info',
+          title: 'No puedes mandar el correo a una hora menor ??',
+          showConfirmButton: false,
+          timer: 1500
+        })
+
+      } else {
+        this.ventasService.createCorreo(this.saveEmail, this.nuevoCliente.id)
+          .subscribe((result) => {
+            Swal.fire('Buen Trabajo!',
+              'Email Programado con Exito',
+              'success')
+            this.getshowEmail(this.nuevoCliente.id);
+            this.formEmail.reset();
+            this.formemailPro.reset();
+            this.validaFormEmailProgramado();
+            let idAx = result.Email.id;
+
+            if (!this.fotoSeleccionada) {
+              this.formEmail.reset();
+              this.archivosE = [];
+              this.archivosFirma = [];
+
+            } else {
+              this.archivosE.forEach(archivo => {
+                this.ventasService.createarchivoContacto(archivo, idAx)
+                  .subscribe((result) => {
+                    if (result.type === HttpEventType.UploadProgress) {
+                      this.progreso = Math.round((result.loaded / result.total) * 100);
+                    } else if (result.type === HttpEventType.Response) {
+                      let response: any = result.body;
+                      this.saveEmail = response.saveEmail as EmailContacto;
+                    }
+                    this.formEmail.reset();
+                    this.validaFormEmailProgramado();
+                    this.archivosE = [];
+                    this.archivosFirma = [];
+
+                  })
+
+              })
+            }
+
+
+          })
+      }
+    } else {
       this.ventasService.createCorreo(this.saveEmail, this.nuevoCliente.id)
-      .subscribe((result) => {
-        Swal.fire('Buen Trabajo!',
-          'Email Programado con Exito',
-          'success')
+        .subscribe((result) => {
+          Swal.fire('Buen Trabajo!',
+            'Email Programado con Exito',
+            'success')
           this.getshowEmail(this.nuevoCliente.id);
-          this.formEmail.reset(); 
+          this.formEmail.reset();
           this.formemailPro.reset();
           this.validaFormEmailProgramado();
           let idAx = result.Email.id;
 
-          if(!this.fotoSeleccionada){
+          if (!this.fotoSeleccionada) {
             this.formEmail.reset();
             this.archivosE = [];
             this.archivosFirma = [];
-                     
-          }else{
-            this.archivosE.forEach(archivo =>{   
-              this.ventasService.createarchivoContacto(archivo,idAx)
-              .subscribe((result) => {    
-                if(result.type === HttpEventType.UploadProgress){
-                  this.progreso = Math.round((result.loaded/result.total)*100);
-                }else if(result.type === HttpEventType.Response){
-                  let response: any = result.body;
-                  this.saveEmail = response.saveEmail as EmailContacto;
-                }
-                this.formEmail.reset();
-                this.validaFormEmailProgramado();
-                this.archivosE = [];
-                this.archivosFirma = [];
-                
-            })          
-          
-            }) 
+
+          } else {
+            this.archivosE.forEach(archivo => {
+              this.ventasService.createarchivoContacto(archivo, idAx)
+                .subscribe((result) => {
+                  if (result.type === HttpEventType.UploadProgress) {
+                    this.progreso = Math.round((result.loaded / result.total) * 100);
+                  } else if (result.type === HttpEventType.Response) {
+                    let response: any = result.body;
+                    this.saveEmail = response.saveEmail as EmailContacto;
+                  }
+                  this.formEmail.reset();
+                  this.validaFormEmailProgramado();
+
+                  this.archivosE = [];
+                  this.archivosFirma = [];
+
+                })
+
+            })
           }
 
-        
-      })
-    }
-}else{
-  this.ventasService.createCorreo(this.saveEmail, this.nuevoCliente.id)
-  .subscribe((result) => {
-    Swal.fire('Buen Trabajo!',
-      'Email Programado con Exito',
-      'success')
-      this.getshowEmail(this.nuevoCliente.id);
-      this.formEmail.reset(); 
-      this.formemailPro.reset(); 
-      this.validaFormEmailProgramado();    
-      let idAx = result.Email.id;
 
-      if(!this.fotoSeleccionada){
+        })
+    }
+
+
+
+  }
+
+  /** Envio Email Normal */
+  private validateFormEmail() {
+    this.formEmail = this.fb.group({
+      firma: [],
+      asunto: ['', Validators.required],
+      descripcion: ['', Validators.required],
+
+    })
+  }
+
+  /** Envio Email Normales */
+
+  public envioEmail() {
+    const fecha = new Date();
+    let idFirma = this.formEmail.controls.firma.value;
+    if (idFirma === null) {
+      idFirma = 6;
+    }
+    //console.log(idFirma);
+
+
+    this.saveEmail.firma = this.showFirma.find(f => f.id == idFirma);
+    this.saveEmail.asunto = this.formEmail.controls.asunto.value;
+    this.saveEmail.descripcion = this.formEmail.controls.descripcion.value;
+    this.saveEmail.fecha_programado = fecha;
+    this.saveEmail.status = 0;
+
+    /**Guarda mensaje a BD */
+    this.ventasService.createCorreo(this.saveEmail, this.nuevoCliente.id)
+      .subscribe((result) => {
+        let idcEx = result.Email.id;
+        //console.log(result);
+        /**Guarda Archivos en BD */
+        this.archivosE.forEach(archivo => {
+          this.ventasService.createarchivoContacto(archivo, idcEx)
+            .subscribe((result) => {
+
+            })
+        })
+        /**Manda Mensaje y Archivos a Email */
+        this.ventasService.sendEmailProgramed(idcEx)
+          .subscribe((result) => {
+            //console.log(result);
+
+          }, error => {
+            if (error.status == 500) {
+              Swal.fire({
+                icon: 'info',
+                title: 'Error al enviar email.',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              this.ventasService.deleteEmail(idcEx)
+                .subscribe((res) => {
+                  this.getshowEmail(this.nuevoCliente.id);
+
+                })
+            }
+
+          })
+        Swal.fire('Buen Trabajo!',
+          'Email Enviado con Exito',
+          'success')
+        this.getshowEmail(this.nuevoCliente.id);
         this.formEmail.reset();
         this.archivosE = [];
         this.archivosFirma = [];
-                 
-      }else{
-        this.archivosE.forEach(archivo =>{   
-          this.ventasService.createarchivoContacto(archivo,idAx)
-          .subscribe((result) => {    
-            if(result.type === HttpEventType.UploadProgress){
-              this.progreso = Math.round((result.loaded/result.total)*100);
-            }else if(result.type === HttpEventType.Response){
-              let response: any = result.body;
-              this.saveEmail = response.saveEmail as EmailContacto;
-            }
-            this.formEmail.reset();
-            this.validaFormEmailProgramado();
-            
-            this.archivosE = [];
-            this.archivosFirma = [];
-            
-        })          
-      
-        }) 
-      }
 
-    
-  })
-}
-
-  
-  
-}
-
-/** Envio Email Normal */
-private validateFormEmail() {
-  this.formEmail = this.fb.group({
-    firma: [],
-    asunto: ['', Validators.required],
-    descripcion: ['', Validators.required],
-  
-  })
-}
-
-/** Envio Email Normales */
-
-public envioEmail(){
-  const fecha = new Date(); 
-  let idFirma = this.formEmail.controls.firma.value;
-  if(idFirma === null){
-   idFirma = 6;
-  }
-  //console.log(idFirma);
-  
-    
-  this.saveEmail.firma = this.showFirma.find(f => f.id == idFirma);
-  this.saveEmail.asunto = this.formEmail.controls.asunto.value;
-  this.saveEmail.descripcion = this.formEmail.controls.descripcion.value;
-  this.saveEmail.fecha_programado = fecha;
-  this.saveEmail.status = 0;
-
-      /**Guarda mensaje a BD */
-      this.ventasService.createCorreo(this.saveEmail, this.nuevoCliente.id)
-      .subscribe((result) =>{       
-        let idcEx = result.Email.id;
-        //console.log(result);
-      /**Guarda Archivos en BD */
-      this.archivosE.forEach(archivo =>{  
-        this.ventasService.createarchivoContacto(archivo,idcEx)
-        .subscribe((result) => {
-          
-        })
       })
-      /**Manda Mensaje y Archivos a Email */
-       this.ventasService.sendEmailProgramed(idcEx)
-       .subscribe((result) => {
-       //console.log(result);
-       
-       }, error =>{
-         if(error.status == 500) {
-           Swal.fire({
-             icon: 'info',
-             title: 'Sin Internet',
-             showConfirmButton: false,
-             timer: 1500
-           })
-           this.ventasService.deleteEmail(idcEx)
-           .subscribe((res) => {
+
+
+
+
+  }
+
+  /** Save Firmas */
+  private validateFormFirma() {
+    this.formFirma = this.fb.group({
+      nombre: ['', Validators.required],
+      descripcion: ['', Validators.required]
+    })
+  }
+  /** Guardar Firmas */
+  public saveFirmas() {
+
+    const nombre = this.formFirma.controls.nombre.value;
+    const descripcion = this.formFirma.controls.descripcion.value;
+    const archivo = this.imgUpdate;
+
+    if(!archivo){
+      this.ventasService.createfirmaImg(descripcion,nombre).subscribe((res) => {
+        if(res){
+          Swal.fire('Buen Trabajo!',
+          'Firma Guardada con Exito',
+          'success')
+          this.formFirma.reset();
+          this.verFirma();
+
+        }   
+      }, error => {
+        this.errorHTTP(error.status);
+      });
+    }else{
+      this.ventasService.createFirmas(archivo, nombre, descripcion).subscribe((res) => {
+        if(res){
+          Swal.fire('Buen Trabajo!',
+          'Firma Guardada con Exito',
+          'success')
+          this.formFirma.reset();
+          this.verFirma();
+
+        }   
+      }, error => {
+        this.errorHTTP(error.status);
+      });
+    }
+    $("#Firmas").val('');  
+  }
+
+  /**Ver Firmas */
+  public onEditClick(c) {
+    this.btnActulizar = false;
+    this.ventasService.getFirma(c).subscribe((result) => {
+      this.firmaEmail = result;
+      this.nombreEditFirma = this.firmaEmail.nombre;
+      this.nombreEditdescrip = this.firmaEmail.descripcion;
+    });
+  }
+
+  /**Editar Firma*/
+
+  /** Borrar Email */
+  public borrarE(sts) {
+    if (sts == 0) {
+      this.dataEmail.forEach(element => {
+        if (element.checked) {
+          this.ventasService.deleteEmail(element.id).subscribe((res) => {
             this.getshowEmail(this.nuevoCliente.id);
-           
-           })
-         } 
-         
-       }) 
-       Swal.fire('Buen Trabajo!',
-       'Email Enviado con Exito',
-       'success')
-       this.getshowEmail(this.nuevoCliente.id);
-       this.formEmail.reset();
-       this.archivosE = [];
-       this.archivosFirma = [];
+          });
+          //console.log(element.id);
 
+        }
       })
-     
-       
-  
-  
-}
 
-/** Save Firmas */
-private validateFormFirma() {
-  this.formFirma = this.fb.group({
-    nombre: ['', Validators.required],
-    descripcion: ['', Validators.required]
-  })
-}
-/** Guardar Firmas */
-public saveFirmas() {
-    
-  const nombre = this.formFirma.controls.nombre.value;
-  const descripcion = this.formFirma.controls.descripcion.value;
-  const archivo = this.imgUpdate;
+    } else if (sts == 1) {
+      this.dataEmailP.forEach(element => {
+        if (element.checked) {
+          this.ventasService.deleteEmail(element.id).subscribe((res) => {
+            this.getshowEmail(this.nuevoCliente.id);
+          });
+          // console.log(element.id);
 
-  this.ventasService.createFirmas(archivo, nombre, descripcion)
-    .subscribe((res) => {
-      Swal.fire('Buen Trabajo!',
-        'Firma Guardada con Exito',
-        'success')
-        this.formFirma.reset();
-        $("#Firmas").val('');
-      this.verFirma();
-    });
-}
-
-/**Ver Firmas */
-public firmaEmail : FirmaEmail = new FirmaEmail();
-public nombreEditFirma: string = "";
-public nombreEditdescrip: string = "";
-
-public onEditClick(c){
-  this.btnActulizar = false;
-  
-this.ventasService.getFirma(c).subscribe((result) =>{
-  this.firmaEmail = result;
-  this.nombreEditFirma = this.firmaEmail.nombre;
-  this.nombreEditdescrip = this.firmaEmail.descripcion;
-});
-}
-
-/**Editar Firma*/
-public editarFirma(){
-
-} 
-/** Borrar Email */
-public borrarE(){   
- 
-  this.checkTrue.forEach(element => {
-    if(element.checked){
-     this.ventasService.deleteEmail(element.id)
-     .subscribe((res) => {
-      this.getshowEmail(this.nuevoCliente.id);
-      
-     })
-     
+        }
+      })
     }
-    
-   // console.log(element.id);
-  })
-  this.cleanFirmas();
-  Swal.fire('EMAIL!',
-  'Borrado con éxito' ,
-   'warning')
-}
-/**Seleccionar todos Email Normales*/
-public checkTrue: Array<EmailContacto> = new Array<EmailContacto>();
-
-
-  getEmailId(x: EmailContacto){   
-    this.checkTrue.forEach(element =>{
-      if(element.id === x.id){
-        element.checked =! element.checked;
-      }
-    });
-    this.envioemailId();
+    Swal.fire('EMAIL!',
+      'Borrado con éxito',
+      'warning')
   }
-  
-  seleccionarTodo(e){   
-    if (e) {
-      this.checkTrue.forEach(x => {
-        x.checked = true;
-      });
-    } else {
-      this.checkTrue.forEach(x => {
-        x.checked = false;
-      });
+
+  /**Seleccionar todos Email Normales*/
+  public checkTrue: Array<EmailContacto> = new Array<EmailContacto>();
+  getEmailId(e: any, sts: number, x: EmailContacto) {
+    console.log(e);
+    let email: EmailContacto = null;
+    if (sts == 0) {
+      email = this.dataEmail.find(de => de.id == x.id);
+      email.checked = e.checked;
+      console.log(this.dataEmail);
+
+    } else if (sts == 1) {
+      email = this.dataEmailP.find(dep => dep.id == x.id);
+      email.checked = e.checked;
+      console.log(this.dataEmailP);
     }
   }
-  eCheckedAll(): boolean{
+
+  seleccionarTodo(e: any, sts) {
+    if (sts == 0) {
+      this.dataEmail.forEach(element => {
+        element.checked = e.checked;
+      });
+    } else if (sts == 1) {
+      this.dataEmailP.forEach(element => {
+        element.checked = e.checked;
+      });
+    }
+    // console.log(this.dataEmail);
+
+  }
+  eCheckedAll(sts): boolean {
     let veri = 0;
-    this.checkTrue.forEach(x => {
-      if(x.checked){
-        veri += 1;
+    if(sts == 0){
+      this.dataEmail.forEach(x => {
+        if (x.checked) {
+          veri += 1;
+        }
+      });
+      if (veri === this.dataEmail.length) {
+        return true;
       }
-    });
-    if(veri === this.checkTrue.length){
-      return true;
+    }else if(sts == 1){
+      this.dataEmailP.forEach(x => {
+        if (x.checked) {
+          veri += 1;
+        }
+      });
+      if (veri === this.dataEmailP.length) {
+        return true;
+      }
     }
+ 
     return false;
   }
-
-  public envioemailId() {
-    let n: number = 0;
-    this.checkTrue.forEach(element => {
-      if(element.checked){
-        n += 1;
-      }
-    });
-    if(n > 0){
-      return true;
-    }
-    return false;
-  }
-/**Seleccionar todos Email Programados*/
-public checktrueP: Array<EmailContacto> = new Array<EmailContacto>();
-
-getEmailIdP(x: EmailContacto){   
-  this.checktrueP.forEach(element =>{
-    if(element.id === x.id){
-      element.checked =! element.checked;
-    }
-  });
-  this.envioemailPro();
-}
-
-seleccionarPro(e){   
-  if (e) {
-    this.checktrueP.forEach(x => {
-      x.checked = true;
-    });
-  } else {
-    this.checktrueP.forEach(x => {
-      x.checked = false;
-    });
-  }
-}
-
-eCheckedPro(): boolean{
-  let veri = 0;
-  this.checktrueP.forEach(x => {
-    if(x.checked){
-      veri += 1;
-    }
-  });
-  if(veri === this.checktrueP.length){
-    return true;
-  }
-  return false;
-}
-
-public envioemailPro() {
-  let n: number = 0;
-  this.checktrueP.forEach(element => {
-    if(element.checked){
-      n += 1;
-    }
-  });
-  if(n > 0){
-    return true;
-  }
-  return false;
-}
-
-/**Subida de Archivos */
+  /**Subida de Archivos */
   save(evt) {
     this.nombrePdf = "";
     this.size = "";
 
     var files = evt.target.files;
     var file = files[0];
-    
-    
 
-    var extensiones_permitidas = new Array(".pptx",".ppsx",".pps",".xlsx",".odt",".xls", ".docx",".doc",".txt",".pdf",".svg",".ico",".gif",".jpeg",".jpg",".png");
+
+
+    var extensiones_permitidas = new Array(".pptx", ".ppsx", ".pps", ".xlsx", ".odt", ".xls", ".docx", ".doc", ".txt", ".pdf", ".svg", ".ico", ".gif", ".jpeg", ".jpg", ".png");
     let extension = file.name.substring(file.name.lastIndexOf('.'), file.name.length);
     let permitida = false;
 
@@ -2347,8 +2271,8 @@ public envioemailPro() {
       this.loadPdf = true;
       if (files && file) {
 
-      this.fotoSeleccionada = evt.target.files[0];
-      this.progreso = 0;
+        this.fotoSeleccionada = evt.target.files[0];
+        this.progreso = 0;
         this.archivosE.push(evt.target.files[0]);
 
         this.nombrePdf = file.name;
@@ -2356,7 +2280,7 @@ public envioemailPro() {
         this.tipoAr = extension;
         this.archivoFirma();
         //console.log("Nombre: "+ this.nombrePdf + " Peso Archivo: " + this.size + " Tipo: " + this.tipoAr );
-        
+
 
         return 1;
       }
@@ -2364,27 +2288,28 @@ public envioemailPro() {
     }
   }
   /**Input Update */
-  public updateF(evt){    
-this.imgUpdate= evt.target.files[0];
-//console.log(this.imgUpdate);
+  public updateF(evt) {
+    this.imgUpdate = evt.target.files[0];
+   
+    //console.log(this.imgUpdate);
 
   }
   /** */
 
-  public archivoFirma(){   
+  public archivoFirma() {
     $("#ArchivoEmail").val('');
     this.formatBytes(this.size);
     this.archivosFirma.push({
-      archivo:this.fotoSeleccionada,
-      name:this.nombrePdf,
-      size:this.formatBytes(this.size),
+      archivo: this.fotoSeleccionada,
+      name: this.nombrePdf,
+      size: this.formatBytes(this.size),
       tipoAr: this.tipoAr
     });
   }
 
-  deleteArchivo(i:number){
-    this.archivosFirma.splice(i,1);
-    this.archivosE.splice(i,1);
+  deleteArchivo(i: number) {
+    this.archivosFirma.splice(i, 1);
+    this.archivosE.splice(i, 1);
     Swal.fire({
       toast: true,
       position: 'top-end',
@@ -2393,66 +2318,66 @@ this.imgUpdate= evt.target.files[0];
       showConfirmButton: false,
       timer: 1500
     })
-   
+
   }
 
   /**UpdateFirmas */
   private validateUpdateFirma() {
-    
+
     this.updaFirma = this.fb.group({
       firma: [],
       nombre: [this.nombreEditFirma, Validators.required],
-      descripcion: [this.firmaEmail.descripcion,Validators.required]
+      descripcion: [this.firmaEmail.descripcion, Validators.required]
     })
   }
-  public updateFirmas(){
-  const nombre = this.updaFirma.controls.nombre.value;
-  const descripcion = this.updaFirma.controls.descripcion.value;
-  const idFirma = this.updaFirma.controls.firma.value;
-  const archivo = this.imgUpdate;
+  public updateFirmas() {
+    const nombre = this.updaFirma.controls.nombre.value;
+    const descripcion = this.updaFirma.controls.descripcion.value;
+    const idFirma = this.updaFirma.controls.firma.value;
+    const archivo = this.imgUpdate;
 
-if(!this.imgUpdate){
-  this.ventasService.updSign(idFirma,nombre,descripcion).subscribe((res) => {
-if(res){
-  this.verFirma();
-  this.updaFirma.reset();
-  this.btnActulizar = true;
-  Swal.fire('¡Firma editada!', ``, 'success');
-}
-  },error=>{
-    this.errorHTTP(error.status);
-  })
-}else{
-  this.ventasService.updFirmas(idFirma,nombre,descripcion,archivo).subscribe((res) => {
-    if(res){
-      this.verFirma();
-      this.updaFirma.reset();
-      this.btnActulizar = true;
-      Swal.fire('¡Firma editada!', ``, 'success');
+    if (!this.imgUpdate) {
+      this.ventasService.updSign(idFirma, nombre, descripcion).subscribe((res) => {
+        if (res) {
+          this.verFirma();
+          this.updaFirma.reset();
+          this.btnActulizar = true;
+          Swal.fire('¡Firma editada!', ``, 'success');
+        }
+      }, error => {
+        this.errorHTTP(error.status);
+      })
+    } else {
+      this.ventasService.updFirmas(idFirma, nombre, descripcion, archivo).subscribe((res) => {
+        if (res) {
+          this.verFirma();
+          this.updaFirma.reset();
+          this.btnActulizar = true;
+          Swal.fire('¡Firma editada!', ``, 'success');
 
+        }
+      }, error => {
+        this.errorHTTP(error.status);
+      });
     }
-  },error=>{
-    this.errorHTTP(error.status);
-  });
-}
-$("#Firmas").val('');
+    $("#Firmas").val('');
   }
   //console.log("Nombre: " + nombre + " Descripcion: " + descripcion + " Firma: " + idFirma + " Img: " + archivo);
 
 
-  
 
 
-  
-/**Validaciones  */
 
 
-  public borrarMat(){
-  this.btnDelete =true; 
+  /**Validaciones  */
+
+
+  public borrarMat() {
+    this.btnDelete = true;
   }
-  public borrarMat2(){
-    this.btnDelete =false; 
-    } 
+  public borrarMat2() {
+    this.btnDelete = false;
+  }
   public cambio() {
     this.otrapantalla = true;
   }
@@ -2464,9 +2389,9 @@ $("#Firmas").val('');
   }
   public cancelar() {
     this.emailProgramado = false;
-   
+
   }
-/**************** Email ********************************************/
+  /**************** Email ********************************************/
 
   // N u e v a  f u n c i o n e s  29/01/20
   private validaFormH() {
@@ -2808,7 +2733,7 @@ $("#Firmas").val('');
     var files = evt.target.files;
     var file = files[0];
 
-    var extensiones_permitidas = new Array(".pptx",".ppsx",".pps",".xlsx",".odt",".xls", ".docx",".doc",".txt",".pdf",".svg",".ico",".gif",".jpeg",".jpg",".png");
+    var extensiones_permitidas = new Array(".pptx", ".ppsx", ".pps", ".xlsx", ".odt", ".xls", ".docx", ".doc", ".txt", ".pdf", ".svg", ".ico", ".gif", ".jpeg", ".jpg", ".png");
     let extension = file.name.substring(file.name.lastIndexOf('.'), file.name.length);
     let permitida = false;
 
@@ -2916,13 +2841,13 @@ $("#Firmas").val('');
         });
     });
   }
-  mostrartime(){
+  mostrartime() {
     var f = new Date();
     this.validaDia = new Date(f.getTime() - (f.getTimezoneOffset() * 60000))
-    .toISOString()
-    .split("T")[0];
+      .toISOString()
+      .split("T")[0];
   }
-  mostrardatetime() {  
+  mostrardatetime() {
 
     this.envioY = true;
     document.getElementById('datetime').style.display = 'block';
@@ -2933,9 +2858,9 @@ $("#Firmas").val('');
     this.formTems.reset();
   }
 
- 
 
- 
+
+
 
 
 

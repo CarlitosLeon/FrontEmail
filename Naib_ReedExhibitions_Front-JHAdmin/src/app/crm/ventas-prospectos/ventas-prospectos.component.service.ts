@@ -254,16 +254,12 @@ export class VentasProspectosService {
     return this.http.post<ActividadExpositor[]>(`${this.urlEndPoint}/crm/Historial/Exp/${idCE}`, null, { headers: this.authService.addAuthorizationHeaders() });
   }
 
-  //Carlos
+  // S E R V I C I O S  C A R L O S
   getsmsWhast(idwEx: number): Observable<WhatsAppContacto[]> {
     const url: string = `${this.urlEndPoint}/Mensajes/${idwEx}`;
     return this.http.get<WhatsAppContacto[]>(url, { headers: this.authService.addAuthorizationHeaders() });
   }
 
-  getemailContacto(ideCon: number): Observable<EmailContacto[]>{
-    const url: string = `${this.urlEndPoint}/Email/${ideCon}`;
-    return this.http.get<EmailContacto[]>(url,{headers: this.authService.addAuthorizationHeaders() });
-  }
   getPdfs(idaC:number): Observable<archivoContacto[]>{
     const url: string = `${this.urlEndPoint}/ArchivosEmail/${idaC}`;
     return this.http.get<archivoContacto[]>(url,{headers: this.authService.addAuthorizationHeaders() });
@@ -280,7 +276,7 @@ export class VentasProspectosService {
    );
 
  }
-
+/** E M A I L ´ S */
  createCorreo(saveEmail:EmailContacto,ideCon:number): Observable<any>{
   const url: string = `${this.urlEndPoint}/saveEmail/${ideCon}`;
   return this.http.post<any>(url, saveEmail, { headers: this.authService.addAuthorizationHeaders() }).pipe(
@@ -345,6 +341,23 @@ export class VentasProspectosService {
   );
  }
 
+ createfirmaImg(descripcion:string,nombre: string): Observable<FirmaEmail[]> {
+  let token = this.authService.token;
+  const httpHeaders = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
+  let formData = new FormData();
+
+  formData.append("nombre", nombre);
+  formData.append("descripcion", descripcion);
+  return this.http.post<FirmaEmail[]>(`${this.urlEndPoint}/savefirmaSimg`, formData, { headers: httpHeaders }).pipe(
+    catchError(e => {
+      console.log(e.error.message);
+      Swal.fire(e.error.mensaje, e.error.error, 'error');
+      return throwError(e);
+
+    })
+  );
+ }
+
 updFirmas(idE:number,nombre: string, descripcion:string,archivo: File): Observable<FirmaEmail[]>{
   let token = this.authService.token;
   const httpHeaders = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
@@ -381,8 +394,6 @@ updSign(idE:number,nombre: string, descripcion:string): Observable<FirmaEmail[]>
     })
   );
 }
-
-
 
  deleteEmail(id: number): Observable<void[]> {
   const url: string = `${this.urlEndPoint}/deleteEmail/${id}`;
@@ -423,6 +434,11 @@ sendEmailProgramed(ideCon): Observable<EmailContacto>{
       
     })
   )
+}
+
+getemailContacto(ideCon: number): Observable<EmailContacto[]>{
+  const url: string = `${this.urlEndPoint}/Email/${ideCon}`;
+  return this.http.get<EmailContacto[]>(url,{headers: this.authService.addAuthorizationHeaders() });
 }
  
 }
