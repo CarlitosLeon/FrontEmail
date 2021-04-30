@@ -418,11 +418,11 @@ getFirmas(): Observable<FirmaEmail[]> {
   return this.http.get<FirmaEmail[]>(url,{headers: this.authService.addAuthorizationHeaders() });
 }
 
-getEcontactoEx():Observable<ContactoExpositor[]>{
+/*getEcontactoEx():Observable<ContactoExpositor[]>{
   const url: string = `${this.urlEndPoint}/emailCEpo`;
   return this.http.get<ContactoExpositor[]>(url,{headers: this.authService.addAuthorizationHeaders() });
 
-}
+}*/
 
 sendEmailProgramed(ideCon): Observable<EmailContacto>{
   const url: string = `${this.urlEndPoint}/sendFile/${ideCon}`;
