@@ -36,127 +36,6 @@ import { element } from 'protractor';
   styleUrls: ['./ventas-prospectos.component.css']
 })
 export class VentasProspectosComponent implements OnInit {
-
-
-  public listaHrs: string[] = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
-  public listaMnts: string[] = ["00", "15", "30", "45"];
-  urlImgE: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/`;
-
-
-
-  /**Envio  del SUMMER NOTE **/
-  configura: any = {
-    placeholder: 'Escriba Aqui',
-    tabsize: 2,
-    height: '236px',
-    width: '835px',
-    airMode: false,
-    tabDisable: true,
-    popover: {
-      table: [
-        ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-        ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
-      ],
-      image: [
-        ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
-        ['float', ['floatLeft', 'floatRight', 'floatNone']],
-        ['remove', ['removeMedia']]
-      ],
-      link: [
-        ['link', ['linkDialogShow', 'unlink']]
-      ],
-      air: [
-        [
-          'font',
-          [
-            'bold',
-            'italic',
-            'underline',
-            'strikethrough',
-            'superscript',
-            'subscript',
-            'clear'
-          ]
-        ],
-      ]
-    },
-    uploadImagePath: 'http://localhost:8080/ventasProspectos/getImgFirma/',
-    toolbar: [
-      /*['misc', ['undo', 'redo']],*/
-      [
-        'font',
-        [
-          'bold',
-          'italic',
-          'underline',
-          'strikethrough',
-          'superscript',
-          'subscript',
-          'clear'
-        ]
-      ],
-      ['fontsize', ['fontname', 'fontsize', 'color']],
-      ['para', ['style0', 'ul', 'ol', 'paragraph']],
-      ['insert', ['table', 'picture', 'link']]
-    ],
-    /*buttons: {
-      testBtn: this.customButton
-    },*/
-    codeviewFilter: true,
-    codeviewFilterRegex: /<\/*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|ilayer|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|t(?:itle|extarea)|xml|.*onmouseover)[^>]*?>/gi,
-    codeviewIframeFilter: true
-  };
-  /**Fin del Enviar **/
-  /**Firma del SUMMER NOTE 2 */
-
-  correo4: any = {
-
-    tabsize: 2,
-    height: '400px',
-    uploadImagePath: '/api/upload',
-    toolbar: [
-      ['misc', ['codeview', 'undo', 'redo']],
-      ['style', ['bold', 'italic', 'underline', 'clear']],
-      ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-      ['fontsize', ['fontname', 'fontsize', 'color']],
-      ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
-      ['insert', ['table', 'link', 'hr']]
-    ],
-    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
-  };
-
-
-  correo5: any = {
-
-    tabsize: 2,
-    height: '200px',
-    uploadImagePath: '/api/upload',
-    toolbar: [
-      ['misc', ['codeview', 'undo', 'redo']],
-      ['style', ['bold', 'italic', 'underline', 'clear']],
-      ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-      ['fontsize', ['fontname', 'fontsize', 'color']],
-      ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
-      ['insert', ['table', 'link', 'hr']]
-    ],
-    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
-  };
-
-  correoEdit: any = {
-
-    tabsize: 2,
-    height: '100px',
-    uploadImagePath: '/api/upload',
-    toolbar: [
-      ['fontsize', ['fontname', 'fontsize', 'color']],
-      ['style', ['bold', 'italic', 'underline', 'clear']],
-      ['font', ['bold', 'italic']],
-      ['para', ['style', 'ul', 'ol', 'paragraph']]
-    ],
-    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
-  };
-  /**Firma del SUMMER NOTE 2 */
-
   // V A L I D A C I Ó N     D I V S 
   public infoExpositor: boolean = false;
   public actividades: boolean = false;
@@ -257,7 +136,6 @@ export class VentasProspectosComponent implements OnInit {
 
   // C O N S U L T   I M A G E N E S
   urlImgC: string = `${environment.endPointBack}/ventasProspectos/getImgContacto/`;
-  urlImgEx: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/`;
   urlPdfs: string = `${environment.endPointBack}/ventasProspectos/getImgFirma/`;
 
 
@@ -310,6 +188,59 @@ export class VentasProspectosComponent implements OnInit {
   seleccionado: string[] = [];
   //saveArchivos: EmailArchivosCon = new EmailArchivosCon();
   saveEmail: EmailContacto = new EmailContacto();
+ /** C O M B O  H O R A  Y  M I N U T O*/
+  public listaHrs: string[] = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
+  public listaMnts: string[] = ["00", "15", "30", "45"];
+  /** C O N S U L T  I M G  F I R M A */  
+  urlImgEx: string = `${environment.endPointBack}/ventasProspectos/getImgExpositor/`;
+  /** V A L I D A  E L  D I A */
+  public validaDia: string;
+  /** N G X - S U M M E R N O T E  */
+     correo4: any = {
+
+    tabsize: 2,
+    height: '400px',
+    uploadImagePath: '/api/upload',
+    toolbar: [
+      ['misc', ['codeview', 'undo', 'redo']],
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+      ['fontsize', ['fontname', 'color','fontsize']],
+      ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
+      ['insert', ['table', 'link', 'hr']]
+    ],
+    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
+  };
+  correo5: any = {
+
+    tabsize: 2,
+    height: '200px',
+    uploadImagePath: '/api/upload',
+    toolbar: [
+      ['misc', ['codeview', 'undo', 'redo']],
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+      ['fontsize', ['fontname', 'fontsize', 'color']],
+      ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
+      ['insert', ['table', 'link', 'hr']]
+    ],
+    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
+  };
+
+  correoEdit: any = {
+
+    tabsize: 2,
+    height: '100px',
+    uploadImagePath: '/api/upload',
+    toolbar: [
+      ['fontsize', ['fontname', 'fontsize', 'color']],
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['font', ['bold', 'italic']],
+      ['para', ['style', 'ul', 'ol', 'paragraph']]
+    ],
+    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
+  };
+  /**Firma del SUMMER NOTE 2 */
 
   /** F I N  E M A I L ' S  C A R L O S */
 
@@ -325,7 +256,7 @@ export class VentasProspectosComponent implements OnInit {
   listSms: any[] = [];
   text = '';
 
-  public validaDia: string;
+  
 
   //T e m a s
   public tTratar: Array<{ temas: string }> = [];
@@ -392,7 +323,9 @@ export class VentasProspectosComponent implements OnInit {
     this.validRol = this.authService.hasRole("ROLE_ADMINVENTAS");
     this.idEventoSelected = 1;
     this.inicioStatus();
+    /**WHATS */
     this.validaFormH();
+    /**CORREO */
     this.validateFormEmail();
     this.validaFormEmailProgramado();
     this.validateFormFirma();
@@ -2384,13 +2317,7 @@ export class VentasProspectosComponent implements OnInit {
   public cambios() {
     this.otrapantalla = false;
   }
-  public emailProgra() {
-    this.emailProgramado = true;
-  }
-  public cancelar() {
-    this.emailProgramado = false;
 
-  }
   /**************** Email ********************************************/
 
   // N u e v a  f u n c i o n e s  29/01/20
@@ -2841,6 +2768,7 @@ export class VentasProspectosComponent implements OnInit {
         });
     });
   }
+  /**Valida el dia  */
   mostrartime() {
     var f = new Date();
     this.validaDia = new Date(f.getTime() - (f.getTimezoneOffset() * 60000))
